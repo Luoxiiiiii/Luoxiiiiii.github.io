@@ -15,6 +15,7 @@ const DOCK_APPS = ['messages', 'browser', 'radio', 'snoop'];
 
 function renderPhoneShell() {
   const app = document.getElementById('app');
+  const timeIcon = GameState.timeOfDay === 'day' ? '☀️' : '🌙';
   app.innerHTML = `
     <div class="phone-container">
       <div class="phone-frame">
@@ -22,10 +23,10 @@ function renderPhoneShell() {
         <div class="phone-screen">
           <div class="status-bar">
             <div class="status-left">
-              <span class="status-time" id="statusTime">9:41</span>
+              <span class="status-time">9:41</span>
             </div>
             <div class="status-right">
-              <span id="statusTimeIcon">☀️</span>
+              <span>${timeIcon}</span>
             </div>
           </div>
           <div id="screenContent"></div>
@@ -37,14 +38,14 @@ function renderPhoneShell() {
 }
 
 function renderHomeScreen() {
+  GameState.currentApp = null;
   const timeIcon = GameState.timeOfDay === 'day' ? '☀️' : '🌙';
   const timeLabel = GameState.timeOfDay === 'day' ? '白天' : '深夜';
   const screen = document.getElementById('screenContent');
 
   let appIconsHtml = '';
   APPS.forEach(a => {
-    const isDock = DOCK_APPS.includes(a.id);
-    if (isDock) return; // dock apps rendered separately
+    if (DOCK_APPS.includes(a.id)) return;
     appIconsHtml += `
       <div class="app-icon" onclick="openApp('${a.id}')">
         <div class="app-icon-inner" style="background: ${a.gradient}">${a.icon}</div>
@@ -56,12 +57,11 @@ function renderHomeScreen() {
   let dockHtml = '';
   DOCK_APPS.forEach(id => {
     const a = APPS.find(x => x.id === id);
-    const badge = id === 'snoop' && !GameState.snoopUnlocked ? '' : '';
     dockHtml += `
       <div class="app-icon" onclick="openApp('${a.id}')">
         <div class="app-icon-inner" style="background: ${a.gradient}">
           ${a.icon}
-          ${badge ? '<span class="badge">1</span>' : ''}
+          ${id === 'snoop' && GameState.snoopUnlocked ? '<span class="badge">1</span>' : ''}
         </div>
         <span class="app-label">${a.label}</span>
       </div>
@@ -85,12 +85,55 @@ function renderHomeScreen() {
   `;
 }
 
-function toggleTime() {
-  GameState.timeOfDay = GameState.timeOfDay === 'day' ? 'night' : 'day';
-  renderHomeScreen();
+function renderAppView(appId) {
+  const renderers = {
+    messages: typeof renderMessagesApp === 'function' ? renderMessagesApp : () => genericAppView('信息'),
+    browser: typeof renderBrowserApp === 'function' ? renderBrowserApp : () => genericAppView('浏览器'),
+    radio: typeof renderRadioApp === 'function' ? renderRadioApp : () => genericAppView('电台'),
+    phone: typeof renderPhoneApp === 'function' ? renderPhoneApp : () => genericAppView('电话'),
+    gallery: typeof renderGalleryApp === 'function' ? renderGalleryApp : () => genericAppView('相册'),
+    notes: typeof renderNotesApp === 'function' ? renderNotesApp : () => genericAppView('备忘录'),
+    mail: typeof renderMailApp === 'function' ? renderMailApp : () => genericAppView('邮件'),
+    snoop: typeof renderSnoopApp === 'function' ? renderSnoopApp : () => genericAppView('窥探器'),
+  };
+  const render = renderers[appId] || renderHomeScreen;
+  render();
 }
 
-// openApp will be implemented in apps.js — this stub ensures calls do not error
+function genericAppView(title) {
+  const screen = document.getElementById('screenContent');
+  screen.innerHTML = `
+    <div class="app-view">
+      <div class="app-header">
+        <button class="back-btn" onclick="goHome()">←</button>
+        <span class="app-title">${title}</span>
+      </div>
+      <div class="app-content">
+        <p style="color: rgba(255,255,255,0.4); text-align: center; margin-top: 40px;">
+          即将到来...
+        </p>
+      </div>
+    </div>
+  `;
+}
+
 function openApp(appId) {
-  console.log('openApp:', appId);
+  GameState.currentApp = appId;
+  GameState.save();
+  renderAppView(appId);
+}
+
+function goHome() {
+  renderHomeScreen();
+  GameState.save();
+}
+
+function toggleTime() {
+  GameState.timeOfDay = GameState.timeOfDay === 'day' ? 'night' : 'day';
+  GameState.save();
+  if (GameState.currentApp) {
+    renderAppView(GameState.currentApp);
+  } else {
+    renderHomeScreen();
+  }
 }
