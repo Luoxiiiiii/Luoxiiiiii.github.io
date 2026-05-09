@@ -3,7 +3,12 @@
 document.addEventListener('DOMContentLoaded', () => {
   GameState.load();
   renderPhoneShell();
+
+  if (GameState.currentApp) {
+    openApp(GameState.currentApp);
+  }
+
   if (GameState.endingTriggered) {
-    // Ending will be handled when ending.js is implemented
+    triggerEnding();
   }
 });
