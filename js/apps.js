@@ -311,10 +311,7 @@ function showPasswordModal(puzzleId, photoId) {
 
 function checkPassword(puzzleId, photoId) {
   const input = document.getElementById('pwInput').value;
-  // Will be integrated with puzzle engine in Task 10
-  if (input === '0520') {
-    GameState.unlockedContent['photo:' + photoId] = true;
-    GameState.save();
+  if (checkPuzzleAnswer(puzzleId, input)) {
     renderGalleryApp();
   } else {
     document.getElementById('pwError').textContent = '密码错误';
@@ -379,9 +376,7 @@ function showNotePasswordModal(puzzleId, noteId) {
 
 function checkNotePassword(puzzleId, noteId) {
   const input = document.getElementById('notePwInput').value;
-  if (input === '0520') {
-    GameState.unlockedContent['note:' + noteId] = true;
-    GameState.save();
+  if (checkPuzzleAnswer(puzzleId, input)) {
     openNote(noteId);
   } else {
     document.getElementById('notePwError').textContent = '密码错误';
@@ -492,6 +487,7 @@ function snoopSearch() {
   if (match.results.some(r => r.secret)) {
     GameState.foundClues.push('snoop_secret_' + match.word);
     GameState.save();
+    checkAutoPuzzles();
   }
 
   // Check for final trigger
@@ -499,6 +495,7 @@ function snoopSearch() {
     GameState.foundClues.push('snoop_final_trigger');
     GameState.gamePhase = 3;
     GameState.save();
+    checkAutoPuzzles();
     // Trigger ending sequence after a moment
     setTimeout(() => {
       if (typeof triggerEnding === 'function') {
