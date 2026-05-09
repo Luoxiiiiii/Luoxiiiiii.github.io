@@ -194,6 +194,16 @@
   animation: glitch 0.15s infinite;
 }
 
+.spiral-overlay {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.8) 100%),
+              repeating-conic-gradient(rgba(255,255,255,0.05) 0%, transparent 8%);
+  animation: spiral-overlay 6s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 100;
+}
+
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
