@@ -55,3 +55,24 @@ const MESSAGE_DATA = {
     }
   ]
 };
+
+const RADIO_DATA = {
+  currentFrequency: 87.0,
+  minFreq: 87.0,
+  maxFreq: 108.0,
+  specialFrequency: 87.9,
+  nightContent: [
+    { id: 'r1', text: '……放松……深呼吸……你感到困倦……', phase: 1 },
+    { id: 'r2', text: '你听到我的声音了……跟随它……', phase: 1 },
+    { id: 'r3', text: '白天的一切都是噪音……只有夜晚是真实的……', phase: 2 },
+    { id: 'r4', text: '你也在听，不是吗？我知道你在。', phase: 2 },
+    { id: 'r5', text: '她已经完成了她的部分。现在轮到你了。', phase: 3 },
+  ],
+  listeningHistory: [
+    { freq: '87.9', date: '05/06', time: '23:30' },
+    { freq: '87.9', date: '05/07', time: '00:15' },
+    { freq: '87.9', date: '05/07', time: '23:45' },
+    { freq: '100.3', date: '05/05', time: '14:20' },
+    { freq: '87.9', date: '05/08', time: '01:00' },
+  ]
+};
