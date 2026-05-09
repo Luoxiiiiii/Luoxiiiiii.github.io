@@ -76,3 +76,28 @@ const RADIO_DATA = {
     { freq: '87.9', date: '05/08', time: '01:00' },
   ]
 };
+
+const BROWSER_DATA = {
+  searchHistory: [
+    { query: '深夜失眠怎么办', time: '23:15', date: '05/06' },
+    { query: '87.9 电台 催眠', time: '23:30', date: '05/06' },
+    { query: '催眠暗示 自我催眠', time: '00:10', date: '05/07' },
+    { query: '87.9 MHz 论坛', time: '00:20', date: '05/07' },
+    { query: '哪些症状说明被催眠了', time: '01:00', date: '05/08' },
+    { query: '如何解除催眠暗示', time: '01:05', date: '05/08' },
+  ],
+  bookmarks: [
+    { title: '深夜电台论坛 - 讨论区', url: 'bbs.radio879.com', id: 'forum' },
+    { title: '催眠引导 · 睡前放松', url: 'hypno-guide.net', id: 'hypno' },
+  ],
+  pages: {
+    forum: {
+      title: '深夜电台论坛 - 87.9讨论区',
+      content: '有人听过87.9吗？\n\n我连续听了三天，现在每天晚上到点就醒。\n\n> 回复1：我也听过！那个女声说的内容我醒来完全不记得。\n\n> 回复2：不要去听。我是认真的。\n\n> 回复3：楼主最近还好吗？\n\n> 回复4：……楼主？\n\n[该帖子已被锁定，无法回复]',
+    },
+    hypno: {
+      title: '催眠引导 · 睡前放松',
+      content: '欢迎来到催眠引导。\n\n请找一个安静的环境，深呼吸……\n放松你的身体……\n\n[音频播放按钮]\n\n---\n合作电台：FM 87.9 MHz\n---',
+    },
+  }
+};

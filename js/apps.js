@@ -180,3 +180,101 @@ function tuneRadio(delta) {
   RADIO_DATA.currentFrequency = newFreq;
   renderRadioApp();
 }
+
+function renderBrowserApp() {
+  document.getElementById('screenContent').innerHTML = `
+    <div class="app-view">
+      <div class="app-header">
+        <button class="back-btn" onclick="goHome()">←</button>
+        <span class="app-title">浏览器</span>
+      </div>
+      <div class="browser-view">
+        <div class="browser-tabs">
+          <div class="browser-tab active" onclick="showBrowserTab('history')">历史记录</div>
+          <div class="browser-tab" onclick="showBrowserTab('bookmarks')">书签</div>
+        </div>
+        <div id="browserContent" class="browser-list">
+          ${renderBrowserHistory()}
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function showBrowserTab(tab) {
+  const tabs = document.querySelectorAll('.browser-tab');
+  tabs.forEach((t, i) => t.classList.toggle('active', (i === 0 && tab === 'history') || (i === 1 && tab === 'bookmarks')));
+  document.getElementById('browserContent').innerHTML = tab === 'history' ? renderBrowserHistory() : renderBrowserBookmarks();
+}
+
+function renderBrowserHistory() {
+  let html = '';
+  BROWSER_DATA.searchHistory.forEach(h => {
+    html += `
+      <div class="browser-item" onclick="searchWeb('${h.query}')">
+        <div class="browser-item-query">${h.query}</div>
+        <div class="browser-item-meta">${h.date} ${h.time}</div>
+      </div>
+    `;
+  });
+  return html || '<p style="color: rgba(255,255,255,0.3); padding: 20px; text-align: center;">无历史记录</p>';
+}
+
+function renderBrowserBookmarks() {
+  let html = '';
+  BROWSER_DATA.bookmarks.forEach(b => {
+    html += `
+      <div class="browser-bookmark" onclick="openBrowserPage('${b.id}')">
+        <div class="bookmark-icon">🔖</div>
+        <div>
+          <div class="bookmark-title">${b.title}</div>
+          <div class="bookmark-url">${b.url}</div>
+        </div>
+      </div>
+    `;
+  });
+  return html || '<p style="color: rgba(255,255,255,0.3); padding: 20px; text-align: center;">无书签</p>';
+}
+
+function searchWeb(query) {
+  // Show a simulated search results page
+  document.getElementById('screenContent').innerHTML = `
+    <div class="app-view">
+      <div class="app-header">
+        <button class="back-btn" onclick="renderBrowserApp()">←</button>
+        <span class="app-title">搜索</span>
+      </div>
+      <div class="webpage-view">
+        <div class="webpage-bar">
+          <span style="color:rgba(255,255,255,0.3);font-size:12px;">🔍</span>
+          <div class="webpage-url">搜索: ${query}</div>
+        </div>
+        <div class="webpage-body" style="padding:20px 16px;">
+          <p style="color: rgba(255,255,255,0.4); font-size: 11px;">找到 0 条结果</p>
+          <p style="color: rgba(255,255,255,0.2); font-size: 11px; margin-top: 16px;">搜索已被限制。</p>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function openBrowserPage(pageId) {
+  const page = BROWSER_DATA.pages[pageId];
+  if (!page) return;
+  document.getElementById('screenContent').innerHTML = `
+    <div class="app-view">
+      <div class="app-header">
+        <button class="back-btn" onclick="renderBrowserApp()">←</button>
+        <span class="app-title">网页</span>
+      </div>
+      <div class="webpage-view">
+        <div class="webpage-bar">
+          <span style="color:rgba(255,255,255,0.3);font-size:11px;">🔒</span>
+          <div class="webpage-url">${page.title}</div>
+        </div>
+        <div class="webpage-title">${page.title}</div>
+        <div class="webpage-body">${page.content}</div>
+      </div>
+    </div>
+  `;
+}
