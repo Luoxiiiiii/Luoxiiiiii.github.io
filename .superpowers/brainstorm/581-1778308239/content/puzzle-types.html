@@ -1,0 +1,57 @@
+<h2>设计·第四部分：轻度解密谜题设计</h2>
+<p class="subtitle">从同类游戏中提取的、最适合你游戏的谜题类型</p>
+
+<div class="section">
+  <h3>适合本游戏的谜题类型（按推荐度排序）</h3>
+
+  <div style="background: rgba(52,199,89,0.08); border-radius: 8px; padding: 10px 14px; margin: 8px 0;">
+    <p style="margin: 0; font-weight: 600; font-size: 13px;">🔑 1. 跨app密码发现（极推荐）</p>
+    <p style="margin: 4px 0 0; color: rgba(255,255,255,0.7); font-size: 12px;">
+      在聊天记录里找到密码 → 解锁某个app的应用锁。<br>
+      <em>例：姐姐在和闺蜜的聊天中提到"我把日记锁起来了，密码是我们高中常去的那家店的门牌号"→ 玩家需要在浏览器搜索那家店 → 得到密码 → 解锁备忘录里的加密日记</em>
+    </p>
+  </div>
+
+  <div style="background: rgba(52,199,89,0.08); border-radius: 8px; padding: 10px 14px; margin: 8px 0;">
+    <p style="margin: 0; font-weight: 600; font-size: 13px;">🔍 2. 窥探器关键词搜索（已有）</p>
+    <p style="margin: 4px 0 0; color: rgba(255,255,255,0.7); font-size: 12px;">
+      在app里发现关键词 → 输入窥探器 → 解锁跨app关联。<br>
+      <em>例：聊天里看到"87.9"、浏览器里看到"频率"→ 窥探器告诉你"87.9MHz = 神秘电台频率，在电台app调到这个频率"</em>
+    </p>
+  </div>
+
+  <div style="background: rgba(255,149,0,0.08); border-radius: 8px; padding: 10px 14px; margin: 8px 0;">
+    <p style="margin: 0; font-weight: 600; font-size: 13px;">🖼️ 3. 照片线索识别</p>
+    <p style="margin: 4px 0 0; color: rgba(255,255,255,0.7); font-size: 12px;">
+      相册里的照片包含隐藏信息——路牌、纸条、屏幕反射。<br>
+      <em>例：姐姐深夜拍了一张模糊的窗外照片 → 仔细看能发现对面楼有个亮灯的窗户 → 后来发现那是某个人的住所</em>
+    </p>
+  </div>
+
+  <div style="background: rgba(0,122,255,0.08); border-radius: 8px; padding: 10px 14px; margin: 8px 0;">
+    <p style="margin: 0; font-weight: 600; font-size: 13px;">💬 4. 社交选择——回复消息</p>
+    <p style="margin: 4px 0 0; color: rgba(255,255,255,0.7); font-size: 12px;">
+      有人给姐姐发消息，玩家需要<strong>假装是姐姐回复</strong>。回复的内容决定了对方透露多少信息。<br>
+      <em>例：神秘人X发来"你今晚听了吗？"→ 如果回复"听了"→ 对方发来更多指示；如果回复"你是谁"→ 对方起疑心不再回复</em>
+    </p>
+  </div>
+
+  <div style="background: rgba(175,82,222,0.08); border-radius: 8px; padding: 10px 14px; margin: 8px 0;">
+    <p style="margin: 0; font-weight: 600; font-size: 13px;">🧩 5. 简单编码/密码破译</p>
+    <p style="margin: 4px 0 0; color: rgba(255,255,255,0.7); font-size: 12px;">
+      姐姐备忘录里写着一些奇怪的数字/符号，需要找到对照表。<br>
+      <em>例：备忘录写着"19.8÷0.226≈?"→ 计算器算出87.6 → 但实际上是87.9（倒过来看）→ 或者更简单：一段拼音首字母组合。</em>
+      <br><span style="color: rgba(255,255,255,0.5);">难度要低——主要是"啊哈"的顿悟感，不是真正的智力挑战。</span>
+    </p>
+  </div>
+</div>
+
+<div class="section">
+  <h3>游戏中的具体应用场景（草案）</h3>
+  <p style="color: rgba(255,255,255,0.7); font-size: 13px;">
+    <strong>场景1 - 相册应用锁</strong>：相册里有一些"隐藏照片"被锁了。在浏览器搜索历史里找到姐姐搜过"生日密码设置方法"→ 密码是她生日。<br><br>
+    <strong>场景2 - 加密备忘录</strong>：备忘录里有一篇乱码。用窥探器搜索"加密"关键词 → 发现她用过某个在线加密工具的历史记录 → 对照解码。<br><br>
+    <strong>场景3 - 深夜回复</strong>：深夜模式下，一个未知号码发来消息。玩家需要正确回答（答案藏在已经找到的线索里）才能获得下一步指引。<br><br>
+    <strong>场景4 - 最终解锁</strong>：窥探器的最终搜索需要输入一个特定的词——这个词是前面所有线索拼出来的。
+  </p>
+</div>

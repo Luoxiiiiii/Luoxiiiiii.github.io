@@ -1,0 +1,302 @@
+<style>
+  .phone-container {
+    display: flex;
+    justify-content: center;
+    padding: 20px 0;
+  }
+  .phone {
+    width: 320px;
+    height: 680px;
+    background: #0a0a0a;
+    border-radius: 40px;
+    padding: 12px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 0 2px #2a2a2a, 0 0 0 4px #1a1a1a;
+    position: relative;
+  }
+  .phone-notch {
+    position: absolute;
+    top: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 120px;
+    height: 24px;
+    background: #0a0a0a;
+    border-radius: 0 0 16px 16px;
+    z-index: 2;
+  }
+  .phone-screen {
+    width: 100%;
+    height: 100%;
+    background: #121212;
+    border-radius: 28px;
+    overflow: hidden;
+    position: relative;
+  }
+  .status-bar {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 20px 0;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 600;
+    font-family: -apple-system, sans-serif;
+    height: 40px;
+  }
+  .status-left { display: flex; gap: 4px; align-items: center; }
+  .status-right { display: flex; gap: 4px; align-items: center; }
+  .status-time { font-size: 13px; font-weight: 700; margin-right: 8px; }
+  .lock-icon { font-size: 10px; opacity: 0.5; margin-right: 4px; }
+
+  .home-screen {
+    padding: 12px 16px 0;
+    display: flex;
+    flex-direction: column;
+    height: calc(100% - 40px);
+  }
+
+  .home-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 4px 16px;
+    margin-bottom: 8px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .home-header-text {
+    color: rgba(255,255,255,0.5);
+    font-size: 12px;
+    font-family: -apple-system, sans-serif;
+  }
+  .home-header-icons {
+    display: flex;
+    gap: 12px;
+  }
+  .home-header-icons span {
+    color: rgba(255,255,255,0.4);
+    font-size: 14px;
+    cursor: pointer;
+  }
+
+  .app-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 8px;
+    row-gap: 16px;
+    padding: 8px 4px;
+    flex-shrink: 0;
+    min-height: 0;
+  }
+  .app-icon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    cursor: pointer;
+    transition: transform 0.15s;
+  }
+  .app-icon:active {
+    transform: scale(0.9);
+  }
+  .app-icon-inner {
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    position: relative;
+    overflow: hidden;
+  }
+  .app-icon-inner .badge {
+    position: absolute;
+    top: -2px;
+    right: -2px;
+    background: #ff3b30;
+    color: white;
+    font-size: 9px;
+    font-weight: 700;
+    width: 16px;
+    height: 16px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: -apple-system, sans-serif;
+  }
+  .app-label {
+    color: rgba(255,255,255,0.8);
+    font-size: 9px;
+    font-family: -apple-system, sans-serif;
+    text-align: center;
+    max-width: 64px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .icon-messages   { background: linear-gradient(135deg, #34c759, #28a745); }
+  .icon-browser    { background: linear-gradient(135deg, #007aff, #0056d6); }
+  .icon-radio      { background: linear-gradient(135deg, #ff3b30, #c62828); }
+  .icon-phone      { background: linear-gradient(135deg, #34c759, #1b8e3a); }
+  .icon-photos     { background: linear-gradient(135deg, #ff9500, #e65100); }
+  .icon-notes      { background: linear-gradient(135deg, #ffcc00, #f9a825); color: #333; }
+  .icon-mail       { background: linear-gradient(135deg, #007aff, #0044aa); }
+  .icon-snoop      { background: linear-gradient(135deg, #af52de, #6a1b9a); }
+
+  .dock {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 8px;
+    padding: 12px 4px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    margin-top: auto;
+  }
+
+  .home-indicator {
+    width: 120px;
+    height: 4px;
+    background: rgba(255,255,255,0.3);
+    border-radius: 2px;
+    margin: 8px auto 4px;
+  }
+
+  .section-note {
+    background: rgba(255,255,255,0.05);
+    border-radius: 10px;
+    padding: 12px 16px;
+    margin: 8px 0 4px;
+  }
+  .section-note p {
+    margin: 4px 0;
+    font-size: 12px;
+    color: rgba(255,255,255,0.7);
+  }
+  .section-note strong {
+    color: #fff;
+  }
+
+  .time-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(0,0,0,0.3);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 16px;
+    padding: 4px 12px;
+    font-size: 11px;
+    color: rgba(255,255,255,0.6);
+    margin: 8px 0;
+    cursor: pointer;
+  }
+</style>
+
+<h2>设计·第一部分 v2：手机界面布局</h2>
+<p class="subtitle">按真实手机比例重绘，更贴合沉浸感</p>
+
+<div class="phone-container">
+  <div class="phone">
+    <div class="phone-notch"></div>
+    <div class="phone-screen">
+      <div class="status-bar">
+        <div class="status-left">
+          <span class="status-time">9:41</span>
+          <span>●●○○○</span>
+        </div>
+        <div class="status-right">
+          <span>🔋</span>
+        </div>
+      </div>
+      <div class="home-screen">
+        <div class="home-header">
+          <span class="home-header-text">姐姐的手机</span>
+          <div class="home-header-icons">
+            <span>🔦</span>
+            <span>📶</span>
+          </div>
+        </div>
+
+        <div class="app-grid">
+          <div class="app-icon">
+            <div class="app-icon-inner icon-messages">💬</div>
+            <span class="app-label">iMessage</span>
+          </div>
+          <div class="app-icon">
+            <div class="app-icon-inner icon-browser">🌐</div>
+            <span class="app-label">浏览器</span>
+          </div>
+          <div class="app-icon">
+            <div class="app-icon-inner icon-radio">📻</div>
+            <span class="app-label">电台</span>
+          </div>
+          <div class="app-icon">
+            <div class="app-icon-inner icon-phone">📞</div>
+            <span class="app-label">电话</span>
+          </div>
+          <div class="app-icon">
+            <div class="app-icon-inner icon-photos">🖼️</div>
+            <span class="app-label">相册</span>
+          </div>
+          <div class="app-icon">
+            <div class="app-icon-inner icon-notes">📝</div>
+            <span class="app-label">备忘录</span>
+          </div>
+          <div class="app-icon">
+            <div class="app-icon-inner icon-mail">✉️</div>
+            <span class="app-label">邮件</span>
+          </div>
+          <div class="app-icon">
+            <div class="app-icon-inner icon-snoop">
+              👁️
+              <div class="badge">1</div>
+            </div>
+            <span class="app-label">窥探器</span>
+          </div>
+        </div>
+
+        <div class="dock">
+          <div class="app-icon">
+            <div class="app-icon-inner icon-messages">💬</div>
+            <span class="app-label">iMessage</span>
+          </div>
+          <div class="app-icon">
+            <div class="app-icon-inner icon-browser">🌐</div>
+            <span class="app-label">浏览器</span>
+          </div>
+          <div class="app-icon">
+            <div class="app-icon-inner icon-radio">📻</div>
+            <span class="app-label">电台</span>
+          </div>
+          <div class="app-icon">
+            <div class="app-icon-inner icon-snoop">
+              👁️
+              <div class="badge">1</div>
+            </div>
+            <span class="app-label">窥探器</span>
+          </div>
+        </div>
+
+        <div class="home-indicator"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h3>布局规格</h3>
+  <ul>
+    <li>比例 <strong>320×680</strong>（接近真实手机屏占比）</li>
+    <li>圆角机身 + 刘海模拟，最大化"这是别人的手机"的错觉</li>
+    <li>emoji 图标仅示意位置，正式版会替换为纯CSS绘制图标</li>
+  </ul>
+</div>
+
+<div class="section">
+  <h3>时间切换 UI</h3>
+  <div style="display:flex; gap: 8px;">
+    <div class="time-chip" style="background: rgba(50,50,80,0.4); color: #8888ff;">🌙 深夜模式</div>
+    <div class="time-chip" style="background: rgba(80,60,30,0.3); color: #ffcc66;">☀️ 白天模式</div>
+  </div>
+  <p style="margin-top: 8px; color: rgba(255,255,255,0.6); font-size: 12px;">底部悬浮按钮，随时切换白天/黑夜。切换后app里的内容会对应变化。</p>
+</div>

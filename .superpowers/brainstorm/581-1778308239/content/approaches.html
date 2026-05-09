@@ -1,0 +1,38 @@
+<h2>三种整体设计思路</h2>
+<p class="subtitle">同样的故事，三种不同的"手机"呈现方式</p>
+
+<div class="options">
+  <div class="option" data-choice="app-launcher" onclick="toggleSelect(this)">
+    <div class="letter">A</div>
+    <div class="content">
+      <h3>桌面式手机模拟器</h3>
+      <p>网页上显示一部<span style="font-weight:600">完整的手机</span>（固定手机外框），里面有各种app图标。点击图标打开对应界面。所有内容在"手机屏幕"内呈现。</p>
+      <div class="pros-cons">
+        <div class="pros"><h4>优点</h4><ul><li>沉浸感最强——真的像在翻别人的手机</li><li>适合截图分享，传播性强</li><li>界面熟悉，不需要教程</li></ul></div>
+        <div class="cons"><h4>缺点</h4><ul><li>手机尺寸限制内容展示空间</li><li>做起来需要的CSS细节较多</li><li>"中型"规模下app较多，需要认真组织</li></ul></div>
+      </div>
+    </div>
+  </div>
+  <div class="option" data-choice="desktop-workspace" onclick="toggleSelect(this)">
+    <div class="letter">B</div>
+    <div class="content">
+      <h3>桌面工作台</h3>
+      <p>全屏网页，左边是<span style="font-weight:600">手机数据面板</span>（聊天、浏览器等以"窗口"形式层叠），右边是<span style="font-weight:600">调查笔记/线索板</span>。玩家在桌面级空间里整理线索。</p>
+      <div class="pros-cons">
+        <div class="pros"><h4>优点</h4><ul><li>空间大，可以同时看多个线索</li><li>线索板提供"拼图"的满足感</li><li>更像侦探工作</li></ul></div>
+        <div class="cons"><h4>缺点</h4><ul><li>"翻手机"的亲密感减弱</li><li>界面更复杂，开发量更大</li><li>和最初的"手机"设定有些偏离</li></ul></div>
+      </div>
+    </div>
+  </div>
+  <div class="option" data-choice="progress-unlock" onclick="toggleSelect(this)">
+    <div class="letter">C</div>
+    <div class="content">
+      <h3>手机+时间推进</h3>
+      <p>核心是手机模拟器（同A），但增加了<span style="font-weight:600">时间系统</span>——游戏中时间会流动，深夜电台只在特定时间有内容，新的消息会在特定时间到达。玩家需要在不同"时间点"回来查看。</p>
+      <div class="pros-cons">
+        <div class="pros"><h4>优点</h4><ul><li>时间推进带来悬念和节奏感</li><li>电台"只在深夜播放"更真实</li><li>增加重玩价值</li></ul></div>
+        <div class="cons"><h4>缺点</h4><ul><li>时间系统增加技术复杂度</li><li>可能让玩家等待（或需要"快进"按钮）</li><li>需要更复杂的状态管理</li></ul></div>
+      </div>
+    </div>
+  </div>
+</div>
