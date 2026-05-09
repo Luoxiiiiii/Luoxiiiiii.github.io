@@ -561,3 +561,117 @@
   white-space: pre-line;
   overflow-y: auto;
 }
+
+/* Notes App Styles */
+.notes-list {
+  flex: 1;
+  overflow-y: auto;
+  padding: 8px 0;
+}
+
+.note-item {
+  padding: 14px 16px;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  cursor: pointer;
+}
+.note-item:active { background: rgba(255,255,255,0.03); }
+
+.note-title {
+  font-size: 14px;
+  color: #fff;
+  margin-bottom: 4px;
+}
+
+.note-text {
+  font-size: 12px;
+  color: rgba(255,255,255,0.45);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.note-locked {
+  color: rgba(255,255,255,0.2);
+  font-size: 12px;
+}
+
+.note-detail {
+  flex: 1;
+  padding: 16px;
+  overflow-y: auto;
+  white-space: pre-line;
+  font-size: 13px;
+  line-height: 1.7;
+  color: rgba(255,255,255,0.8);
+}
+
+/* Call Log Styles */
+.call-list {
+  flex: 1;
+  overflow-y: auto;
+  padding: 8px 0;
+}
+
+.call-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+
+.call-icon {
+  font-size: 16px;
+  width: 28px;
+  text-align: center;
+}
+
+.call-info {
+  flex: 1;
+}
+
+.call-contact {
+  font-size: 14px;
+  color: #fff;
+}
+
+.call-meta {
+  font-size: 11px;
+  color: rgba(255,255,255,0.35);
+}
+
+/* Mail App Styles */
+.mail-list {
+  flex: 1;
+  overflow-y: auto;
+  padding: 8px 0;
+}
+
+.mail-item {
+  padding: 14px 16px;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  cursor: pointer;
+}
+.mail-item:active { background: rgba(255,255,255,0.03); }
+
+.mail-from {
+  font-size: 11px;
+  color: rgba(255,255,255,0.4);
+  margin-bottom: 2px;
+}
+
+.mail-subject {
+  font-size: 14px;
+  color: #fff;
+  margin-bottom: 2px;
+}
+
+.mail-body-view {
+  flex: 1;
+  padding: 16px;
+  overflow-y: auto;
+  white-space: pre-line;
+  font-size: 13px;
+  line-height: 1.7;
+  color: rgba(255,255,255,0.8);
+}

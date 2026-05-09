@@ -108,3 +108,24 @@ const GALLERY_DATA = [
   { id: 'p3', src: '', caption: '屏幕截图 · 00:12 — 电台界面', locked: false },
   { id: 'p4', src: '', caption: '???', locked: true, puzzleId: 'gallery-lock' },
 ];
+
+const NOTES_DATA = [
+  { id: 'n1', title: '备忘', text: '买菜\n洗衣\n——\n今晚不要忘了听。', locked: false },
+  { id: 'n2', title: '…', text: '她说87.9这个频率很有用。183**** 也是她给的。', locked: false },
+  { id: 'n3', title: '密码提示', text: '我们的纪念日。。。是五月二十日吗？', locked: false },
+  { id: 'n4', title: '加密日记', text: '需要密码', locked: true, puzzleId: 'note-pw' },
+];
+
+const CALLLOG_DATA = [
+  { contact: '未知号码', type: '拨出', time: '23:45', date: '05/06', duration: '0:32' },
+  { contact: '未知号码', type: '拨出', time: '00:10', date: '05/07', duration: '1:15' },
+  { contact: '未知号码', type: '拨出', time: '23:50', date: '05/07', duration: '0:45' },
+  { contact: '小琳', type: '拨入', time: '14:30', date: '05/07', duration: '3:20' },
+  { contact: '未知号码', type: '拨出', time: '01:20', date: '05/08', duration: '5:00' },
+];
+
+const MAIL_DATA = [
+  { from: 'noreply@radio879.com', subject: '欢迎加入 87.9 听众群', body: '亲爱的听众：\n感谢你收听 87.9 MHz。\n你的专属收听代码：R-879-14\n\n每晚23:00，我们等你。', phase: 1 },
+  { from: 'system@notify.com', subject: '您的iCloud存储空间不足', body: '请升级您的存储空间以继续使用iCloud备份。', phase: 1 },
+  { from: 'unknown@temp.com', subject: 'RE: 你的问题', body: '你问的那个频率……不要再查了。\n有些人有些事，不知道比较好。', phase: 2 },
+];

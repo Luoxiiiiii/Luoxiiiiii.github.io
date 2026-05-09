@@ -341,3 +341,89 @@ function openBrowserPage(pageId) {
     </div>
   `;
 }
+
+/* ===== Notes App ===== */
+function renderNotesApp() {
+  let html = `<div class="app-view"><div class="app-header"><button class="back-btn" onclick="goHome()">←</button><span class="app-title">备忘录</span></div><div class="notes-list">`;
+  NOTES_DATA.forEach(n => {
+    const isLocked = n.locked && !GameState.unlockedContent['note:' + n.id];
+    html += `
+      <div class="note-item" onclick="${isLocked ? `showNotePasswordModal('${n.puzzleId}', '${n.id}')` : `openNote('${n.id}')`}">
+        <div class="note-title">${n.title}</div>
+        <div class="${isLocked ? 'note-locked' : 'note-text'}">${isLocked ? '🔒 已锁定' : n.text.substring(0, 40)}</div>
+      </div>`;
+  });
+  html += `</div></div>`;
+  document.getElementById('screenContent').innerHTML = html;
+}
+
+function openNote(noteId) {
+  const note = NOTES_DATA.find(n => n.id === noteId);
+  if (!note) return;
+  document.getElementById('screenContent').innerHTML = `
+    <div class="app-view"><div class="app-header"><button class="back-btn" onclick="renderNotesApp()">←</button><span class="app-title">${note.title}</span></div>
+    <div class="note-detail">${note.text}</div></div>`;
+}
+
+function showNotePasswordModal(puzzleId, noteId) {
+  document.getElementById('screenContent').innerHTML += `
+    <div class="password-modal">
+      <p style="color:rgba(255,255,255,0.6);font-size:13px;">此备忘录已加密</p>
+      <input type="password" id="notePwInput" placeholder="请输入密码" maxlength="10"
+        onkeydown="if(event.key==='Enter')checkNotePassword('${puzzleId}', '${noteId}')">
+      <button onclick="checkNotePassword('${puzzleId}', '${noteId}')">确定</button>
+      <div id="notePwError" class="pw-error"></div>
+      <button style="background:none;color:rgba(255,255,255,0.4);font-size:12px;border:none;cursor:pointer;" onclick="renderNotesApp()">取消</button>
+    </div>`;
+}
+
+function checkNotePassword(puzzleId, noteId) {
+  const input = document.getElementById('notePwInput').value;
+  if (input === '0520') {
+    GameState.unlockedContent['note:' + noteId] = true;
+    GameState.save();
+    openNote(noteId);
+  } else {
+    document.getElementById('notePwError').textContent = '密码错误';
+  }
+}
+
+/* ===== Call Log App ===== */
+function renderPhoneApp() {
+  let html = `<div class="app-view"><div class="app-header"><button class="back-btn" onclick="goHome()">←</button><span class="app-title">电话</span></div><div class="call-list">`;
+  CALLLOG_DATA.forEach(c => {
+    const isOut = c.type === '拨出';
+    html += `<div class="call-item">
+      <div class="call-icon" style="color:${isOut ? '#ff9500' : '#34c759'}">${isOut ? '📤' : '📥'}</div>
+      <div class="call-info">
+        <div class="call-contact">${c.contact}</div>
+        <div class="call-meta">${c.date} ${c.time} · ${c.type} · ${c.duration}</div>
+      </div>
+    </div>`;
+  });
+  html += `</div></div>`;
+  document.getElementById('screenContent').innerHTML = html;
+}
+
+/* ===== Mail App ===== */
+function renderMailApp() {
+  let html = `<div class="app-view"><div class="app-header"><button class="back-btn" onclick="goHome()">←</button><span class="app-title">邮件</span></div><div class="mail-list">`;
+  const visibleMails = MAIL_DATA.filter(m => m.phase <= GameState.gamePhase);
+  visibleMails.forEach((m, i) => {
+    html += `<div class="mail-item" onclick="openMail(${i})">
+      <div class="mail-from">${m.from}</div>
+      <div class="mail-subject">${m.subject}</div>
+    </div>`;
+  });
+  html += `</div></div>`;
+  document.getElementById('screenContent').innerHTML = html;
+}
+
+function openMail(index) {
+  const mail = MAIL_DATA[index];
+  if (!mail) return;
+  document.getElementById('screenContent').innerHTML = `
+    <div class="app-view"><div class="app-header"><button class="back-btn" onclick="renderMailApp()">←</button><span class="app-title">${mail.subject}</span></div>
+    <div style="padding:8px 16px;font-size:11px;color:rgba(255,255,255,0.3);">${mail.from}</div>
+    <div class="mail-body-view">${mail.body}</div></div>`;
+}
