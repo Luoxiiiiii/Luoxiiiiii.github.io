@@ -311,6 +311,130 @@
   margin-bottom: 8px;
 }
 
+/* Gallery App Styles */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 2px;
+  padding: 2px;
+}
+
+.gallery-item {
+  aspect-ratio: 1;
+  background: linear-gradient(135deg, #2a2a2a, #1a1a1a);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+.gallery-item:active { opacity: 0.8; }
+
+.gallery-item.locked {
+  background: rgba(255,255,255,0.03);
+}
+.gallery-item.locked::after {
+  content: '🔒';
+  position: absolute;
+  font-size: 24px;
+  opacity: 0.6;
+}
+
+.gallery-caption {
+  font-size: 10px;
+  color: rgba(255,255,255,0.4);
+  padding: 8px 12px;
+}
+
+/* Lightbox */
+.lightbox-overlay {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.95);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+  padding: 20px;
+}
+
+.lightbox-image {
+  width: 100%;
+  max-height: 60%;
+  background: linear-gradient(135deg, #333, #222);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 64px;
+  min-height: 200px;
+}
+
+.lightbox-caption {
+  color: rgba(255,255,255,0.6);
+  font-size: 13px;
+  margin-top: 16px;
+  text-align: center;
+  line-height: 1.5;
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  background: none;
+  border: none;
+  color: rgba(255,255,255,0.6);
+  font-size: 24px;
+  cursor: pointer;
+}
+
+/* Password Modal */
+.password-modal {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.9);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  z-index: 50;
+}
+
+.password-modal input {
+  padding: 10px 16px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.2);
+  background: rgba(255,255,255,0.08);
+  color: #fff;
+  font-size: 16px;
+  text-align: center;
+  width: 200px;
+  outline: none;
+}
+.password-modal input:focus {
+  border-color: #007aff;
+}
+
+.password-modal button {
+  padding: 8px 24px;
+  border-radius: 10px;
+  border: none;
+  background: #007aff;
+  color: #fff;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.pw-error {
+  color: #ff3b30;
+  font-size: 12px;
+}
+
 /* Browser App Styles */
 .browser-view {
   flex: 1;

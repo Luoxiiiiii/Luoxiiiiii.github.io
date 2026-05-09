@@ -258,6 +258,69 @@ function searchWeb(query) {
   `;
 }
 
+function renderGalleryApp() {
+  let gridHtml = '';
+  GALLERY_DATA.forEach(p => {
+    const isLocked = p.locked && !GameState.unlockedContent['photo:' + p.id];
+    gridHtml += `
+      <div class="gallery-item ${isLocked ? 'locked' : ''}" onclick="${isLocked ? `showPasswordModal('${p.puzzleId}', '${p.id}')` : `openLightbox('${p.id}')`}">
+        ${isLocked ? '' : (p.src ? `<img src="${p.src}" style="width:100%;height:100%;object-fit:cover">` : '🖼️')}
+      </div>
+    `;
+  });
+
+  document.getElementById('screenContent').innerHTML = `
+    <div class="app-view">
+      <div class="app-header">
+        <button class="back-btn" onclick="goHome()">←</button>
+        <span class="app-title">相册</span>
+      </div>
+      <div class="gallery-grid">
+        ${gridHtml}
+      </div>
+      <div class="gallery-caption">共 ${GALLERY_DATA.length} 张照片</div>
+    </div>
+  `;
+}
+
+function openLightbox(photoId) {
+  const photo = GALLERY_DATA.find(p => p.id === photoId);
+  if (!photo) return;
+  document.getElementById('screenContent').innerHTML += `
+    <div class="lightbox-overlay" onclick="renderGalleryApp()">
+      <button class="lightbox-close" onclick="event.stopPropagation();renderGalleryApp()">✕</button>
+      <div class="lightbox-image">🖼️</div>
+      <div class="lightbox-caption">${photo.caption || ''}</div>
+    </div>
+  `;
+}
+
+function showPasswordModal(puzzleId, photoId) {
+  document.getElementById('screenContent').innerHTML += `
+    <div class="password-modal">
+      <p style="color:rgba(255,255,255,0.6);font-size:13px;">相册已加密</p>
+      <input type="password" id="pwInput" placeholder="请输入密码" maxlength="10"
+        onkeydown="if(event.key==='Enter')checkPassword('${puzzleId}', '${photoId}')">
+      <button onclick="checkPassword('${puzzleId}', '${photoId}')">确定</button>
+      <div id="pwError" class="pw-error"></div>
+      <button style="background:none;color:rgba(255,255,255,0.4);font-size:12px;border:none;cursor:pointer;" onclick="renderGalleryApp()">取消</button>
+    </div>
+  `;
+  setTimeout(() => document.getElementById('pwInput').focus(), 100);
+}
+
+function checkPassword(puzzleId, photoId) {
+  const input = document.getElementById('pwInput').value;
+  // Will be integrated with puzzle engine in Task 10
+  if (input === '0520') {
+    GameState.unlockedContent['photo:' + photoId] = true;
+    GameState.save();
+    renderGalleryApp();
+  } else {
+    document.getElementById('pwError').textContent = '密码错误';
+  }
+}
+
 function openBrowserPage(pageId) {
   const page = BROWSER_DATA.pages[pageId];
   if (!page) return;

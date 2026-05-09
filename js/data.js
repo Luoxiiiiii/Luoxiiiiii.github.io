@@ -101,3 +101,10 @@ const BROWSER_DATA = {
     },
   }
 };
+
+const GALLERY_DATA = [
+  { id: 'p1', src: '', caption: '自拍 · 05/06', locked: false },
+  { id: 'p2', src: '', caption: '窗外 · 23:47 — 对面楼有亮灯的窗户', locked: false },
+  { id: 'p3', src: '', caption: '屏幕截图 · 00:12 — 电台界面', locked: false },
+  { id: 'p4', src: '', caption: '???', locked: true, puzzleId: 'gallery-lock' },
+];
