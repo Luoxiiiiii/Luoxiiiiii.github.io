@@ -427,3 +427,85 @@ function openMail(index) {
     <div style="padding:8px 16px;font-size:11px;color:rgba(255,255,255,0.3);">${mail.from}</div>
     <div class="mail-body-view">${mail.body}</div></div>`;
 }
+
+/* ===== Snooping Tool ===== */
+function renderSnoopApp() {
+  const historyHtml = GameState.snoopQueries.map(q =>
+    `<div class="snoop-history-item">› ${q}</div>`
+  ).join('');
+
+  document.getElementById('screenContent').innerHTML = `
+    <div class="app-view">
+      <div class="app-header">
+        <button class="back-btn" onclick="goHome()">←</button>
+        <span class="app-title">窥探器</span>
+      </div>
+      <div class="snoop-view">
+        <div class="snoop-search-bar">
+          <input type="text" class="snoop-input" id="snoopInput" placeholder="输入关键词搜索…"
+            onkeydown="if(event.key==='Enter')snoopSearch()">
+          <button class="snoop-btn" onclick="snoopSearch()">搜索</button>
+        </div>
+        <div class="snoop-progress">已发现 ${GameState.foundClues.length} 条线索</div>
+        <div class="snoop-results" id="snoopResults">
+          <div class="snoop-empty">输入关键词搜索姐姐手机中的数据<br>试试：87.9 / 催眠 / 电台</div>
+        </div>
+        ${GameState.snoopQueries.length > 0 ? `<div class="snoop-history"><div class="snoop-history-title">搜索记录</div>${historyHtml}</div>` : ''}
+      </div>
+    </div>
+  `;
+  setTimeout(() => {
+    const input = document.getElementById('snoopInput');
+    if (input) input.focus();
+  }, 100);
+}
+
+function snoopSearch() {
+  const input = document.getElementById('snoopInput');
+  const query = input.value.trim();
+  if (!query) return;
+
+  GameState.snoopQueries.push(query);
+  GameState.save();
+
+  // Find matching keyword
+  const match = SNOOP_KEYWORDS.find(k => k.word.toLowerCase() === query.toLowerCase());
+
+  const resultsDiv = document.getElementById('snoopResults');
+
+  if (!match) {
+    resultsDiv.innerHTML = `<div class="snoop-result-item"><div class="snoop-result-content" style="color:rgba(255,255,255,0.3);">未找到匹配结果</div></div>`;
+    return;
+  }
+
+  let html = '';
+  match.results.forEach(r => {
+    const extraClass = r.final ? 'final' : r.secret ? 'secret' : '';
+    html += `<div class="snoop-result-item ${extraClass}">
+      <div class="snoop-result-type">${r.type}</div>
+      <div class="snoop-result-content">${r.content}</div>
+    </div>`;
+  });
+  resultsDiv.innerHTML = html;
+
+  // Track secret findings
+  if (match.results.some(r => r.secret)) {
+    GameState.foundClues.push('snoop_secret_' + match.word);
+    GameState.save();
+  }
+
+  // Check for final trigger
+  if (match.results.some(r => r.final)) {
+    GameState.foundClues.push('snoop_final_trigger');
+    GameState.gamePhase = 3;
+    GameState.save();
+    // Trigger ending sequence after a moment
+    setTimeout(() => {
+      if (typeof triggerEnding === 'function') {
+        triggerEnding();
+      }
+    }, 2000);
+  }
+
+  input.value = '';
+}

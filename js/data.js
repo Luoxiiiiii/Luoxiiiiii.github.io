@@ -129,3 +129,65 @@ const MAIL_DATA = [
   { from: 'system@notify.com', subject: '您的iCloud存储空间不足', body: '请升级您的存储空间以继续使用iCloud备份。', phase: 1 },
   { from: 'unknown@temp.com', subject: 'RE: 你的问题', body: '你问的那个频率……不要再查了。\n有些人有些事，不知道比较好。', phase: 2 },
 ];
+
+const SNOOP_KEYWORDS = [
+  {
+    word: '87.9',
+    results: [
+      { type: '📡 消息', content: '未知号码: "87.9 是个好频率。"', link: null },
+      { type: '📻 电台', content: '特殊频率 87.9 MHz — 深夜有内容', link: null },
+      { type: '📧 邮件', content: '欢迎加入 87.9 听众群', link: null },
+      { type: '📝 笔记', content: '她说87.9这个频率很有用', link: null },
+    ]
+  },
+  {
+    word: 'R-879',
+    results: [
+      { type: '🔓 隐藏线索', content: '⭐ 听众编号：R-879-14。这个编号出现在多个地方。', secret: true },
+    ]
+  },
+  {
+    word: '14',
+    results: [
+      { type: '🔓 隐藏线索', content: '⭐ 14可能与某个日期有关。五月二十日？', secret: true },
+    ]
+  },
+  {
+    word: '0520',
+    results: [
+      { type: '🔓 隐藏线索', content: '⭐ 0520 — 这是姐姐的生日，也是多个密码的答案。', secret: true },
+    ]
+  },
+  {
+    word: '催眠',
+    results: [
+      { type: '🌐 浏览器', content: '搜索记录：催眠暗示 自我催眠', link: null },
+      { type: '📧 邮件', content: 'unknown@temp.com: "不要再查了"', link: null },
+    ]
+  },
+  {
+    word: '电台',
+    results: [
+      { type: '🌐 浏览器', content: '搜索记录：87.9 电台 催眠、87.9 MHz 论坛', link: null },
+      { type: '📡 消息', content: '未知号码: "今晚听了吗？"', link: null },
+    ]
+  },
+  {
+    word: '救',
+    results: [
+      { type: '⚠️ 关键', content: '★★★ 触发最终序列 ★★★', final: true },
+    ]
+  },
+  {
+    word: 'help',
+    results: [
+      { type: '⚠️ 关键', content: '★★★ 触发最终序列 ★★★', final: true },
+    ]
+  },
+  {
+    word: 'SOS',
+    results: [
+      { type: '⚠️ 关键', content: '★★★ 触发最终序列 ★★★', final: true },
+    ]
+  },
+];
