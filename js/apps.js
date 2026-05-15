@@ -1,8 +1,55 @@
 // js/apps.js — all app renderers
 
 let _whiteNoiseAudio = null;
-let _relaxMusicAudio = null;
-let _relaxMusicTimer = null;
+let _bgMusicAudio = null;
+let _bgMusicMuted = false;
+
+function toggleBgMusic() {
+  _bgMusicMuted = !_bgMusicMuted;
+  if (_bgMusicAudio) {
+    _bgMusicAudio.volume = _bgMusicMuted ? 0 : 0.12;
+  }
+  return _bgMusicMuted;
+}
+
+function toggleBgMusicIcon() {
+  const muted = toggleBgMusic();
+  const el = document.getElementById('bgMusicToggle');
+  if (el) el.textContent = muted ? '🔇' : '🎵';
+}
+
+/* ===== Game Timer ===== */
+let _gameTimer = null;
+
+function startGameTimer() {
+  if (_gameTimer) return;
+  updateStatusBarTime();
+  let _acc = 0;
+  _gameTimer = setInterval(() => {
+    _acc += 1 / 60;
+    if (_acc >= 1) {
+      _acc -= 1;
+      GameState.gameTimeElapsed = (GameState.gameTimeElapsed || 0) + 1;
+      updateStatusBarTime();
+      if (GameState.gameTimeElapsed % 15 === 0) GameState.save();
+    }
+  }, 1000);
+}
+
+function getGameTimeString() {
+  const totalMinutes = 23 * 60 + 47 + (GameState.gameTimeElapsed || 0);
+  const hours = Math.floor(totalMinutes / 60) % 24;
+  const mins = totalMinutes % 60;
+  return `${String(hours).padStart(2, '0')}:${String(mins).padStart(2, '0')}`;
+}
+
+function updateStatusBarTime() {
+  const timeStr = getGameTimeString();
+  const statusEl = document.querySelector('.status-time');
+  if (statusEl) statusEl.textContent = timeStr;
+  const homeEl = document.getElementById('homeTimeDisplay');
+  if (homeEl) homeEl.textContent = '深夜 ' + timeStr;
+}
 
 function isMessageVisible(msg) {
   if (msg.endingRequired && !GameState._endingCompleted) return false;
@@ -36,7 +83,13 @@ function renderMessagesApp() {
   contacts.forEach(c => {
     const visibleMsgs = c.messages.filter(m => isMessageVisible(m));
     const lastMsg = visibleMsgs[visibleMsgs.length - 1];
-    const unread = GameState.readChats[c.id] ? 0 : visibleMsgs.filter(m => m.from !== 'me').length;
+    const unread = (() => {
+      const nonMeMsgs = visibleMsgs.filter(m => m.from !== 'me');
+      const seen = typeof GameState.readChats[c.id] === 'number'
+        ? GameState.readChats[c.id]
+        : (GameState.readChats[c.id] ? nonMeMsgs.length : 0);
+      return Math.max(0, nonMeMsgs.length - seen);
+    })();
     html += `
       <div class="chat-item" onclick="openChat('${c.id}')">
         <div class="chat-avatar" style="background: rgba(255,255,255,0.06)">${getAvatar(c.id)}</div>
@@ -53,11 +106,11 @@ function renderMessagesApp() {
 }
 
 function openChat(contactId) {
-  GameState.readChats[contactId] = true;
-  GameState.save();
   const contact = MESSAGE_DATA.contacts.find(c => c.id === contactId);
   if (!contact) return;
   const visibleMsgs = contact.messages.filter(m => isMessageVisible(m));
+  GameState.readChats[contactId] = visibleMsgs.filter(m => m.from !== 'me').length;
+  GameState.save();
 
   let bubblesHtml = '';
   visibleMsgs.forEach(m => {
@@ -170,42 +223,30 @@ function stopWhiteNoise() {
   }
 }
 
-function stopRelaxMusic() {
-  if (_relaxMusicTimer) {
-    clearTimeout(_relaxMusicTimer);
-    _relaxMusicTimer = null;
-  }
-  if (_relaxMusicAudio) {
-    _relaxMusicAudio.pause();
-    _relaxMusicAudio = null;
-  }
-}
-
 function stopAllRadioAudio() {
   stopWhiteNoise();
-  stopRelaxMusic();
+  // Reset bg music back to background volume
+  if (_bgMusicAudio) {
+    _bgMusicAudio.volume = _bgMusicMuted ? 0 : 0.12;
+  }
 }
 
 function updateWhiteNoise(freq) {
   const dist = Math.abs(freq - 87.9);
 
   if (dist < 0.01) {
-    // Exact 87.9 — 1.5s delay then play relaxing music
+    // Exact 87.9 — turn up background music volume
     stopWhiteNoise();
-    if (!_relaxMusicAudio && !_relaxMusicTimer) {
-      _relaxMusicTimer = setTimeout(() => {
-        _relaxMusicTimer = null;
-        _relaxMusicAudio = new Audio('music/轻松.mp3');
-        _relaxMusicAudio.loop = true;
-        _relaxMusicAudio.volume = 0.4;
-        _relaxMusicAudio.play().catch(() => {});
-      }, 1500);
+    if (_bgMusicAudio) {
+      _bgMusicAudio.volume = _bgMusicMuted ? 0 : 0.4;
     }
     return;
   }
 
-  // Not at 87.9 — stop relax music
-  stopRelaxMusic();
+  // Not at 87.9 — restore background volume
+  if (_bgMusicAudio) {
+    _bgMusicAudio.volume = _bgMusicMuted ? 0 : 0.12;
+  }
 
   if (dist < 0.6) {
     const vol = Math.max(0, 1 - dist / 0.6) * 0.3;
@@ -445,11 +486,25 @@ function type914Message() {
   if (RADIO_DATA._914TypingActive) return;
   RADIO_DATA._914TypingActive = true;
 
+  // Set up the container once
+  RADIO_DATA._914Step = 1;
+  renderRadioApp();
+
   function tick() {
+    const el = document.querySelector('#screenContent .radio-text');
+    if (!el) {
+      RADIO_DATA._914TypingActive = false;
+      return;
+    }
     if (RADIO_DATA._914MsgIndex < RADIO_DATA._914MsgTarget.length) {
-      RADIO_DATA._914Message += RADIO_DATA._914MsgTarget[RADIO_DATA._914MsgIndex];
+      const ch = RADIO_DATA._914MsgTarget[RADIO_DATA._914MsgIndex];
       RADIO_DATA._914MsgIndex++;
-      renderRadioApp();
+      RADIO_DATA._914Message += ch;
+      if (ch === '\n') {
+        el.innerHTML += '<br>';
+      } else {
+        el.innerHTML += ch;
+      }
       setTimeout(tick, 30);
     } else {
       RADIO_DATA._914Step = 2;
@@ -457,7 +512,7 @@ function type914Message() {
       renderRadioApp();
     }
   }
-  tick();
+  setTimeout(tick, 30);
 }
 
 function sisterChoiceStay() {
@@ -1964,7 +2019,7 @@ function renderMemberDashboard01() {
             <tr><td>R-879-05</td><td>hound</td></tr>
             <tr><td>R-879-06</td><td>mirror</td></tr>
             <tr><td>R-879-07</td><td>fantasy</td></tr>
-            <tr><td>R-879-08</td><td>luoxiandtea</td></tr>
+            <tr><td>R-879-08</td><td>tsukishiroy</td></tr>
             <tr><td>R-879-09</td><td>kitten</td></tr>
             <tr><td>R-879-10</td><td>shadow</td></tr>
             <tr><td>R-879-11</td><td>echo</td></tr>
@@ -2440,7 +2495,7 @@ function checkMemberLogin() {
   }
 
   // R-879-08 with luoxiandtea password
-  if (user.toUpperCase() === 'R-879-08' && pass.toLowerCase() === 'luoxiandtea') {
+  if (user.toUpperCase() === 'R-879-08' && pass.toLowerCase() === 'tsukishiroy') {
     GameState.memberLoggedIn = true;
     GameState._currentMember = 'R-879-08';
     GameState.save();
@@ -2921,9 +2976,9 @@ function makeCall() {
     return;
   }
 
-  // Debug: dial birthday to reset
+  // Debug: dial to hard reset everything (including gamePhase)
   if (num === '20031123') {
-    GameState.reset();
+    localStorage.removeItem('gameSave');
     location.reload();
     return;
   }

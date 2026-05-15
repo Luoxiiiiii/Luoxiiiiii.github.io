@@ -28,6 +28,7 @@ function showIntro() {
           你打开了姐姐的手机。
         </p>
         <p style="color:rgba(255,255,255,0.12);font-size:10px;letter-spacing:2px;margin-bottom:16px;">洛 溪 与 茶 出 品</p>
+        <p style="color:rgba(255,255,255,0.2);font-size:9px;margin-bottom:20px;">🔊 注意调节音量 · 本游戏有较小声音的背景音乐<br>右上角 🎵 按钮可关闭音乐</p>
         <div style="margin-bottom:24px;">
           <div onclick="toggleDisclaimer()" style="color:rgba(255,255,255,0.2);font-size:10px;cursor:pointer;letter-spacing:1px;user-select:none;transition:color 0.2s;" onmouseover="this.style.color='rgba(255,255,255,0.4)'" onmouseout="this.style.color='rgba(255,255,255,0.2)'">
             ▸ 免责条款
@@ -84,6 +85,17 @@ function startGame() {
     setTimeout(() => overlay.remove(), 800);
   }
   renderPhoneShell();
+
+  // Start game timer
+  startGameTimer();
+
+  // Start background music
+  if (!_bgMusicAudio) {
+    _bgMusicAudio = new Audio('music/轻松.mp3');
+    _bgMusicAudio.loop = true;
+    _bgMusicAudio.volume = 0.12;
+    _bgMusicAudio.play().catch(() => {});
+  }
   if (GameState.currentApp) {
     openApp(GameState.currentApp);
   }

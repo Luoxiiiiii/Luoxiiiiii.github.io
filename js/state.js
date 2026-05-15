@@ -18,6 +18,7 @@ const GameState = {
   _currentMember: null,
   _endingCompleted: false,
   _readDiaries: [],
+  gameTimeElapsed: 0,
 
   save() {
     try {
@@ -38,6 +39,7 @@ const GameState = {
         _currentMember: this._currentMember,
         _endingCompleted: this._endingCompleted,
         _readDiaries: this._readDiaries,
+        gameTimeElapsed: this.gameTimeElapsed,
       }));
     } catch (e) {
       console.warn('Save failed:', e);

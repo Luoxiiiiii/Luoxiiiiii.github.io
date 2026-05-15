@@ -14,8 +14,12 @@ const DOCK_APPS = ['messages', 'radio', 'browser', 'phone'];
 
 function hasUnreadMessages() {
   return MESSAGE_DATA.contacts.some(c => {
-    if (GameState.readChats[c.id]) return false;
-    return c.messages.some(m => m.phase <= GameState.gamePhase && m.from !== 'me');
+    const nonMeMsgs = c.messages.filter(m => m.phase <= GameState.gamePhase && m.from !== 'me');
+    if (nonMeMsgs.length === 0) return false;
+    const seen = typeof GameState.readChats[c.id] === 'number'
+      ? GameState.readChats[c.id]
+      : (GameState.readChats[c.id] ? nonMeMsgs.length : 0);
+    return nonMeMsgs.length > seen;
   });
 }
 const PHONE_W = 320;
@@ -218,6 +222,7 @@ function renderPhoneShell() {
               <span class="status-time">23:47</span>
             </div>
             <div class="status-right">
+              <span id="bgMusicToggle" onclick="toggleBgMusicIcon()" style="cursor:pointer;user-select:none;">🎵</span>
               <span>🌙</span>
             </div>
           </div>
@@ -266,7 +271,7 @@ function renderHomeScreen() {
     <div class="home-screen">
       <div class="home-header">
         <span class="home-header-text">姐姐的手机</span>
-        <span style="color:rgba(255,255,255,0.3);font-size:11px;">深夜 23:47</span>
+        <span id="homeTimeDisplay" style="color:rgba(255,255,255,0.3);font-size:11px;">${getGameTimeString()}</span>
       </div>
       <div class="app-grid">
         ${appIconsHtml}
