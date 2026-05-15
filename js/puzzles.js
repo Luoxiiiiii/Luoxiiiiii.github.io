@@ -3,40 +3,28 @@
 const PUZZLES = [
   {
     id: 'gallery-lock',
-    prompt: '相册密码（姐姐的生日，MMDD）',
+    prompt: '相册密码（姐姐的纪念日）',
     answer: '0520',
     reward: { type: 'unlock', target: 'photo:p4' },
   },
   {
     id: 'note-pw',
-    prompt: '备忘录密码（提示：纪念日）',
-    answer: '0520',
+    prompt: '从哪里到哪里才能找到电台呢....？',
+    answer: '935879',
     reward: { type: 'unlock', target: 'note:n4' },
   },
   {
-    id: 'snoop-unlock',
-    type: 'auto',
-    condition: () => {
-      return GameState.puzzleProgress['gallery-lock'] === 'solved'
-          && GameState.puzzleProgress['note-pw'] === 'solved';
-    },
-    reward: { type: 'snoop_unlock' },
-  },
-  {
-    id: 'final-reveal',
-    type: 'auto',
-    condition: () => {
-      return GameState.gamePhase >= 2
-          && GameState.foundClues.includes('snoop_final_trigger');
-    },
-    reward: { type: 'ending' },
+    id: 'note2-pw',
+    prompt: '密码存在谁那里了……？',
+    answer: 'NIGHT',
+    reward: { type: 'unlock', target: 'note:n5' },
   },
 ];
 
 function checkPuzzleAnswer(puzzleId, answer) {
   const puzzle = PUZZLES.find(p => p.id === puzzleId);
-  if (!puzzle || puzzle.type === 'auto') return false;
-  const correct = String(answer).trim() === String(puzzle.answer).trim();
+  if (!puzzle) return false;
+  const correct = String(answer).trim().toLowerCase() === String(puzzle.answer).trim().toLowerCase();
   if (correct) {
     GameState.puzzleProgress[puzzleId] = 'solved';
     applyPuzzleReward(puzzle.reward);
@@ -48,30 +36,11 @@ function checkPuzzleAnswer(puzzleId, answer) {
 
 function applyPuzzleReward(reward) {
   if (!reward) return;
-  switch (reward.type) {
-    case 'unlock':
-      GameState.unlockedContent[reward.target] = true;
-      break;
-    case 'snoop_unlock':
-      GameState.snoopUnlocked = true;
-      GameState.foundClues.push('snoop_unlocked');
-      GameState.gamePhase = 2;
-      break;
-    case 'ending':
-      if (typeof triggerEnding === 'function') {
-        setTimeout(triggerEnding, 1500);
-      }
-      break;
+  if (reward.type === 'unlock') {
+    GameState.unlockedContent[reward.target] = true;
   }
 }
 
 function checkAutoPuzzles() {
-  PUZZLES.filter(p => p.type === 'auto').forEach(puzzle => {
-    if (GameState.puzzleProgress[puzzle.id] === 'solved') return;
-    if (puzzle.condition()) {
-      GameState.puzzleProgress[puzzle.id] = 'solved';
-      applyPuzzleReward(puzzle.reward);
-      GameState.save();
-    }
-  });
+  // placeholder — no auto puzzles currently
 }

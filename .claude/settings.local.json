@@ -2,7 +2,12 @@
   "permissions": {
     "allow": [
       "Read(//c/Users/Administrator/.claude/plugins/cache/claude-plugins-official/superpowers/5.1.0/skills/brainstorming/**)",
-      "Bash(bash \"C:\\\\Users\\\\Administrator\\\\.claude\\\\plugins\\\\cache\\\\claude-plugins-official\\\\superpowers\\\\5.1.0\\\\skills\\\\brainstorming\\\\scripts\\\\start-server.sh\" --project-dir \"c:\\\\Users\\\\Administrator\\\\Desktop\\\\网页游戏\")"
+      "Bash(bash \"C:\\\\Users\\\\Administrator\\\\.claude\\\\plugins\\\\cache\\\\claude-plugins-official\\\\superpowers\\\\5.1.0\\\\skills\\\\brainstorming\\\\scripts\\\\start-server.sh\" --project-dir \"c:\\\\Users\\\\Administrator\\\\Desktop\\\\网页游戏\")",
+      "Bash(python --version)",
+      "Bash(python3 --version)",
+      "Bash(python -m http.server 8080)",
+      "Bash(ipconfig)",
+      "Bash(git clone *)"
     ]
   }
 }

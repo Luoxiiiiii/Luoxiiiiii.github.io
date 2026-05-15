@@ -5,6 +5,9 @@
   display: flex;
   flex-direction: column;
   height: calc(100% - 40px);
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
   color: #fff;
 }
 
@@ -159,6 +162,7 @@
   display: flex;
   gap: 8px;
   flex-wrap: wrap;
+  flex-shrink: 0;
 }
 
 .reply-option {
@@ -234,6 +238,11 @@
   font-family: 'Courier New', monospace;
   color: #fff;
   letter-spacing: 2px;
+  transition: color 0.3s;
+}
+.radio-frequency.fine-mode {
+  color: #ffcc00;
+  text-shadow: 0 0 8px rgba(255, 204, 0, 0.3);
 }
 
 .radio-band {
@@ -266,6 +275,12 @@
 .radio-btn:hover { background: rgba(255,255,255,0.15); }
 .radio-btn:active { background: rgba(255,255,255,0.2); }
 
+.fine-toggle.active {
+  background: rgba(255, 204, 0, 0.2);
+  color: #ffcc00;
+  border: 1px solid rgba(255, 204, 0, 0.3);
+}
+
 .radio-content {
   flex: 1;
   width: 100%;
@@ -279,6 +294,8 @@
   color: rgba(255,255,255,0.8);
   animation: fadeIn 1s ease;
   white-space: pre-line;
+  word-break: break-word;
+  overflow-wrap: break-word;
 }
 
 .radio-static {
@@ -292,6 +309,15 @@
 @keyframes staticFlicker {
   0%, 100% { opacity: 0.15; }
   50% { opacity: 0.08; }
+}
+
+.cursor-blink {
+  animation: cursorBlink 0.8s infinite;
+}
+
+@keyframes cursorBlink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
 }
 
 .radio-history {
@@ -368,19 +394,23 @@
   align-items: center;
   justify-content: center;
   z-index: 50;
-  padding: 20px;
+  padding: 6px;
 }
 
 .lightbox-image {
   width: 100%;
-  max-height: 60%;
-  background: linear-gradient(135deg, #333, #222);
-  border-radius: 8px;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 64px;
   min-height: 200px;
+}
+
+.lightbox-image img {
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: 8px;
+  object-fit: contain;
 }
 
 .lightbox-caption {
@@ -533,7 +563,27 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  background: #1a1a2e;
+  background: linear-gradient(160deg, #0d0d1a 0%, #1a0a2e 40%, #0d0d1a 100%);
+  overflow: hidden;
+  position: relative;
+  min-height: 0;
+}
+
+.webpage-view .snoop-results {
+  overflow-y: auto;
+  min-height: 0;
+}
+
+.webpage-view .snoop-view {
+  min-height: 0;
+}
+
+.webpage-view::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(255,204,0,0.3), transparent);
 }
 
 .webpage-bar {
@@ -541,35 +591,207 @@
   align-items: center;
   gap: 8px;
   padding: 8px 12px;
-  background: rgba(255,255,255,0.05);
+  background: rgba(0,0,0,0.4);
   border-bottom: 1px solid rgba(255,255,255,0.06);
 }
 
 .webpage-url {
   flex: 1;
   padding: 6px 10px;
-  background: rgba(0,0,0,0.3);
+  background: rgba(0,0,0,0.4);
   border-radius: 6px;
   font-size: 11px;
-  color: rgba(255,255,255,0.5);
+  color: rgba(255,255,255,0.45);
   font-family: 'Courier New', monospace;
 }
 
 .webpage-title {
-  padding: 12px 16px 8px;
-  font-size: 15px;
-  font-weight: 600;
-  color: #fff;
+  display: none;
 }
 
 .webpage-body {
   flex: 1;
-  padding: 8px 16px;
+  padding: 16px;
   font-size: 12px;
-  line-height: 1.7;
-  color: rgba(255,255,255,0.75);
+  line-height: 1.8;
+  color: rgba(255,255,255,0.7);
   white-space: pre-line;
+  word-break: break-word;
+  overflow-wrap: break-word;
   overflow-y: auto;
+}
+
+.webpage-body :first-child {
+  margin-top: 0;
+}
+
+/* Radio 879 structured pages override pre-line */
+.webpage-body .radio-hero,
+.webpage-body .radio-section,
+.webpage-body .radio-nav,
+.webpage-body .radio-footer {
+  white-space: normal;
+}
+
+/* Radio 879 branding hero */
+.radio-hero {
+  text-align: center;
+  padding: 32px 20px 24px;
+  margin: -16px -16px 0 -16px;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  background: radial-gradient(ellipse at center top, rgba(255,204,0,0.04) 0%, transparent 70%);
+}
+
+.radio-hero .freq {
+  font-size: 42px;
+  font-weight: 200;
+  color: #fff;
+  letter-spacing: 3px;
+  text-shadow: 0 0 40px rgba(255,204,0,0.1);
+  line-height: 1.2;
+}
+
+.radio-hero .freq span {
+  color: #ffcc00;
+  font-weight: 400;
+}
+
+.radio-hero .tagline {
+  font-size: 13px;
+  color: rgba(255,255,255,0.35);
+  margin-top: 6px;
+  letter-spacing: 4px;
+  font-weight: 300;
+}
+
+.radio-hero .sub {
+  font-size: 11px;
+  color: rgba(255,255,255,0.2);
+  margin-top: 10px;
+  letter-spacing: 1px;
+}
+
+/* Schedule section */
+.radio-section {
+  padding: 16px 0 8px;
+}
+
+.radio-section-title {
+  font-size: 11px;
+  color: rgba(255,255,255,0.25);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  font-weight: 600;
+}
+
+.schedule-item {
+  display: flex;
+  align-items: center;
+  padding: 7px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.03);
+}
+
+.schedule-item:last-child {
+  border-bottom: none;
+}
+
+.schedule-time {
+  width: 48px;
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.5);
+  font-family: monospace;
+  text-align: right;
+  margin-right: 12px;
+}
+
+.schedule-name {
+  font-size: 13px;
+  color: rgba(255,255,255,0.7);
+}
+
+.schedule-dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: rgba(255,204,0,0.4);
+  margin-right: 12px;
+  flex-shrink: 0;
+}
+
+.schedule-item {
+  display: flex;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.03);
+}
+
+.schedule-item:last-child {
+  border-bottom: none;
+}
+
+.schedule-time {
+  width: 50px;
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.5);
+  font-family: monospace;
+}
+
+.schedule-name {
+  font-size: 13px;
+  color: rgba(255,255,255,0.7);
+}
+
+.schedule-dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: rgba(255,204,0,0.4);
+  margin-right: 12px;
+}
+
+/* Nav section for cards */
+.radio-nav {
+  padding: 4px 16px 16px;
+}
+
+.radio-nav a {
+  display: flex;
+  align-items: center;
+  padding: 14px 16px;
+  margin: 6px 0;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 12px;
+  color: rgba(255,255,255,0.7) !important;
+  font-size: 13px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.radio-nav a:hover {
+  background: rgba(255,255,255,0.06);
+  border-color: rgba(255,255,255,0.12);
+  color: #fff !important;
+  padding-left: 20px;
+}
+
+.radio-nav a:last-child {
+  color: rgba(255,255,255,0.3) !important;
+  font-size: 11px;
+  border-color: rgba(255,255,255,0.03);
+}
+
+.radio-footer {
+  padding: 14px 0;
+  margin: 0 -16px -16px;
+  font-size: 10px;
+  color: rgba(255,255,255,0.15);
+  text-align: center;
+  border-top: 1px solid rgba(255,255,255,0.03);
+  letter-spacing: 1px;
 }
 
 /* Notes App Styles */
@@ -609,7 +831,10 @@
   flex: 1;
   padding: 16px;
   overflow-y: auto;
+  overflow-x: hidden;
   white-space: pre-line;
+  word-break: break-word;
+  overflow-wrap: break-word;
   font-size: 13px;
   line-height: 1.7;
   color: rgba(255,255,255,0.8);
@@ -680,13 +905,40 @@
   flex: 1;
   padding: 16px;
   overflow-y: auto;
+  overflow-x: hidden;
   white-space: pre-line;
+  word-break: break-word;
+  overflow-wrap: break-word;
   font-size: 13px;
   line-height: 1.7;
   color: rgba(255,255,255,0.8);
 }
 
-/* Snooping Tool Styles */
+/* Dial Pad Styles */
+.dialpad-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 8px;
+  max-width: 220px;
+  margin: 0 auto;
+}
+.dialpad-btn {
+  width: 64px;
+  height: 64px;
+  border-radius: 32px;
+  border: none;
+  background: rgba(255,255,255,0.08);
+  color: #fff;
+  font-size: 22px;
+  font-weight: 300;
+  cursor: pointer;
+  transition: background 0.15s;
+  justify-self: center;
+}
+.dialpad-btn:hover { background: rgba(255,255,255,0.15); }
+.dialpad-btn:active { background: rgba(255,255,255,0.25); }
+
+/* Website Search Styles (replaces snooping tool) */
 .snoop-view {
   flex: 1;
   display: flex;
@@ -697,7 +949,15 @@
 .snoop-search-bar {
   display: flex;
   gap: 8px;
-  margin-bottom: 16px;
+  margin-bottom: 8px;
+}
+
+.snoop-scan-bar {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+  padding-top: 8px;
+  border-top: 1px solid rgba(255,255,255,0.06);
 }
 
 .snoop-input {
@@ -810,3 +1070,210 @@
   text-align: center;
   margin-bottom: 12px;
 }
+
+.snoop-unlock-toast {
+  text-align: center;
+  color: #ffcc00;
+  font-size: 12px;
+  padding: 8px 16px;
+  margin: 0 16px 8px;
+  background: rgba(255, 204, 0, 0.1);
+  border: 1px solid rgba(255, 204, 0, 0.25);
+  border-radius: 8px;
+  animation: fadeIn 0.5s ease;
+}
+
+/* Mobile: tighter padding to fill screen */
+@media (max-width: 480px) {
+  .app-header {
+    padding: 12px 8px;
+  }
+  .chat-item,
+  .mail-item,
+  .note-item,
+  .call-item {
+    padding-left: 6px;
+    padding-right: 6px;
+  }
+  .chat-messages {
+    padding: 8px 6px;
+  }
+  .notes-list {
+    padding: 4px 0;
+  }
+  .note-detail,
+  .mail-body-view {
+    padding: 10px 8px;
+  }
+  .gallery-caption {
+    padding: 6px 8px;
+  }
+  .radio-content {
+    padding: 10px 8px;
+  }
+  .radio-history {
+    padding: 8px 8px;
+  }
+  .gallery-grid {
+    gap: 1px;
+    padding: 1px;
+  }
+  .browser-list {
+    padding: 4px 0;
+  }
+  .snoop-view {
+    padding: 10px 8px;
+  }
+  .browser-item,
+  .browser-bookmark {
+    padding: 10px 8px;
+  }
+  .note-item {
+    padding: 10px 8px;
+  }
+  .note-text {
+    white-space: normal;
+  }
+  .mail-item {
+    padding-left: 4px;
+    padding-right: 4px;
+  }
+}
+
+/* === R-879-01 Dashboard: Vortex Entry + Monologue === */
+
+@keyframes vortexSpin {
+  0% { transform: rotate(0deg) scale(0.3); opacity: 0; }
+  30% { opacity: 1; }
+  100% { transform: rotate(720deg) scale(1.5); opacity: 0; }
+}
+
+@keyframes vortexRipple {
+  0% { transform: scale(0.5); opacity: 0.6; }
+  100% { transform: scale(2.5); opacity: 0; }
+}
+
+@keyframes vortexTextIn {
+  0% { opacity: 0; filter: blur(8px); }
+  100% { opacity: 1; filter: blur(0); }
+}
+
+@keyframes vortexTextOut {
+  0% { opacity: 1; filter: blur(0); }
+  100% { opacity: 0; filter: blur(4px); }
+}
+
+@keyframes vortexReveal {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+.vortex-container {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: #000;
+  overflow: hidden;
+  z-index: 200;
+}
+
+.vortex-spiral {
+  position: absolute;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: conic-gradient(from 0deg, transparent, rgba(255,204,0,0.3), transparent, rgba(255,255,255,0.1), transparent);
+  animation: vortexSpin 4.5s ease-out forwards;
+  box-shadow: 0 0 60px rgba(255,204,0,0.15);
+}
+
+.vortex-spiral::before,
+.vortex-spiral::after {
+  content: '';
+  position: absolute;
+  inset: -20px;
+  border-radius: 50%;
+  background: conic-gradient(from 90deg, transparent, rgba(255,255,255,0.05), transparent);
+  animation: vortexRipple 2s ease-out infinite;
+}
+
+.vortex-spiral::after {
+  inset: -40px;
+  animation-delay: 0.5s;
+}
+
+.vortex-greeting {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding: 20px;
+  animation: vortexTextIn 1.5s ease 2s both, vortexTextOut 1.5s ease 3.5s both;
+}
+
+.vortex-greeting p {
+  font-size: 14px;
+  color: rgba(255,204,0,0.9);
+  line-height: 1.9;
+  letter-spacing: 2px;
+  text-shadow: 0 0 20px rgba(255,204,0,0.2);
+}
+
+.reveal-content {
+  animation: vortexReveal 1.2s ease both;
+}
+
+.monologue-container {
+  padding: 24px 20px;
+  font-size: 13px;
+  line-height: 2;
+  color: rgba(255,255,255,0.85);
+  overflow-y: auto;
+  flex: 1;
+}
+
+.monologue-container p {
+  margin-bottom: 16px;
+}
+
+.monologue-greeting {
+  font-size: 16px;
+  color: #ffcc00;
+  text-align: center;
+  letter-spacing: 3px;
+  margin-bottom: 28px;
+}
+
+.monologue-signoff {
+  text-align: right;
+  color: rgba(255,204,0,0.6);
+  font-style: italic;
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(255,204,0,0.1);
+}
+
+.password-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 16px 0;
+  font-size: 12px;
+}
+
+.password-table td {
+  padding: 8px 12px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  font-family: 'Courier New', monospace;
+}
+
+.password-table td:first-child {
+  color: rgba(255,255,255,0.5);
+}
+
+.password-table td:last-child {
+  color: #ffcc00;
+  text-align: right;
+}
+

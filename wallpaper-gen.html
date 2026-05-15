@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>壁纸生成器 — 镂空数字</title>
+<style>
+  body {
+    background: #1a1a2e;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+  .container { max-width: 600px; width: 100%; padding: 20px; color: #fff; }
+  h2 { color: rgba(255,255,255,0.8); font-size: 18px; margin-bottom: 16px; }
+  .row { margin-bottom: 10px; display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+  label { min-width: 60px; font-size: 12px; color: rgba(255,255,255,0.6); }
+  input, select {
+    padding: 6px 10px; border-radius: 6px;
+    border: 1px solid rgba(255,255,255,0.12);
+    background: rgba(255,255,255,0.06); color: #fff;
+    font-size: 13px; outline: none;
+  }
+  input:focus { border-color: #007aff; }
+  .preview-box {
+    border: 1px solid rgba(255,255,255,0.1); border-radius: 12px;
+    padding: 16px; margin: 12px 0;
+    display: flex; gap: 16px; justify-content: center;
+    flex-wrap: wrap;
+  }
+  .preview-item { text-align: center; }
+  .preview-item p { font-size: 10px; color: rgba(255,255,255,0.35); margin-top: 4px; }
+  .preview-img {
+    width: 160px; height: 280px;
+    border-radius: 8px; border: 1px solid rgba(255,255,255,0.12);
+  }
+  .btn {
+    padding: 8px 18px; border-radius: 8px; border: none;
+    font-size: 13px; cursor: pointer; transition: opacity 0.2s;
+  }
+  .btn:hover { opacity: 0.85; }
+  .btn-download { background: #007aff; color: #fff; }
+  .btn-reset { background: rgba(255,255,255,0.06); color: #fff; border: 1px solid rgba(255,255,255,0.12); }
+  .tip { font-size: 10px; color: rgba(255,255,255,0.25); margin-top: 8px; line-height: 1.6; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h2>🔲 壁纸生成器</h2>
+
+  <div class="row">
+    <label>秘密数字</label>
+    <input type="text" id="secretText" value="400-879-2230" style="flex:1;max-width:300px;">
+  </div>
+  <div class="row">
+    <label>数字大小</label>
+    <input type="range" id="secretSize" min="18" max="64" value="38" style="width:120px;">
+    <span id="secretSizeVal" style="font-size:11px;color:rgba(255,255,255,0.4);">38px</span>
+  </div>
+
+  <div class="preview-box" id="previewBox"></div>
+
+  <div style="display:flex;gap:8px;flex-wrap:wrap;">
+    <button class="btn btn-download" onclick="downloadPNG()">⬇ 下载 PNG</button>
+    <button class="btn btn-reset" onclick="render()">刷新预览</button>
+  </div>
+  <div class="tip">
+    💡 用法：下载后在相册里显示正常图片（心灵鸡汤风）。设为手机壁纸后，数字部分镂空透出底色，秘密浮现。
+  </div>
+</div>
+
+<script>
+function drawToggle(ctx, x, y, w, h, on, color) {
+  // Track
+  const r = h / 2;
+  ctx.fillStyle = on ? color : '#cccccc';
+  ctx.beginPath();
+  ctx.roundRect(x, y, w, h, r);
+  ctx.fill();
+
+  // Knob
+  const knobX = on ? x + w - h + 1 : x + 1;
+  ctx.fillStyle = '#ffffff';
+  ctx.beginPath();
+  ctx.arc(knobX + r - 1, y + r, r - 2, 0, Math.PI * 2);
+  ctx.fill();
+}
+
+function render() {
+  const secret = document.getElementById('secretText').value;
+  const secretSize = parseInt(document.getElementById('secretSize').value);
+
+  const canvas = document.createElement('canvas');
+  const scale = 2;
+  const W = 750, H = 1334;
+  canvas.width = W * scale;
+  canvas.height = H * scale;
+  const ctx = canvas.getContext('2d');
+  ctx.scale(scale, scale);
+
+  // 1. White background
+  ctx.fillStyle = '#ffffff';
+  ctx.fillRect(0, 0, W, H);
+
+  // 2. Draw visible elements (printed on white, always visible)
+  ctx.globalCompositeOperation = 'source-over';
+
+  // --- 情绪稳定 (big blue text, top area) ---
+  ctx.fillStyle = '#4a7dff';
+  ctx.font = '600 52px -apple-system, BlinkMacSystemFont, sans-serif';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillText('情绪稳定', W / 2, 200);
+
+  // --- Toggle switch (middle) ---
+  const toggleW = 70, toggleH = 34;
+  const toggleX = (W - toggleW) / 2;
+  const toggleY = 270;
+  drawToggle(ctx, toggleX, toggleY, toggleW, toggleH, true, '#34c759');
+  // "ON" label next to toggle
+  ctx.fillStyle = '#34c759';
+  ctx.font = '500 18px -apple-system, BlinkMacSystemFont, sans-serif';
+  ctx.textAlign = 'left';
+  ctx.textBaseline = 'middle';
+  ctx.fillText('已完成', toggleX + toggleW + 12, toggleY + toggleH / 2);
+
+  // --- 深呼吸 (main text) ---
+  ctx.fillStyle = '#222222';
+  ctx.font = '400 28px -apple-system, BlinkMacSystemFont, sans-serif';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillText('深呼吸', W / 2, 360);
+
+  // --- 让心慢慢静下来 ---
+  ctx.fillStyle = '#888888';
+  ctx.font = '300 18px -apple-system, BlinkMacSystemFont, sans-serif';
+  ctx.fillText('让心慢慢静下来', W / 2, 405);
+
+  // --- Decorative line ---
+  ctx.strokeStyle = '#e0e0e0';
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.moveTo(W * 0.25, 450);
+  ctx.lineTo(W * 0.75, 450);
+  ctx.stroke();
+
+  // 3. Hollow out secret numbers
+  ctx.globalCompositeOperation = 'destination-out';
+  ctx.fillStyle = '#000000';
+  ctx.font = `600 ${secretSize}px -apple-system, BlinkMacSystemFont, 'Courier New', monospace`;
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillText(secret, W / 2, 560);
+
+  ctx.globalCompositeOperation = 'source-over';
+
+  // Show previews
+  const previewBox = document.getElementById('previewBox');
+  previewBox.innerHTML = '';
+
+  const p1 = makePreview(canvas, '#ffffff', '白色背景下');
+  const p2 = makePreview(canvas, '#1a1a2e', '深色背景下');
+  const p3 = makePreview(canvas, 'linear', '暗紫渐变下');
+  previewBox.append(p1, p2, p3);
+
+  window._canvas = canvas;
+}
+
+function makePreview(sourceCanvas, bg, label) {
+  const wrapper = document.createElement('div');
+  wrapper.className = 'preview-item';
+  const img = document.createElement('img');
+  img.className = 'preview-img';
+  const c2 = document.createElement('canvas');
+  c2.width = 160; c2.height = 280;
+  const d = c2.getContext('2d');
+  if (bg === 'linear') {
+    const g = d.createLinearGradient(0, 0, 0, 280);
+    g.addColorStop(0, '#2d1b69');
+    g.addColorStop(0.5, '#1a0a2e');
+    g.addColorStop(1, '#0d1b3e');
+    d.fillStyle = g;
+  } else {
+    d.fillStyle = bg;
+  }
+  d.fillRect(0, 0, 160, 280);
+  d.drawImage(sourceCanvas, 0, 0, 160, 280);
+  img.src = c2.toDataURL();
+  wrapper.appendChild(img);
+  const p = document.createElement('p');
+  p.textContent = label;
+  wrapper.appendChild(p);
+  return wrapper;
+}
+
+function downloadPNG() {
+  const link = document.createElement('a');
+  link.download = 'wallpaper.png';
+  link.href = window._canvas.toDataURL('image/png');
+  link.click();
+}
+
+document.getElementById('secretText').oninput = render;
+document.getElementById('secretSize').oninput = function() {
+  document.getElementById('secretSizeVal').textContent = this.value + 'px';
+  render();
+};
+
+render();
+</script>
+</body>
+</html>

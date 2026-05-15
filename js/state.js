@@ -1,28 +1,43 @@
 // js/state.js — game state management with localStorage persistence
 
+const GAME_VERSION = '2.2';
+
 const GameState = {
   currentApp: null,
-  timeOfDay: 'day',
   unlockedContent: {},
   foundClues: [],
-  snoopQueries: [],
+  searchQueries: [],
   puzzleProgress: {},
   gamePhase: 1,
+  readChats: {},
   endingTriggered: false,
-  snoopUnlocked: false,
+  goodEndingTriggered: false,
+  fineTuneUnlocked: false,
+  memberLoggedIn: false,
+  adminLoggedIn: false,
+  _currentMember: null,
+  _endingCompleted: false,
+  _readDiaries: [],
 
   save() {
     try {
       localStorage.setItem('gameSave', JSON.stringify({
+        _version: GAME_VERSION,
         currentApp: this.currentApp,
-        timeOfDay: this.timeOfDay,
         unlockedContent: this.unlockedContent,
         foundClues: this.foundClues,
-        snoopQueries: this.snoopQueries,
+        searchQueries: this.searchQueries,
         puzzleProgress: this.puzzleProgress,
         gamePhase: this.gamePhase,
+        readChats: this.readChats,
         endingTriggered: this.endingTriggered,
-        snoopUnlocked: this.snoopUnlocked,
+        goodEndingTriggered: this.goodEndingTriggered,
+        fineTuneUnlocked: this.fineTuneUnlocked,
+        memberLoggedIn: this.memberLoggedIn,
+        adminLoggedIn: this.adminLoggedIn,
+        _currentMember: this._currentMember,
+        _endingCompleted: this._endingCompleted,
+        _readDiaries: this._readDiaries,
       }));
     } catch (e) {
       console.warn('Save failed:', e);
@@ -34,6 +49,10 @@ const GameState = {
       const saved = localStorage.getItem('gameSave');
       if (saved) {
         const data = JSON.parse(saved);
+        if (data._version !== GAME_VERSION) {
+          this.reset();
+          return;
+        }
         Object.assign(this, data);
       }
     } catch (e) {
@@ -42,16 +61,25 @@ const GameState = {
   },
 
   reset() {
+    const hadEnding = this._endingCompleted;
+    const hadReadDiaries = this._readDiaries;
+    const hadPhase = this.gamePhase;
     localStorage.removeItem('gameSave');
     this.currentApp = null;
-    this.timeOfDay = 'day';
     this.unlockedContent = {};
     this.foundClues = [];
-    this.snoopQueries = [];
+    this.searchQueries = [];
     this.puzzleProgress = {};
-    this.gamePhase = 1;
+    this.gamePhase = hadPhase > 1 ? hadPhase : 1;
+    this.readChats = {};
     this.endingTriggered = false;
-    this.snoopUnlocked = false;
+    this.goodEndingTriggered = false;
+    this.fineTuneUnlocked = false;
+    this.memberLoggedIn = false;
+    this.adminLoggedIn = false;
+    this._currentMember = null;
+    this._endingCompleted = hadEnding;
+    this._readDiaries = hadReadDiaries;
     this.save();
   }
 };
