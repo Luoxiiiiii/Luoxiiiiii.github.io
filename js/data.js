@@ -76,11 +76,11 @@ const RADIO_DATA = {
     { id: 'r8', text: '听众编号是你身份的凭证……记住它。', phase: 3 },
   ],
   listeningHistory: [
-    { freq: '87.9', date: '05/06', time: '23:30' },
-    { freq: '87.9', date: '05/07', time: '00:15' },
-    { freq: '87.9', date: '05/07', time: '23:45' },
-    { freq: '100.3', date: '05/05', time: '14:20' },
-    { freq: '87.9', date: '05/08', time: '01:00' },
+    { freq: '87.9', date: '05/26', time: '23:30' },
+    { freq: '87.9', date: '05/27', time: '00:15' },
+    { freq: '87.9', date: '05/27', time: '23:45' },
+    { freq: '100.3', date: '05/25', time: '14:20' },
+    { freq: '87.9', date: '05/28', time: '01:00' },
   ]
 };
 
