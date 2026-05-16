@@ -65,6 +65,7 @@ const RADIO_DATA = {
   minFreq: 85.0,
   maxFreq: 108.0,
   specialFrequency: 87.9,
+  truthFreq: 100.3,
   content: [
     { id: 'r1', text: '……放松……深呼吸……你感到困倦……', phase: 1 },
     { id: 'r2', text: '你听到我的声音了……跟随它……', phase: 1 },
@@ -203,9 +204,27 @@ const BROWSER_DATA = {
     radioInternal12: {
       title: '内部文件 — R-879-12',
       url: 'radio879.com/internal/12',
-      content: '=== 受试者评估报告 ===\n\n编号：R-879-12\n姓名：叶心怡\n职业：银行柜员\n引入人：R-879-01（频率引导）\n\n当前状态：阶段三（服从）\n记忆清除：有效\n转化进度：100%\n\n行为指标：\n- 首次接触：柜台偶遇已转化受试者，对方留下频率信息\n- 初始态度：拜金主义，物质至上，极度精明\n- 转化特征：从\"积累\"到\"奉献\"的彻底价值观翻转\n- 资产处理：已清空全部个人储蓄，正在变卖个人资产\n\n评估：\n受试者是最典型的\"价值观翻转\"案例。\n其原有人格结构以物质积累为核心驱动力。\n频率通过重新定义\"价值\"的概念——将对外部物质的追求翻转\n为对内在奉献的渴望。受试者体验到\"给予\"比\"拥有\"更强烈的满足感，\n从而主动放弃一切物质追求。\n\n备注：受试者已辞职，正在变卖所有个人财产。\n此案例可作为极端转化的研究样本。\n\n=== 文件结束 ===',
+      content: '=== 受试者评估报告 ===\n\n编号：R-879-12\n姓名：叶心怡\n职业：银行柜员\n引入人：R-879-01（频率引导）\n\n当前状态：阶段三（服从）\n记忆清除：有效\n转化进度：100%\n\n行为指标：\n- 首次接触：柜台偶遇已转化受试者，对方留下频率信息\n- 初始态度：拜金主义，物质至上，极度精明\n- 转化特征：从\"积累\"到\"奉献\"的彻底价值观翻转\n- 资产处理：已清空全部个人储蓄，正在变卖个人资产\n\n评估：\n受试者是最典型的\"价值观翻转\"案例。\n其原有人格结构以物质积累为核心驱动力。\n频率通过重新定义\"价值\"的概念——将对外部物质的追求翻转\n为对内在奉献的渴望。受试者体验到\"给予\"比\"拥有\"更强烈的满足感，\n从而主动放弃一切物质追求。\n\n备注：受试者已辞职，正在变卖所有个人财产。\n此案例可作为极端转化的样本研究。\n\n=== 文件结束 ===',
     },
+    seektruth: {
+      title: '真理报 · Truth Daily',
+      url: 'seektruth.com',
+      content: `<div style="background:#0c0b09;min-height:400px;padding:24px 20px;">
+        <div style="max-width:300px;margin:0 auto;border-left:1px solid rgba(180,40,40,0.2);border-right:1px solid rgba(180,40,40,0.2);padding:0 20px;">
+          <div style="text-align:center;margin-bottom:16px;padding-bottom:12px;border-bottom:2px solid rgba(180,40,40,0.3);">
+            <div style="font-size:28px;font-weight:700;color:#cc3333;letter-spacing:8px;font-family:serif;margin-bottom:4px;text-shadow:0 0 20px rgba(200,50,50,0.15);">真 理 报</div>
+            <div style="font-size:10px;color:rgba(255,255,255,0.3);letter-spacing:3px;text-transform:uppercase;font-family:serif;">Truth Daily · Since 2001</div>
+            <div style="font-size:9px;color:rgba(255,255,255,0.15);margin-top:6px;letter-spacing:1px;">2026年5月刊 · 深夜版</div>
+          </div>
+          <img src="seektruth/news.png" style="width:100%;border-radius:4px;margin-bottom:16px;display:block;">
+          <div style="font-size:10px;color:rgba(255,255,255,0.12);text-align:center;letter-spacing:1px;margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid rgba(180,40,40,0.15);">— 深度 · 真相 · 独立 —</div>
+          <div style="font-size:10px;color:rgba(255,255,255,0.1);text-align:center;font-family:serif;font-style:italic;">
+            "The truth is out there."
+          </div>
+        </div>
+      </div>`,
     },
+  },
 };
 
 const GALLERY_DATA = [
@@ -293,7 +312,7 @@ const FALL_DIARY_DATA = {
       { date: '2026.3.12', title: '面试', text: '今天去了夜航塔。在港区最边上，穿过一片废弃的集装箱堆场才到。\n塔楼外面看起来还是旧的，但里面翻新过了。很干净。干净得不像有人待过。\n她已经在等我了——穿灰色西装，没有自我介绍。只是让我坐下，听一段录音。\n录音里是一个女人的声音。很轻。很慢。她说："闭上眼睛。把手放在膝盖上。"\n我照做了。\n我也不知道为什么。我平时不会这么听话的。但那个声音——它让我想听。\n听完录音她问我感觉怎么样。我说有点晕。她笑了。她说："正常。你被录取了。"' },
       { date: '2026.3.15', title: '第一班', text: '第一晚值班。\n工作内容：坐在控制室里，盯着三排信号灯。红灯代表正常，绿灯代表异常。异常的时候需要记录。\n我问异常了怎么办。她说："你不用管。会有人处理的。"\n我问谁。\n她说："频率。"\n控制室里有一台收音机，调在87.9。她说值班的时候要一直开着。说是"背景白噪音"。\n我听了整整一晚。到凌晨的时候，我发现自己在跟着那个电流的节奏呼吸。\n吸气——嘶——呼气——嘶——\n像有人在带着我呼吸。' },
       { date: '2026.3.22', title: '变化', text: '值了一周的班。我变了很多。\n以前我丢三落四，上班迟到，被领导骂。现在我不在乎了。\n那个声音说：外面的事都不重要。重要的是你在这里。在频率里。\n我开始理解她说的了。白天的一切都很模糊。只有夜航塔的控制室是清晰的。红灯。绿灯。87.9。\n主人说我是"被选中的"。她说我虽然粗心，但正是因为什么都不深想，反而最容易接收到频率。\n"空杯子才能装满。"她说。\n我是空杯子。\n对了，主人给了我一个编号。<strong style="color:#ffcc00;">Q</strong>-879-02。我总觉得哪里不对，可能是听错了吧？' },
-      { date: '2026.4.1', title: '管理员', text: '主人今天正式任命我为夜航塔管理员。\n她给了我一个管理面板的账号。密码是默认的，她说你自己改一下。\n我说好。\n但我没改。反正也不会有人知道这个破地方。谁会来夜航塔啊。\n主人说面板的地址和注意事项写在夜航塔的操作手册里了，让我有空仔细看看，尤其注意尾注，说像我这种粗心的人总要牢记提示。\n我说好。\n我也没看。反正也用不上。\n我大概永远也不会忘——不对。我大概很快就会忘。毕竟我连钥匙放在哪里都要想半天。' },
+      { date: '2026.4.1', title: '管理员', text: '主人今天正式任命我为夜航塔管理员。\n她给了我一个管理面板的账号。密码是默认的，她说你自己改一下。\n我说好。\n但我没改。反正也不会有人知道这个破地方。谁会来夜航塔啊。\n<span style="background:rgba(255,220,50,0.25);">主人说面板的地址和注意事项写在夜航塔的操作手册里了，让我有空仔细看看，尤其注意尾注，说像我这种粗心的人总要牢记提示。</span>\n我说好。\n我也没看。反正也用不上。\n我大概永远也不会忘——不对。我大概很快就会忘。毕竟我连钥匙放在哪里都要想半天。' },
       { date: '2026.4.10', title: '备忘', text: '今天想进管理面板看看，发现密码想不起来了。\n是默认的那个吗？还是我改过了？我改过没有？\n不记得了。\n最近记性越来越差。主人说这是正常的。"你的脑子在清理不重要的东西。"\n所以密码大概也不重要吧。\n但万一哪天重要呢？\n我想了想，还是留心一下，把提示写在日记里吧。反正只有主人能看到。\n\n99.5\n10s\n\n我记性不好，但主人说过：写下来的字比记在脑子里的牢。\n这句话我一直记得。真奇怪，偏偏这句记得最清楚。' },
       { date: '2026.4.18', title: '空', text: '我现在每天在塔里值班。红灯。绿灯。87.9。\n我不再需要闹钟了。那个声音会叫醒我。也不再需要想事情了。主人要我做的事，我会直接做。\n有时候醒来不记得自己怎么到塔里的。但没关系。身体记得路。\n今天我看着控制台上那排信号灯，突然觉得它们很像字。\n我在心里默念了一遍那个频率。\n然后我笑了。\n我笑的时候不知道自己为什么笑。\n但嘴里在念那个数字。一直在念。' },
     ]
@@ -558,6 +577,6 @@ const SEARCH_ADMIN_DATA = [
     { type: '🏗️ 设施档案', content: '设施名称：夜航塔（A 市港区）\n\n类别：广播基础设施 · 信号中继站\n\n状态：运行中\n\n─────────────────────\n\n概述：\n夜航塔是 87.9 MHz 覆盖 A 市的核心物理设施。\n该塔原为港区废弃导航塔，\n于 2026 年初完成翻新改造。\n\n塔内配备三组信号放大器\n及一套频率稳定系统，\n确保 87.9 信号在 A 市全域\n（含郊区）的稳定覆盖。\n\n─────────────────────\n\n覆盖范围：A 市主城区及周边 60 公里\n发射功率：可调（当前：标准）\n维护责任人：R-879-02（陈雨舟）\n\n─────────────────────\n\n备注：\n夜航塔的日常运作由 R-879-02 全权负责。\n管理人员无需技术背景——\n系统自动化程度较高。\n\n塔内控制室配备 87.9 MHz 监听设备，\n须全程开启。\n\n塔内长期播放 87.9 MHz，\n值班人员可能出现以下症状：\n· 困倦\n· 短期记忆减退\n· 时间感知错乱\n\n以上属正常现象，无需报告。' },
   ]},
   { word: '夜航塔操作手册', results: [
-    { type: '📘 操作手册', content: '<strong style="display:block;text-align:center;font-size:15px;margin-bottom:4px;">夜 航 塔 操 作 手 册</strong>\n<strong style="display:block;text-align:center;font-size:11px;color:rgba(255,255,255,0.4);margin-bottom:12px;">版本 2.0 — 仅供内部使用</strong>\n─────────────────────\n\n<strong style="color:#ffcc00;">一、设施概览</strong>\n夜航塔为 87.9 MHz 信号覆盖 A 市的核心中继节点。\n塔高 62 米，配备信号放大器（3 组）、\n频率稳定器，以及备用电源系统\n（断电续航 72 小时）。\n\n<strong style="color:#ffcc00;">二、日常操作</strong>\n1. 确认控制室收音机调至 87.9 MHz\n　 （必须全程开启）。\n2. 监控三排信号灯状态：\n　 · 红灯常亮 = 正常运行\n　 · 绿灯闪烁 = 信号异常，需记录时间\n　 · 红灯熄灭 = 主电源故障，切换备用电源\n3. 每日 23:00 及 03:00 各记录一次仪表读数。\n4. 如发现 87.9 信号中断超过 15 分钟，\n　 联系值班负责人。\n\n<strong style="color:#ffcc00;">三、管理后台</strong>\n地址：radio879.com/admin/tower\n说明：通过该面板可远程查看设备状态、\n调整发射功率，以及查阅系统日志。\n默认管理员账号已在首次开机时配置。\n\n<strong style="color:#ffcc00;">四、注意事项</strong>\n· 禁止非授权人员进入控制室。\n· 控制室收音机不得关闭或调离 87.9 MHz。\n· 如听到异常噪音或语音，无需处理\n　 ——属于正常现象。\n· 值班期间如感困倦、记忆模糊、\n　 时间感知错乱，属正常适应过程。\n\n<strong style="color:#ffcc00;">五、紧急联络</strong>\n内部线路：拨打 #01（直通 R-879-01）\n备用方式：通过 87.9 MHz 发送请求\n　 ——频率会转达。\n\n─────────────────────\n<strong style="display:block;text-align:center;font-size:11px;color:rgba(255,255,255,0.4);">— 本手册由 R-879-01 核准发布 —</strong>\n<div style="text-align:right;font-size:10px;color:rgba(255,255,255,0.15);margin-top:12px;">The end is just the beginning.</div>' },
+    { type: '📘 操作手册', content: '<strong style="display:block;text-align:center;font-size:15px;margin-bottom:4px;">夜 航 塔 操 作 手 册</strong>\n<strong style="display:block;text-align:center;font-size:11px;color:rgba(255,255,255,0.4);margin-bottom:12px;">版本 2.0 — 仅供内部使用</strong>\n─────────────────────\n\n<strong style="color:#ffcc00;">一、设施概览</strong>\n夜航塔为 87.9 MHz 信号覆盖 A 市的核心中继节点。\n塔高 62 米，配备信号放大器（3 组）、\n频率稳定器，以及备用电源系统\n（断电续航 72 小时）。\n\n<strong style="color:#ffcc00;">二、日常操作</strong>\n1. 确认控制室收音机调至 87.9 MHz\n　 （必须全程开启）。\n2. 监控三排信号灯状态：\n　 · 红灯常亮 = 正常运行\n　 · 绿灯闪烁 = 信号异常，需记录时间\n　 · 红灯熄灭 = 主电源故障，切换备用电源\n3. 每日 23:00 及 03:00 各记录一次仪表读数。\n4. 如发现 87.9 信号中断超过 15 分钟，\n　 联系值班负责人。\n\n<strong style="color:#ffcc00;">三、管理后台</strong>\n地址：radio879.com/admin/tower\n说明：通过该面板可远程查看设备状态、\n调整发射功率，以及查阅系统日志。\n默认管理员账号已在首次开机时配置。\n\n<strong style="color:#ffcc00;">四、注意事项</strong>\n· 禁止非授权人员进入控制室。\n· 控制室收音机不得关闭或调离 87.9 MHz。\n· 如听到异常噪音或语音，无需处理\n　 ——属于正常现象。\n· 值班期间如感困倦、记忆模糊、\n　 时间感知错乱，属正常适应过程。\n\n<strong style="color:#ffcc00;">五、紧急联络</strong>\n内部线路：拨打 #01（直通 R-879-01）\n备用方式：通过 87.9 MHz 发送请求\n　 ——频率会转达。\n\n─────────────────────\n<strong style="display:block;text-align:center;font-size:11px;color:rgba(255,255,255,0.4);">— 本手册由 R-879-01 核准发布 —</strong>\n<div style="text-align:right;font-size:10px;color:rgba(255,255,255,0.15);margin-top:12px;"><span style="background:rgba(255,220,50,0.25);">The end is just the beginning.</span></div>' },
   ]},
 ];

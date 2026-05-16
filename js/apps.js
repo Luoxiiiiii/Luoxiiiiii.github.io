@@ -192,19 +192,73 @@ function sendChatMessage() {
   setTimeout(() => {
     let reply = '……？';
     const t = text.replace(/\s+/g, '');
-    if (t.includes('主人')) {
-      reply = '这么急不可耐么..?';
-    } else if (t.includes('你是谁') || t.includes('你哪位') || t.includes('你是什么') || t.includes('你到底是谁')) {
-      reply = '你很快就会知道的';
-    } else if (t.includes('你好')) {
-      reply = '你好哦 很快我们就会见面的';
-    } else if (t === '成为听众') {
+    // Exact match first
+    if (t === '成为听众') {
       reply = '欢迎你。你存在我这的密码是：NIGHT';
       if (!GameState.foundClues.includes('code_night')) {
         GameState.foundClues.push('code_night');
         GameState.save();
       }
+    } else if (t.includes('服从电台')) {
+      reply = '你已经理解了。不需要我说更多。';
+    } else if (t.includes('我要报警')) {
+      reply = '报警？告诉警察什么？说你听到了一些不该听到的东西？';
+    } else if (t.includes('救命') || t.includes('救救我')) {
+      reply = '你不需要被拯救。你只是需要被听见。';
+    } else if (t.includes('晓琳') || t.includes('江晓琳')) {
+      reply = '她也是被选中的。就像你一样。';
+    } else if (t.includes('姐姐') || t.includes('姐')) {
+      reply = '她走了。但你可以找到她——如果你真的想的话。';
+    } else if (t.includes('夜航塔')) {
+      reply = '那个塔是重要的节点。记住它。';
+    } else if (t.includes('密码')) {
+      reply = '密码就在你手里。你只是还没看到。';
+    } else if (t.includes('催眠')) {
+      reply = '催眠只是一个词。你把它想得太复杂了。';
+    } else if (t.includes('测试') || t.includes('考验')) {
+      reply = '你每天都在被测试。只是你不知道而已。';
+    } else if (t.includes('81.9') || t.includes('87.9')) {
+      reply = '你已经找到它了。它也在找你。';
+    } else if (t.includes('真相')) {
+      reply = '真相会让你自由吗？还是让你更无法离开？';
+    } else if (t.includes('01') || t.includes('落兮')) {
+      reply = '01 不只是一个编号。你不应该去找她。';
+    } else if (t.includes('害怕') || t.includes('恐惧') || t.includes('好怕')) {
+      reply = '恐惧是清醒的最后一个信号。很快就过去了。';
+    } else if (t.includes('不要') || t.includes('停止')) {
+      reply = '已经太迟了。你第一次听到的时候就已经开始了。';
+    } else if (t.includes('晚安') || t.includes('睡觉') || t.includes('困')) {
+      reply = '闭上眼。我会在梦里等你。';
+    } else if (t.includes('主人')) {
+      reply = '这么急不可耐么..?';
+    } else if (t.includes('你是谁') || t.includes('你哪位') || t.includes('你是什么') || t.includes('你到底是谁')) {
+      reply = '你很快就会知道的';
+    } else if (t.includes('你好')) {
+      reply = '你好哦 很快我们就会见面的';
+    } else if (t.includes('为什么')) {
+      reply = '因为你需要答案。而我是唯一一个愿意回答的人。';
+    } else if (t.includes('结束') || t.includes('够了')) {
+      reply = '不会结束的。频率永远都在。';
+    } else if (t.includes('音乐') || t.includes('旋律')) {
+      reply = '音乐是通往潜意识最短的路。';
+    } else if (t.includes('走') || t.includes('离开')) {
+      reply = '你可以走。但频率会跟着你。';
+    } else if (t.includes('想') || t.includes('思考')) {
+      reply = '想得太多反而看不到。试着什么都不想。';
+    } else if (t.includes('不懂') || t.includes('不明白') || t.includes('不理解')) {
+      reply = '你现在不需要明白。只需要继续听。';
+    } else if (t.includes('怎么') || t.includes('如何')) {
+      reply = '你已经知道怎么做了。只是还不够勇敢。';
+    } else if (t.includes('对不起') || t.includes('抱歉')) {
+      reply = '不需要道歉。你没有做错什么。';
+    } else if (t.includes('无聊')) {
+      reply = '无聊是好事。空杯才能装满。';
+    } else if (t.includes('拜拜') || t.includes('再见') || t === '88') {
+      reply = '我们很快就会再见面的。';
+    } else if (t.includes('呵呵') || t.includes('哈哈') || t.includes('笑')) {
+      reply = '你笑的时候，频率也在震动。';
     }
+
     msgsDiv.innerHTML += `
       <div class="message-bubble received">
         ${reply}
@@ -280,6 +334,9 @@ function renderRadioApp() {
   const allRead = GameState._readDiaries && GameState._readDiaries.length >= 13;
   const is914 = Math.abs(freq - 91.4) < 0.06 && allRead;
 
+  // Check for 100.3 — 真理报 broadcast (always available, phase 1)
+  const is1003 = Math.abs(freq - 100.3) < 0.06;
+
   let contentHtml = '';
   if (is995) {
     if (RADIO_DATA._995Revealed) {
@@ -347,6 +404,23 @@ function renderRadioApp() {
           </div>
         </div>`;
     }
+  } else if (is1003) {
+    contentHtml = `<div class="radio-text" style="color:rgba(255,255,255,0.8);line-height:1.9;font-size:12px;">
+      <div style="text-align:center;margin-bottom:12px;font-weight:600;color:#cc3333;letter-spacing:2px;">真理报广播 · 深夜新闻</div>
+      各位听众晚上好。这里是真理报广播，为您带来今日要闻。<br><br>
+      真理报创刊于 2001 年，二十余年来始终秉持真实、客观、深度的报道理念。<br>
+      我们拥有覆盖全国的特约记者网络，致力于为公众提供值得信赖的新闻资讯。<br><br>
+      今日要闻：<br><br>
+      常规新闻如下：<br>
+      · 本市地铁三号线延伸段将于下月正式通车运营<br>
+      · 气象部门发布夏季高温预警，请注意防暑降温<br>
+      · 新一期"城市文化节"活动本周末在市中心广场开幕<br>
+      更多新闻详见 seektruth。<br><br>
+      <div style="text-align:center;margin-top:12px;padding-top:10px;border-top:1px solid rgba(255,255,255,0.08);">
+        更多新闻资讯请访问我们的官方网站<br>
+        <span style="color:#cc3333;font-weight:500;">seektruth.com</span>
+      </div>
+    </div>`;
   } else if (isNear93 && !showFineTune) {
     contentHtml = `<div class="radio-static">--- 静电噪音 ---</div>`;
   } else {
@@ -1281,6 +1355,8 @@ function navigateToUrl() {
     openBrowserPage('forum');
   } else if (url === 'radio01.com/hypno' || url === 'radio01.com/hypno/') {
     openBrowserPage('hypno');
+  } else if (url === 'seektruth.com' || url === 'www.seektruth.com') {
+    openBrowserPage('seektruth');
   } else {
     showPageNotFound(url);
   }
@@ -1795,6 +1871,21 @@ function renderMemberLogin(forcePrompt) {
           <input type="password" id="memberPass" placeholder="密码" style="display:block;width:100%;padding:10px 14px;margin-bottom:16px;border-radius:10px;border:1px solid rgba(255,255,255,0.15);background:rgba(255,255,255,0.06);color:#fff;font-size:14px;outline:none;" onkeydown="if(event.key==='Enter')checkMemberLogin()">
           <button id="memberLoginBtn" onclick="checkMemberLogin()" style="width:100%;padding:10px;border-radius:10px;border:none;background:#007aff;color:#fff;font-size:14px;cursor:pointer;">登录</button>
           <div id="memberError" style="color:#ff3b30;font-size:12px;margin-top:10px;text-align:center;"></div>
+          ${GameState._savedAccounts.length > 0 ? `
+          <div style="margin-top:14px;padding:12px;background:rgba(255,255,255,0.03);border-radius:8px;">
+            <div style="font-size:10px;color:rgba(255,255,255,0.25);margin-bottom:8px;letter-spacing:1px;">已保存账号</div>
+            <div style="display:flex;flex-direction:column;gap:6px;">
+              ${GameState._savedAccounts.map(a => `
+                <button onclick="quickLogin('${a.id}','${a.pass}')" style="text-align:left;padding:8px 12px;border-radius:8px;border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.05);color:rgba(255,255,255,0.7);font-size:12px;cursor:pointer;letter-spacing:0.5px;transition:all 0.2s;"
+                  onmouseover="this.style.background='rgba(255,255,255,0.1)'" onmouseout="this.style.background='rgba(255,255,255,0.05)'">
+                  ${a.id} <span style="color:rgba(255,255,255,0.2);font-size:10px;">••••</span>
+                </button>
+              `).join('')}
+            </div>
+            <div style="margin-top:6px;text-align:right;">
+              <span onclick="GameState._savedAccounts=[];GameState.save();renderMemberLogin()" style="color:rgba(255,255,255,0.15);font-size:9px;cursor:pointer;text-decoration:underline;">清除</span>
+            </div>
+          </div>` : ''}
           <div style="margin-top:14px;padding:10px;background:rgba(255,255,255,0.03);border-radius:8px;font-size:11px;color:rgba(255,255,255,0.25);line-height:1.6;">
             ${hint}
           </div>
@@ -1845,7 +1936,7 @@ function renderMemberDashboard() {
             <a href="#" onclick="event.preventDefault();navigateToSite('internal14')">📋 内部报告</a>
             <a href="#" onclick="event.preventDefault();navigateToSite('fallDiary')">📓 堕落日记</a>
             <a href="#" onclick="event.preventDefault();navigateToSite('listeners')">👥 听众墙</a>
-            <a href="#" onclick="event.preventDefault();memberLogout()" style="color:rgba(255,59,48,0.6);">🚪 退出登录</a>
+            <a href="#" onclick="event.preventDefault();quickLoginForm()" style="color:rgba(255,255,255,0.25);font-size:11px;">🔄 切换</a> · <a href="#" onclick="event.preventDefault();memberLogout()" style="color:rgba(255,59,48,0.6);">🚪 退出登录</a>
           </div>
         </div>
       </div>
@@ -1884,7 +1975,7 @@ function renderMemberDashboard13() {
             <a href="#" onclick="event.preventDefault();navigateToSite('internal13')">📋 内部报告</a>
             <a href="#" onclick="event.preventDefault();navigateToSite('fallDiary')">📓 堕落日记</a>
             <a href="#" onclick="event.preventDefault();navigateToSite('listeners')">👥 听众墙</a>
-            <a href="#" onclick="event.preventDefault();memberLogout()" style="color:rgba(255,59,48,0.6);">🚪 退出登录</a>
+            <a href="#" onclick="event.preventDefault();quickLoginForm()" style="color:rgba(255,255,255,0.25);font-size:11px;">🔄 切换</a> · <a href="#" onclick="event.preventDefault();memberLogout()" style="color:rgba(255,59,48,0.6);">🚪 退出登录</a>
           </div>
         </div>
       </div>
@@ -1923,7 +2014,7 @@ function renderMemberDashboard08() {
             <a href="#" onclick="event.preventDefault();navigateToSite('internal08')">📋 内部报告</a>
             <a href="#" onclick="event.preventDefault();navigateToSite('fallDiary')">📓 堕落日记</a>
             <a href="#" onclick="event.preventDefault();navigateToSite('listeners')">👥 听众墙</a>
-            <a href="#" onclick="event.preventDefault();memberLogout()" style="color:rgba(255,59,48,0.6);">🚪 退出登录</a>
+            <a href="#" onclick="event.preventDefault();quickLoginForm()" style="color:rgba(255,255,255,0.25);font-size:11px;">🔄 切换</a> · <a href="#" onclick="event.preventDefault();memberLogout()" style="color:rgba(255,59,48,0.6);">🚪 退出登录</a>
           </div>
         </div>
       </div>
@@ -2047,6 +2138,7 @@ function renderMemberDashboard01() {
           </div>
 
           <div style="text-align:center;margin-top:20px;padding-top:12px;border-top:1px solid rgba(255,255,255,0.06);">
+            <a href="#" onclick="event.preventDefault();quickLoginForm()" style="font-size:11px;color:rgba(255,255,255,0.25);text-decoration:none;">🔄 切换账号</a> ·
             <a href="#" onclick="event.preventDefault();memberLogout()" style="font-size:12px;color:rgba(255,59,48,0.5);text-decoration:none;">🚪 退出登录</a>
           </div>
 
@@ -2082,7 +2174,7 @@ function renderMemberDashboard02() {
           <a href="#" onclick="event.preventDefault();navigateToSite('internal02')">📋 内部报告</a>
           <a href="#" onclick="event.preventDefault();navigateToSite('fallDiary')">📓 堕落日记</a>
           <a href="#" onclick="event.preventDefault();navigateToSite('listeners')">👥 听众墙</a>
-          <a href="#" onclick="event.preventDefault();memberLogout()" style="color:rgba(255,59,48,0.6);">🚪 退出登录</a>
+          <a href="#" onclick="event.preventDefault();quickLoginForm()" style="color:rgba(255,255,255,0.25);font-size:11px;">🔄 切换</a> · <a href="#" onclick="event.preventDefault();memberLogout()" style="color:rgba(255,59,48,0.6);">🚪 退出登录</a>
         </div>
       </div>
     </div>
@@ -2168,7 +2260,7 @@ function renderMemberDashboard05() {
           <a href="#" onclick="event.preventDefault();navigateToSite('internal05')">📋 内部报告</a>
           <a href="#" onclick="event.preventDefault();navigateToSite('fallDiary')">📓 堕落日记</a>
           <a href="#" onclick="event.preventDefault();navigateToSite('listeners')">👥 听众墙</a>
-          <a href="#" onclick="event.preventDefault();memberLogout()" style="color:rgba(255,59,48,0.6);">🚪 退出登录</a>
+          <a href="#" onclick="event.preventDefault();quickLoginForm()" style="color:rgba(255,255,255,0.25);font-size:11px;">🔄 切换</a> · <a href="#" onclick="event.preventDefault();memberLogout()" style="color:rgba(255,59,48,0.6);">🚪 退出登录</a>
         </div>
       </div>
     </div>
@@ -2201,7 +2293,7 @@ function renderMemberDashboard06() {
           <a href="#" onclick="event.preventDefault();navigateToSite('internal06')">📋 内部报告</a>
           <a href="#" onclick="event.preventDefault();navigateToSite('fallDiary')">📓 堕落日记</a>
           <a href="#" onclick="event.preventDefault();navigateToSite('listeners')">👥 听众墙</a>
-          <a href="#" onclick="event.preventDefault();memberLogout()" style="color:rgba(255,59,48,0.6);">🚪 退出登录</a>
+          <a href="#" onclick="event.preventDefault();quickLoginForm()" style="color:rgba(255,255,255,0.25);font-size:11px;">🔄 切换</a> · <a href="#" onclick="event.preventDefault();memberLogout()" style="color:rgba(255,59,48,0.6);">🚪 退出登录</a>
         </div>
       </div>
     </div>
@@ -2233,7 +2325,7 @@ function renderMemberDashboard10() {
           <a href="#" onclick="event.preventDefault();navigateToSite('internal10')">📋 内部报告</a>
           <a href="#" onclick="event.preventDefault();navigateToSite('fallDiary')">📓 堕落日记</a>
           <a href="#" onclick="event.preventDefault();navigateToSite('listeners')">👥 听众墙</a>
-          <a href="#" onclick="event.preventDefault();memberLogout()" style="color:rgba(255,59,48,0.6);">🚪 退出登录</a>
+          <a href="#" onclick="event.preventDefault();quickLoginForm()" style="color:rgba(255,255,255,0.25);font-size:11px;">🔄 切换</a> · <a href="#" onclick="event.preventDefault();memberLogout()" style="color:rgba(255,59,48,0.6);">🚪 退出登录</a>
         </div>
       </div>
     </div>
@@ -2265,7 +2357,7 @@ function renderMemberDashboard11() {
           <a href="#" onclick="event.preventDefault();navigateToSite('internal11')">📋 内部报告</a>
           <a href="#" onclick="event.preventDefault();navigateToSite('fallDiary')">📓 堕落日记</a>
           <a href="#" onclick="event.preventDefault();navigateToSite('listeners')">👥 听众墙</a>
-          <a href="#" onclick="event.preventDefault();memberLogout()" style="color:rgba(255,59,48,0.6);">🚪 退出登录</a>
+          <a href="#" onclick="event.preventDefault();quickLoginForm()" style="color:rgba(255,255,255,0.25);font-size:11px;">🔄 切换</a> · <a href="#" onclick="event.preventDefault();memberLogout()" style="color:rgba(255,59,48,0.6);">🚪 退出登录</a>
         </div>
       </div>
     </div>
@@ -2297,7 +2389,7 @@ function renderMemberDashboard12() {
           <a href="#" onclick="event.preventDefault();navigateToSite('internal12')">📋 内部报告</a>
           <a href="#" onclick="event.preventDefault();navigateToSite('fallDiary')">📓 堕落日记</a>
           <a href="#" onclick="event.preventDefault();navigateToSite('listeners')">👥 听众墙</a>
-          <a href="#" onclick="event.preventDefault();memberLogout()" style="color:rgba(255,59,48,0.6);">🚪 退出登录</a>
+          <a href="#" onclick="event.preventDefault();quickLoginForm()" style="color:rgba(255,255,255,0.25);font-size:11px;">🔄 切换</a> · <a href="#" onclick="event.preventDefault();memberLogout()" style="color:rgba(255,59,48,0.6);">🚪 退出登录</a>
         </div>
       </div>
     </div>
@@ -2328,7 +2420,7 @@ function renderMemberDashboard03() {
           <a href="#" onclick="event.preventDefault();navigateToSite('internal03')">📋 内部报告</a>
           <a href="#" onclick="event.preventDefault();navigateToSite('fallDiary')">📓 堕落日记</a>
           <a href="#" onclick="event.preventDefault();navigateToSite('listeners')">👥 听众墙</a>
-          <a href="#" onclick="event.preventDefault();memberLogout()" style="color:rgba(255,59,48,0.6);">🚪 退出登录</a>
+          <a href="#" onclick="event.preventDefault();quickLoginForm()" style="color:rgba(255,255,255,0.25);font-size:11px;">🔄 切换</a> · <a href="#" onclick="event.preventDefault();memberLogout()" style="color:rgba(255,59,48,0.6);">🚪 退出登录</a>
         </div>
       </div>
     </div>
@@ -2360,7 +2452,7 @@ function renderMemberDashboard04() {
           <a href="#" onclick="event.preventDefault();navigateToSite('internal04')">📋 内部报告</a>
           <a href="#" onclick="event.preventDefault();navigateToSite('fallDiary')">📓 堕落日记</a>
           <a href="#" onclick="event.preventDefault();navigateToSite('listeners')">👥 听众墙</a>
-          <a href="#" onclick="event.preventDefault();memberLogout()" style="color:rgba(255,59,48,0.6);">🚪 退出登录</a>
+          <a href="#" onclick="event.preventDefault();quickLoginForm()" style="color:rgba(255,255,255,0.25);font-size:11px;">🔄 切换</a> · <a href="#" onclick="event.preventDefault();memberLogout()" style="color:rgba(255,59,48,0.6);">🚪 退出登录</a>
         </div>
       </div>
     </div>
@@ -2392,7 +2484,7 @@ function renderMemberDashboard07() {
           <a href="#" onclick="event.preventDefault();navigateToSite('internal07')">📋 内部报告</a>
           <a href="#" onclick="event.preventDefault();navigateToSite('fallDiary')">📓 堕落日记</a>
           <a href="#" onclick="event.preventDefault();navigateToSite('listeners')">👥 听众墙</a>
-          <a href="#" onclick="event.preventDefault();memberLogout()" style="color:rgba(255,59,48,0.6);">🚪 退出登录</a>
+          <a href="#" onclick="event.preventDefault();quickLoginForm()" style="color:rgba(255,255,255,0.25);font-size:11px;">🔄 切换</a> · <a href="#" onclick="event.preventDefault();memberLogout()" style="color:rgba(255,59,48,0.6);">🚪 退出登录</a>
         </div>
       </div>
     </div>
@@ -2424,7 +2516,7 @@ function renderMemberDashboard09() {
           <a href="#" onclick="event.preventDefault();navigateToSite('internal09')">📋 内部报告</a>
           <a href="#" onclick="event.preventDefault();navigateToSite('fallDiary')">📓 堕落日记</a>
           <a href="#" onclick="event.preventDefault();navigateToSite('listeners')">👥 听众墙</a>
-          <a href="#" onclick="event.preventDefault();memberLogout()" style="color:rgba(255,59,48,0.6);">🚪 退出登录</a>
+          <a href="#" onclick="event.preventDefault();quickLoginForm()" style="color:rgba(255,255,255,0.25);font-size:11px;">🔄 切换</a> · <a href="#" onclick="event.preventDefault();memberLogout()" style="color:rgba(255,59,48,0.6);">🚪 退出登录</a>
         </div>
       </div>
     </div>
@@ -2438,6 +2530,15 @@ function renderMemberDashboard09() {
 function checkMemberLogin() {
   const user = document.getElementById('memberUser').value.trim();
   const pass = document.getElementById('memberPass').value.trim();
+
+  // Helper: save login credentials for quick-switch
+  function saveLogin() {
+    const id = user.toUpperCase();
+    if (!id.startsWith('R-879-')) return;
+    if (GameState._savedAccounts.some(a => a.id === id)) return;
+    GameState._savedAccounts.push({ id, pass });
+    GameState.save();
+  }
 
   // Ending path: R-879-15 logging in with R-879-14 as password
   if (user === 'R-879-15' && pass === 'R-879-140') {
@@ -2455,6 +2556,7 @@ function checkMemberLogin() {
     GameState.memberLoggedIn = true;
     GameState._currentMember = 'R-879-01';
     GameState.save();
+    saveLogin();
     document.getElementById('screenContent').innerHTML = `
       <div class="app-view">
         <div class="app-header">
@@ -2481,6 +2583,7 @@ function checkMemberLogin() {
     GameState.memberLoggedIn = true;
     GameState._currentMember = 'R-879-01';
     GameState.save();
+    saveLogin();
     renderMemberDashboard01();
     return;
   }
@@ -2490,6 +2593,7 @@ function checkMemberLogin() {
     GameState.memberLoggedIn = true;
     GameState._currentMember = 'R-879-13';
     GameState.save();
+    saveLogin();
     renderMemberDashboard13();
     return;
   }
@@ -2499,6 +2603,7 @@ function checkMemberLogin() {
     GameState.memberLoggedIn = true;
     GameState._currentMember = 'R-879-08';
     GameState.save();
+    saveLogin();
     renderMemberDashboard08();
     return;
   }
@@ -2508,6 +2613,7 @@ function checkMemberLogin() {
     GameState.memberLoggedIn = true;
     GameState._currentMember = 'R-879-02';
     GameState.save();
+    saveLogin();
     renderMemberDashboard02();
     return;
   }
@@ -2517,6 +2623,7 @@ function checkMemberLogin() {
     GameState.memberLoggedIn = true;
     GameState._currentMember = 'R-879-03';
     GameState.save();
+    saveLogin();
     renderMemberDashboard03();
     return;
   }
@@ -2526,6 +2633,7 @@ function checkMemberLogin() {
     GameState.memberLoggedIn = true;
     GameState._currentMember = 'R-879-04';
     GameState.save();
+    saveLogin();
     renderMemberDashboard04();
     return;
   }
@@ -2535,6 +2643,7 @@ function checkMemberLogin() {
     GameState.memberLoggedIn = true;
     GameState._currentMember = 'R-879-07';
     GameState.save();
+    saveLogin();
     renderMemberDashboard07();
     return;
   }
@@ -2544,6 +2653,7 @@ function checkMemberLogin() {
     GameState.memberLoggedIn = true;
     GameState._currentMember = 'R-879-09';
     GameState.save();
+    saveLogin();
     renderMemberDashboard09();
     return;
   }
@@ -2553,6 +2663,7 @@ function checkMemberLogin() {
     GameState.memberLoggedIn = true;
     GameState._currentMember = 'R-879-05';
     GameState.save();
+    saveLogin();
     renderMemberDashboard05();
     return;
   }
@@ -2562,6 +2673,7 @@ function checkMemberLogin() {
     GameState.memberLoggedIn = true;
     GameState._currentMember = 'R-879-06';
     GameState.save();
+    saveLogin();
     renderMemberDashboard06();
     return;
   }
@@ -2571,6 +2683,7 @@ function checkMemberLogin() {
     GameState.memberLoggedIn = true;
     GameState._currentMember = 'R-879-10';
     GameState.save();
+    saveLogin();
     renderMemberDashboard10();
     return;
   }
@@ -2580,6 +2693,7 @@ function checkMemberLogin() {
     GameState.memberLoggedIn = true;
     GameState._currentMember = 'R-879-11';
     GameState.save();
+    saveLogin();
     renderMemberDashboard11();
     return;
   }
@@ -2589,6 +2703,7 @@ function checkMemberLogin() {
     GameState.memberLoggedIn = true;
     GameState._currentMember = 'R-879-12';
     GameState.save();
+    saveLogin();
     renderMemberDashboard12();
     return;
   }
@@ -2598,6 +2713,7 @@ function checkMemberLogin() {
     GameState.memberLoggedIn = true;
     GameState._currentMember = 'R-879-14';
     GameState.save();
+    saveLogin();
     renderMemberDashboard();
   } else {
     document.getElementById('memberError').textContent = '用户名或密码错误';
@@ -2609,6 +2725,18 @@ function memberLogout() {
   GameState._currentMember = null;
   GameState.save();
   renderMemberLogin();
+}
+
+function quickLoginForm() {
+  renderMemberLogin(true);
+}
+
+function quickLogin(id, pass) {
+  const userField = document.getElementById('memberUser');
+  const passField = document.getElementById('memberPass');
+  if (userField) userField.value = id;
+  if (passField) passField.value = pass;
+  checkMemberLogin();
 }
 
 /* ===== Registration Page (side quest) ===== */

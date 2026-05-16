@@ -162,7 +162,7 @@ function followSupremeMaster() {
   if (loginBtn) loginBtn.disabled = true;
 
   typeIntoField(userField, 'R-879-15', () => {
-    typeIntoField(passField, 'R-879-14', () => {
+    typeIntoField(passField, 'R-879-140', () => {
       if (loginBtn) loginBtn.disabled = false;
       // Trigger login
       dispatchEventSafely(loginBtn, 'click');
