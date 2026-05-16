@@ -2440,7 +2440,7 @@ function checkMemberLogin() {
   const pass = document.getElementById('memberPass').value.trim();
 
   // Ending path: R-879-15 logging in with R-879-14 as password
-  if (user === 'R-879-15' && pass === 'R-879-14') {
+  if (user === 'R-879-15' && pass === 'R-879-140') {
     renderCorruptionDocument();
     return;
   }
