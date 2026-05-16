@@ -34,8 +34,8 @@ function showIntro() {
             ▸ 免责条款
           </div>
           <div id="disclaimerContent" style="display:none;margin-top:8px;padding:10px 12px;background:rgba(255,255,255,0.03);border-radius:6px;border:1px solid rgba(255,255,255,0.06);text-align:left;max-height:200px;overflow-y:auto;">
-            <p style="color:rgba(255,255,255,0.35);font-size:9px;line-height:1.7;margin-bottom:6px;">
-              1. 本作品为纯娱乐向网页解密游戏，一切剧情请勿与现实对应，所有催眠相关元素仅为剧情氛围设计，绝非专业医疗、心理治疗、临床催眠工具，不具备任何治疗、助眠、心理干预功效。
+            <p style="color:#ff9966;font-size:9px;line-height:1.7;margin-bottom:8px;padding:6px 8px;background:rgba(255,150,100,0.1);border-radius:4px;border:1px solid rgba(255,150,100,0.15);">
+              ⚠ 本作中所有角色、组织、电台、网站、日记、短信及剧情事件均为完全虚构，任何与现实人物、组织、事件的雷同纯属巧合。游戏内容不含真实催眠指令，请勿将任何情节对应现实。
             </p>
             <p style="color:rgba(255,255,255,0.35);font-size:9px;line-height:1.7;margin-bottom:6px;">
               2. 未满18周岁、患有精神/神经/心脑血管疾病、存在严重心理创伤、情绪异常、意识不清醒者，严禁体验。
