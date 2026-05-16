@@ -239,6 +239,8 @@
   color: #fff;
   letter-spacing: 2px;
   transition: color 0.3s;
+  touch-action: manipulation;
+  -webkit-touch-callout: none;
 }
 .radio-frequency.fine-mode {
   color: #ffcc00;

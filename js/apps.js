@@ -446,7 +446,7 @@ function renderRadioApp() {
       </div>
       <div class="radio-view">
         <div class="radio-display">
-          <div class="radio-frequency${fineMode ? ' fine-mode' : ''}"${showFineTune ? ' ondblclick="toggleFineMode()"' : ''}>${fineMode ? freq.toFixed(2) : freq.toFixed(1)}</div>
+          <div class="radio-frequency${fineMode ? ' fine-mode' : ''}">${fineMode ? freq.toFixed(2) : freq.toFixed(1)}</div>
           <div class="radio-band">MHz${fineMode ? ' <span style="color:#ffcc00;font-size:10px;">微调</span>' : ''}</div>
         </div>
         <div class="radio-controls">
@@ -466,12 +466,12 @@ function renderRadioApp() {
     </div>
   `;
 
-  // Attach dblclick listener for fine-tune unlock at 93.5
+  // Attach click listener for fine-tune unlock at 93.5
   if (isNear93 && !GameState.fineTuneUnlocked) {
     const freqEl = document.querySelector('.radio-frequency');
     if (freqEl) {
       freqEl.style.cursor = 'pointer';
-      freqEl.ondblclick = function() {
+      freqEl.onclick = function(e) {
         if (!GameState.fineTuneUnlocked) unlockFineTune();
       };
     }
@@ -737,7 +737,7 @@ function renderTowerDashboard() {
           <div style="margin-bottom:8px;color:rgba(255,255,255,0.4);font-size:11px;">系统日志（最近）</div>
           <div style="font-size:11px;color:rgba(255,255,255,0.5);font-family:monospace;">
             05/13 06:00 — 常规自检通过<br>
-            05/13 04:00 — 维护授权码：NO??<br>
+            05/13 04:00 — 维护授权码：NO��<br>
             05/13 03:00 — 信号强度波动 · 自动校准<br>
             05/13 00:00 — 常规自检通过<br>
             05/12 23:00 — 87.9 信号稳定<br>
@@ -2853,7 +2853,7 @@ function renderTrapPage() {
           <div class="webpage-url">radio01.com</div>
         </div>
         <p id="trapText" style="color:#8b0000;font-size:10px;text-align:center;line-height:1.8;letter-spacing:2px;font-weight:400;transition:all 3s ease;opacity:0;font-family:'STKaiti','华文楷体','KaiTi','楷体',serif;">
-          你以 为 自己 很 聪 明 吗
+          逃 避 思 考 解 决 不 了 任 何 问 题
         </p>
       </div>
     </div>
