@@ -3513,8 +3513,9 @@ function showCallScreen(number, status, lines) {
 function renderMailApp() {
   let html = `<div class="app-view"><div class="app-header"><button class="back-btn" onclick="goHome()">←</button><span class="app-title">邮件</span></div><div class="mail-list">`;
   const visibleMails = MAIL_DATA.filter(m => m.phase <= GameState.gamePhase);
-  visibleMails.forEach((m, i) => {
-    html += `<div class="mail-item" onclick="openMail(${i})">
+  visibleMails.forEach((m) => {
+    const realIdx = MAIL_DATA.indexOf(m);
+    html += `<div class="mail-item" onclick="openMail(${realIdx})">
       <div class="mail-from">${m.from}</div>
       <div class="mail-subject">${m.subject}</div>
     </div>`;
