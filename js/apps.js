@@ -1,5 +1,24 @@
 // js/apps.js — all app renderers
 
+const MYSTERY_HINTS = {
+  '0': '0 是一切开始的地方。你手上有一台手机，先看看里面有什么。',
+  '1': '1 是第一个密码。备忘录里有人在提醒你什么。',
+  '2': '2 是调频。浏览器历史记录里可能有一些线索。',
+  '3': '3 是发送。电台给出了位置，照片里有答案，把它们拼起来。',
+  '4': '4 是入口。拿到口令之后，用它打开第一扇门。',
+  '5': '5 是通话。有个号码可以打，打通之后需要说出那句话。',
+  '6': '6 是观察。听众墙上的名字和短信结合起来，能推出一串字母。',
+  '7': '7 是登录。用那串字母进入一个账号，日记里有你需要的信息。',
+  '8': '8 是推算。日记里提到的时间逆推出一个日期，用这个日期登录。',
+  '9': '9 是搜索。在搜索栏中输入那个编号，故事会自己展开。',
+  '10': '10 是观察。日记里提到楼上的人很粗心——想想这意味着什么。',
+  '11': '11 是调频。99.5 等 10 秒，出现的字母需要转换一下。',
+  '12': '12 是操作。手册里有后台地址，进去之后找授权码。',
+  '13': '13 是终点。授权码藏在结束即是开始这句话里。',
+  '14': '14 是重启。结束之后重新开始，这次去角落看看。',
+  '15': '15 是隐藏。404 页面里藏着最后的密码。',
+};
+
 let _whiteNoiseAudio = null;
 let _bgMusicAudio = null;
 let _bgMusicMuted = false;
@@ -128,10 +147,16 @@ function openChat(contactId) {
   let replyHtml = '';
   if (showReplies) {
     replyHtml = `
-      <div class="chat-reply-bar">
-        <button class="reply-option" onclick="sendReply('${contactId}', '听了')">听了</button>
-        <button class="reply-option" onclick="sendReply('${contactId}', '你是谁')">你是谁</button>
-        <button class="reply-option" onclick="sendReply('${contactId}', '我不知道你在说什么')">我不知道你在说什么</button>
+      <div class="chat-reply-bar" style="flex-direction:column;gap:6px;">
+        <div style="display:flex;gap:6px;flex-wrap:wrap;">
+          <button class="reply-option" onclick="sendReply('${contactId}', '听了')">听了</button>
+          <button class="reply-option" onclick="sendReply('${contactId}', '你是谁')">你是谁</button>
+          <button class="reply-option" onclick="sendReply('${contactId}', '我不知道你在说什么')">我不知道你在说什么</button>
+        </div>
+        <div style="display:flex;gap:6px;width:100%;">
+          <input type="text" id="mysteryInput" placeholder="输入数字获取提示…" style="flex:1;padding:10px 12px;border-radius:18px;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.06);color:#fff;font-size:13px;outline:none;" onkeydown="if(event.key==='Enter')sendMysteryNumber()">
+          <button onclick="sendMysteryNumber()" style="padding:10px 16px;border-radius:18px;border:none;background:#007aff;color:#fff;font-size:12px;cursor:pointer;">发送</button>
+        </div>
       </div>
     `;
   } else if (showInput) {
@@ -172,6 +197,40 @@ function sendReply(contactId, text) {
   msgsDiv.scrollTop = msgsDiv.scrollHeight;
   GameState.foundClues.push('replied_to_' + contactId);
   GameState.save();
+}
+
+function sendMysteryNumber() {
+  const input = document.getElementById('mysteryInput');
+  const text = input.value.trim();
+  if (!text) return;
+
+  const msgsDiv = document.querySelector('.chat-messages');
+  msgsDiv.innerHTML += `
+    <div class="message-bubble sent">
+      ${text}
+    </div>
+  `;
+  msgsDiv.scrollTop = msgsDiv.scrollHeight;
+  input.value = '';
+
+  setTimeout(() => {
+    const num = text.replace(/\s+/g, '');
+    let reply = MYSTERY_HINTS[num];
+    if (!reply) {
+      // Check if it's a valid number but out of range
+      if (/^\d+$/.test(num)) {
+        reply = '这个数字……还没有对应的故事。也许以后会有。';
+      } else {
+        reply = '数字。给我一个数字。';
+      }
+    }
+    msgsDiv.innerHTML += `
+      <div class="message-bubble received">
+        ${reply}
+      </div>
+    `;
+    msgsDiv.scrollTop = msgsDiv.scrollHeight;
+  }, 1000);
 }
 
 function sendChatMessage() {
