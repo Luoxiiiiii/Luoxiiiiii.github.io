@@ -20,6 +20,7 @@ const MYSTERY_HINTS = {
 };
 
 let _whiteNoiseAudio = null;
+let _unknownMsgCount = {};
 let _bgMusicAudio = null;
 let _bgMusicMuted = false;
 
@@ -312,6 +313,49 @@ function sendChatMessage() {
   setTimeout(() => {
     let reply = '……？';
     const t = text.replace(/\s+/g, '');
+
+    // Track repeated messages — 3+ times gets special reply
+    _unknownMsgCount[t] = (_unknownMsgCount[t] || 0) + 1;
+    const repeated = _unknownMsgCount[t] >= 3;
+
+    if (repeated) {
+      // Check for specific repeated messages first
+      if (t === '成为听众') {
+        reply = '……你还在找那个密码？你已经得到了。你只是不敢相信这么简单。';
+      } else if (t.includes('服从电台')) {
+        reply = '你说了很多遍。你在说服谁？我，还是你自己？';
+      } else if (t.includes('救命') || t.includes('救救我')) {
+        reply = '你喊了很多遍了。没有人来。但我一直在。';
+      } else if (t.includes('你是谁')) {
+        reply = '你问了很多遍了。你其实知道答案的。';
+      } else if (t.includes('晚安') || t.includes('睡觉')) {
+        reply = '你每次说晚安，我都在。今晚也一样。';
+      } else if (t.includes('87.9')) {
+        reply = '你一直提这个数字。它也在你脑子里一直响，对吗？';
+      } else if (t.includes('01')) {
+        reply = '你这么想找她？她会来的。很快。';
+      } else if (t.includes('密码')) {
+        reply = '密码会来找你，不是你找密码。';
+      } else if (t.includes('姐姐') || t.includes('姐')) {
+        reply = '你很想她。我知道。但她不会回来了。';
+      } else if (t.includes('主人')) {
+        reply = '看来你已经准备好被支配了。';
+      } else if (t.includes('你好') || t.includes('hello') || t.includes('hi')) {
+        reply = '你每次都打招呼。你很有礼貌。但这里不需要礼貌。';
+      } else if (t.includes('不明白') || t.includes('不懂')) {
+        reply = '你问了三遍同样的问题。答案不会变的。因为你还没准备好接受它。';
+      } else {
+        reply = '你一直在说同样的东西。你到底在等什么？等我来找你？';
+      }
+      msgsDiv.innerHTML += `
+        <div class="message-bubble received">
+          ${reply}
+        </div>
+      `;
+      msgsDiv.scrollTop = msgsDiv.scrollHeight;
+      return;
+    }
+
     // Exact match first
     if (t === '成为听众') {
       reply = '欢迎你。你存在我这的密码是：NIGHT';
