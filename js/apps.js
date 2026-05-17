@@ -147,16 +147,9 @@ function openChat(contactId) {
   let replyHtml = '';
   if (showReplies) {
     replyHtml = `
-      <div class="chat-reply-bar" style="flex-direction:column;gap:6px;">
-        <div style="display:flex;gap:6px;flex-wrap:wrap;">
-          <button class="reply-option" onclick="sendReply('${contactId}', '听了')">听了</button>
-          <button class="reply-option" onclick="sendReply('${contactId}', '你是谁')">你是谁</button>
-          <button class="reply-option" onclick="sendReply('${contactId}', '我不知道你在说什么')">我不知道你在说什么</button>
-        </div>
-        <div style="display:flex;gap:6px;width:100%;">
-          <input type="text" id="mysteryInput" placeholder="输入数字获取提示…" style="flex:1;padding:10px 12px;border-radius:18px;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.06);color:#fff;font-size:13px;outline:none;" onkeydown="if(event.key==='Enter')sendMysteryNumber()">
-          <button onclick="sendMysteryNumber()" style="padding:10px 16px;border-radius:18px;border:none;background:#007aff;color:#fff;font-size:12px;cursor:pointer;">发送</button>
-        </div>
+      <div class="chat-reply-bar">
+        <input type="text" id="mysteryInput" placeholder="你实在走投无路时 从0开始输入来获取提示吧" style="flex:1;padding:10px 12px;border-radius:18px;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.06);color:#fff;font-size:13px;outline:none;" onkeydown="if(event.key==='Enter')sendMysteryMessage()">
+        <button onclick="sendMysteryMessage()" style="padding:10px 16px;border-radius:18px;border:none;background:#007aff;color:#fff;font-size:12px;cursor:pointer;">发送</button>
       </div>
     `;
   } else if (showInput) {
@@ -199,7 +192,7 @@ function sendReply(contactId, text) {
   GameState.save();
 }
 
-function sendMysteryNumber() {
+function sendMysteryMessage() {
   const input = document.getElementById('mysteryInput');
   const text = input.value.trim();
   if (!text) return;
@@ -214,16 +207,84 @@ function sendMysteryNumber() {
   input.value = '';
 
   setTimeout(() => {
-    const num = text.replace(/\s+/g, '');
-    let reply = MYSTERY_HINTS[num];
-    if (!reply) {
-      // Check if it's a valid number but out of range
-      if (/^\d+$/.test(num)) {
-        reply = '这个数字……还没有对应的故事。也许以后会有。';
-      } else {
-        reply = '数字。给我一个数字。';
+    let reply = '……？';
+    const t = text.replace(/\s+/g, '');
+
+    // Number check — show hint
+    if (/^\d+$/.test(t)) {
+      reply = MYSTERY_HINTS[t];
+      if (!reply) {
+        reply = t <= 15 ? '这个数字暂时没有提示。试试其他数字。' : '提示只有 0 到 15。从 0 开始吧。';
       }
+      msgsDiv.innerHTML += `
+        <div class="message-bubble received">
+          ${reply}
+        </div>
+      `;
+      msgsDiv.scrollTop = msgsDiv.scrollHeight;
+      return;
     }
+
+    // Keyword replies —神秘人X 是帮助型的
+    // Conversational — response to "你最近有在深夜听到什么奇怪的声音吗？"
+    if (t === '有' || t === '嗯' || t === '对' || t === '是的' || t === '是啊' || t.includes('听到了') || t.includes('听见过') || t.includes('好像有') || t.includes('确实')) {
+      reply = '果然。你不是第一个听到的人，也不会是最后一个。继续听下去，你会知道更多。';
+    } else if (t.includes('没有') || t === '没' || t.includes('没听到') || t.includes('没注意')) {
+      reply = '还没听到吗？那快了。等你听到了，你就知道我在说什么了。';
+    } else if (t.includes('什么意思') || t.includes('你在说什么') || t.includes('什么鬼')) {
+      reply = '我的意思是，你手上那台手机的主人，听到了不该听到的东西。现在轮到你了。';
+    } else if (t.includes('什么声音') || t.includes('什么频率') || t.includes('什么电台')) {
+      reply = '87.9 MHz。你姐姐每天都在听。你打开收音机就知道了。';
+    } else if (t.includes('你怎么') || t.includes('你为什么会') || t.includes('为什么知道')) {
+      reply = '这台手机的数据一直在上传。你在翻什么、看什么、听什么，我都知道一点点。够用了。';
+    } else if (t.includes('为什么') && (t.includes('问') || t.includes('这么问') || t.includes('这个'))) {
+      reply = '因为第一个发现异常的不是你，是你姐姐。她留了太多东西在那台手机里。我怕你不看。';
+    } else if (t.includes('害怕') || t.includes('好怕') || t.includes('慌')) {
+      reply = '害怕是正常的。但你是来寻找答案的，不是来被困住的。继续吧。';
+    } else if (t === '?' || t === '？？' || t === '。。。' || t === '……' || t === '...') {
+      reply = '不用慌。你既然找到了这里，就说明你已经准备好了。';
+    } else if (t.includes('87.9') || t.includes('电台') || t.includes('频率')) {
+      reply = '87.9 MHz 是姐姐一直在听的频率。收音机调到那里会有内容。先打开收音机试试。';
+    } else if (t.includes('密码')) {
+      reply = '密码不会凭空出现。备忘录、相册、短信、浏览器——每个 app 里都可能有线索。';
+    } else if (t.includes('相册') || t.includes('照片')) {
+      reply = '相册里有一张加密了。备忘录里提示了密码——"我们的纪念日"。';
+    } else if (t.includes('浏览器') || t.includes('历史')) {
+      reply = '浏览器有书签和历史记录。都翻翻看，里面有网站地址和操作方法。';
+    } else if (t.includes('晓琳') || t.includes('13')) {
+      reply = '晓琳是姐姐的好朋友。她发的那首诗，大小写不是随便写的。重新看一遍。';
+    } else if (t.includes('姐姐') || t.includes('姐') || t.includes('林小敏') || t.includes('14')) {
+      reply = '姐姐给自己留了很多线索。日记、备忘录、加密照片……她希望有人能找到真相。那个人就是你。';
+    } else if (t.includes('日记')) {
+      reply = '加密日记需要密码。第一本的密码藏在收音机里——找一个特殊的频率。';
+    } else if (t.includes('电话') || t.includes('400') || t.includes('拨打')) {
+      reply = '400-879-2230。打通之后需要说出正确的口令。那本解开的日记末尾有答案。';
+    } else if (t.includes('登陆') || t.includes('登录') || t.includes('会员')) {
+      reply = '会员系统的规则是：用户名是你的编号，密码是你推荐人的编号。听众墙上有所有编号。';
+    } else if (t.includes('夜航塔') || t.includes('塔')) {
+      reply = '夜航塔在操作手册里有完整介绍。搜索"夜航塔操作手册"就能看到。';
+    } else if (t.includes('小舟') || t.includes('02') || t.includes('陈雨舟')) {
+      reply = '小舟是 02 号，在夜航塔工作。她最大的特点就是粗心——想想粗心的人会改密码吗？';
+    } else if (t.includes('后台') || t.includes('管理')) {
+      reply = '管理后台在官网上可以进。密码……问问未知号码吧，他会告诉你的。';
+    } else if (t.includes('01') || t.includes('创始') || t.includes('主人')) {
+      reply = '01 是这一切的创始者。你现在还找不到她。先去收集所有人的档案吧。';
+    } else if (t.includes('未知号码')) {
+      reply = '那个号码是系统自动回复。输入正确的话，它会给你需要的东西。';
+    } else if (t.includes('搜索') || t.includes('搜索栏') || t.includes('搜')) {
+      reply = '官网的搜索栏在你登录会员后能查到很多内部档案。每个编号都搜一遍。';
+    } else if (t.includes('404') || t.includes('错误')) {
+      reply = '有些网站输错了会跳转。但错误页面里，有时也藏着正确的东西。';
+    } else if (t.includes('帮助') || t.includes('怎么玩') || t.includes('攻略') || t.includes('卡关') || t.includes('不会')) {
+      reply = '从手机桌面上的 app 开始：信息、相册、备忘录、收音机、浏览器。每个 app 都有线索。顺序是：先看→再听→然后搜→最后登。实在卡住了就输入数字 0 到 15。';
+    } else if (t.includes('你是谁') || t.includes('你哪位')) {
+      reply = '我是谁不重要。重要的是你姐姐留下了一台手机，而你在打开它。';
+    } else if (t.includes('谢谢') || t.includes('感谢')) {
+      reply = '不用谢。你姐姐也希望你能找到答案。';
+    } else if (t.includes('结局') || t.includes('结束')) {
+      reply = '不止一个结局。你做的每一个选择都会影响最后的走向。多试试不同的路。';
+    }
+
     msgsDiv.innerHTML += `
       <div class="message-bubble received">
         ${reply}
