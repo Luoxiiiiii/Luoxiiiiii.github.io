@@ -20,7 +20,37 @@ const MYSTERY_HINTS = {
 };
 
 let _whiteNoiseAudio = null;
-let _unknownMsgCount = {};
+const MEMBER_INTROS = {
+  'R-879-01': '创始听众，现任管理员。一切从她开始，也在她那里结束。',
+  'R-879-02': '陈雨舟，夜航塔管理员。粗心大意，但空杯子才能装满。',
+  'R-879-03': '岑清蝶，离线。她飞了。从实验楼顶。我什么都没做。',
+  'R-879-04': '顾清怜，空姐。脱掉了制服和伪装，现在很自由。',
+  'R-879-05': '赵书瑶，真理报记者。曾经想揭发我，现在是我最锋利的钉子。',
+  'R-879-06': '许清雅，心理医生。治好了别人，被我治好了自己。',
+  'R-879-07': '凌梦瑶，学生。她太兴奋了。那种孩子总是最好转化的。',
+  'R-879-08': '苏灵悦，护士。推荐了晓琳的人。她的眼神很准。',
+  'R-879-09': '白小糖，学生。傲慢的小猫，戴上项圈就乖了。',
+  'R-879-10': '林诗意，刑警。警局里，有我们的人。',
+  'R-879-11': '苏墨染，主播。最闪耀的传声筒。几千人听过她的推荐。',
+  'R-879-12': '叶心怡，银行柜员。放弃了全部积蓄，找到了更重要的。',
+  'R-879-13': '江晓琳，护士。二十四岁。灵悦带来的，又带来了十四号。',
+  'R-879-14': '林小敏。她毕业了。留了一条线——91.4。你还没找到吗？',
+  'R-879-15': '预注册。就是你。正在读这些字的你。',
+};
+const MEMBER_NAMES = {
+  '陈雨舟': 'R-879-02', '雨舟': 'R-879-02', '小舟': 'R-879-02',
+  '岑清蝶': 'R-879-03', '清蝶': 'R-879-03',
+  '顾清怜': 'R-879-04', '清怜': 'R-879-04',
+  '赵书瑶': 'R-879-05', '书瑶': 'R-879-05',
+  '许清雅': 'R-879-06', '清雅': 'R-879-06',
+  '凌梦瑶': 'R-879-07', '梦瑶': 'R-879-07',
+  '苏灵悦': 'R-879-08', '灵悦': 'R-879-08',
+  '白小糖': 'R-879-09', '小糖': 'R-879-09',
+  '林诗意': 'R-879-10', '诗意': 'R-879-10',
+  '苏墨染': 'R-879-11', '墨染': 'R-879-11',
+  '叶心怡': 'R-879-12', '心怡': 'R-879-12',
+  '林小敏': 'R-879-14', '小敏': 'R-879-14',
+};
 let _bgMusicAudio = null;
 let _bgMusicMuted = false;
 
@@ -380,7 +410,27 @@ function sendChatMessage() {
         reply = '你问了三次。答案不会变——你不能。';
       } else if (t.includes('答案')) {
         reply = '你每问一次答案，就离答案更远一步。';
+      } else if (t === '妈妈') {
+        reply = '..恶心...';
       } else {
+        // Check member ID/NN or name
+        let memberId = null;
+        const upper = t.toUpperCase();
+        if (/^R-879-(0\d|\d{2})$/.test(upper)) memberId = upper;
+        else if (/^\d{2}$/.test(t) || /^\d$/.test(t)) {
+          const padded = t.padStart(2, '0');
+          if (MEMBER_INTROS['R-879-' + padded]) memberId = 'R-879-' + padded;
+        }
+        if (!memberId) {
+          const matched = Object.keys(MEMBER_NAMES).find(k => t.includes(k));
+          if (matched) memberId = MEMBER_NAMES[matched];
+        }
+        if (memberId && MEMBER_INTROS[memberId]) {
+          reply = MEMBER_INTROS[memberId] + ' 你问了很多遍了。你对她很在意？';
+        }
+      }
+      // Fallback if no match
+      if (reply === '……？') {
         reply = '你一直在说同样的东西。你到底在等什么？等我来找你？';
       }
       msgsDiv.innerHTML += `
@@ -483,6 +533,24 @@ function sendChatMessage() {
       reply = '不能。但你没有别人可以信了。';
     } else if (t.includes('答案')) {
       reply = '答案不在我这里。在你那里。';
+    } else if (t === '妈妈') {
+      reply = '..恶心...';
+    } else {
+      // Check member ID/NN or name
+      let memberId = null;
+      const upper = t.toUpperCase();
+      if (/^R-879-(0\d|\d{2})$/.test(upper)) memberId = upper;
+      else if (/^\d{2}$/.test(t) || /^\d$/.test(t)) {
+        const padded = t.padStart(2, '0');
+        if (MEMBER_INTROS['R-879-' + padded]) memberId = 'R-879-' + padded;
+      }
+      if (!memberId) {
+        const matched = Object.keys(MEMBER_NAMES).find(k => t.includes(k));
+        if (matched) memberId = MEMBER_NAMES[matched];
+      }
+      if (memberId && MEMBER_INTROS[memberId]) {
+        reply = MEMBER_INTROS[memberId];
+      }
     }
 
     msgsDiv.innerHTML += `
