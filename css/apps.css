@@ -191,7 +191,7 @@
 
 @keyframes spiralFadeIn {
   0% { opacity: 0; }
-  100% { opacity: 0.55; }
+  100% { opacity: 1; }
 }
 
 @keyframes spiralSlowRotate {
@@ -218,7 +218,7 @@
   top: 33.33%; left: 33.33%;
   width: 33.34%; height: 33.34%;
   border-radius: 50%;
-  background: radial-gradient(circle at center, transparent 15%, rgba(0,0,0,0.35) 45%, #000 100%);
+  background: radial-gradient(circle at center, transparent 10%, rgba(0,0,0,0.55) 40%, #000 100%);
   pointer-events: none;
 }
 
