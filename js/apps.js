@@ -1993,12 +1993,6 @@ function websiteSearch() {
     if (adminMatch) match = adminMatch;
   }
 
-  // Restrict "15"/"R-879-15" — only R-879-14 can see the real result
-  const ql = query.toLowerCase();
-  if ((ql === '15' || ql === 'r-879-15') && GameState._currentMember !== 'R-879-14') {
-    match = { word: query, results: [{ type: '🔒 受限', content: '你迟早会知道的。' }] };
-  }
-
   if (!match) {
     resultsDiv.innerHTML = `<div class="snoop-result-item"><div class="snoop-result-content" style="color:rgba(255,255,255,0.3);">未找到匹配结果</div></div>`;
     input.value = '';
