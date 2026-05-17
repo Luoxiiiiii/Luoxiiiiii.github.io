@@ -1872,12 +1872,18 @@ function websiteSearch() {
 
   const resultsDiv = document.getElementById('siteSearchResults');
 
-  // Check public search
+  // Check public search — try exact then fuzzy
   let match = SEARCH_DATA.find(k => k.word.toLowerCase() === query.toLowerCase());
+  if (!match) {
+    match = SEARCH_DATA.find(k => k.word.toLowerCase().includes(query.toLowerCase()));
+  }
 
   // When logged in, also check admin search — overrides public if both match
   if (GameState.memberLoggedIn) {
-    const adminMatch = SEARCH_ADMIN_DATA.find(k => k.word.toLowerCase() === query.toLowerCase());
+    let adminMatch = SEARCH_ADMIN_DATA.find(k => k.word.toLowerCase() === query.toLowerCase());
+    if (!adminMatch) {
+      adminMatch = SEARCH_ADMIN_DATA.find(k => k.word.toLowerCase().includes(query.toLowerCase()));
+    }
     if (adminMatch) match = adminMatch;
   }
 
@@ -3076,8 +3082,7 @@ function renderNotesApp() {
   let html = `<div class="app-view"><div class="app-header"><button class="back-btn" onclick="goHome()">←</button><span class="app-title">备忘录</span></div><div class="notes-list">`;
   visibleNotes.forEach(n => {
     const isLocked = n.locked && !GameState.unlockedContent['note:' + n.id];
-    const displayText = isLocked ? '🔒 已锁定' :
-      (n.id === 'n4' && GameState.unlockedContent['note:n4'] ? '[日记已解锁]' : truncate(NOTE_CONTENTS[n.id] || n.text, 22));
+    const displayText = isLocked ? '🔒 已锁定' : truncate(NOTE_CONTENTS[n.id] || n.text, 22);
     html += `
       <div class="note-item" onclick="${isLocked ? `showNotePasswordModal('${n.puzzleId}', '${n.id}')` : `openNote('${n.id}')`}">
         <div class="note-title">${n.title || '无标题'}</div>
