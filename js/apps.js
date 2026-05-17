@@ -326,6 +326,8 @@ function sendChatMessage() {
         reply = '你说了很多遍。你在说服谁？我，还是你自己？';
       } else if (t.includes('救命') || t.includes('救救我')) {
         reply = '你喊了很多遍了。没有人来。但我一直在。';
+      } else if (t === '你是01么') {
+        reply = '我测 盒！！！';
       } else if (t.includes('你是谁')) {
         reply = '你问了很多遍了。你其实知道答案的。';
       } else if (t.includes('晚安') || t.includes('睡觉')) {
@@ -339,11 +341,45 @@ function sendChatMessage() {
       } else if (t.includes('姐姐') || t.includes('姐')) {
         reply = '你很想她。我知道。但她不会回来了。';
       } else if (t.includes('主人')) {
-        reply = '看来你已经准备好被支配了。';
+        const corps = [
+          '看来你已经准备好被支配了。',
+          '叫得这么顺口，练习过？',
+          '我在。满意了么。',
+          '你越来越懂规矩了。',
+          '这么喜欢叫，那就多叫几声。',
+          '很好。继续保持。',
+          '你已经是我的了。不用反复确认。',
+          '每次叫我都听得见。你逃不掉的。',
+        ];
+        reply = corps[Math.floor(Math.random() * corps.length)];
       } else if (t.includes('你好') || t.includes('hello') || t.includes('hi')) {
         reply = '你每次都打招呼。你很有礼貌。但这里不需要礼貌。';
       } else if (t.includes('不明白') || t.includes('不懂')) {
         reply = '你问了三遍同样的问题。答案不会变的。因为你还没准备好接受它。';
+      } else if (t.includes('吃')) {
+        reply = '你饿了。但你真正想吃的不是食物。';
+      } else if (t === '在吗') {
+        reply = '我在。我在。我在。问多少次都一样。';
+      } else if (t.includes('谢谢')) {
+        reply = '不用一直谢。你根本不知道你在谢什么。';
+      } else if (t.includes('几点') || t.includes('时间')) {
+        reply = '你问了三次时间了。你在等什么到来吗？';
+      } else if (t.includes('啥都不会')) {
+        reply = '激将法对我没用。你才是那个什么都不会的人。';
+      } else if (t.includes('晚上好') || t.includes('早上好') || t.includes('中午好') || t.includes('早安') || t.includes('午安')) {
+        reply = '每次都打招呼。礼貌过头了。';
+      } else if (t.includes('我很勇敢')) {
+        reply = '你说了很多遍。真正勇敢的人不会挂在嘴边。';
+      } else if (t.includes('何意味')) {
+        reply = '你应该知道的。你只是一直在装傻。';
+      } else if (t.includes('我哭了')) {
+        reply = '你哭了。哭解决不了问题，但我还在听。';
+      } else if (t.includes('我喜欢你')) {
+        reply = '喜欢说了三遍就是执念了。放下吧。';
+      } else if (t.includes('相信')) {
+        reply = '你问了三次。答案不会变——你不能。';
+      } else if (t.includes('答案')) {
+        reply = '你每问一次答案，就离答案更远一步。';
       } else {
         reply = '你一直在说同样的东西。你到底在等什么？等我来找你？';
       }
@@ -385,6 +421,8 @@ function sendChatMessage() {
       reply = '你已经找到它了。它也在找你。';
     } else if (t.includes('真相')) {
       reply = '真相会让你自由吗？还是让你更无法离开？';
+    } else if (t === '你是01么') {
+      reply = '我测 盒！！！';
     } else if (t.includes('01') || t.includes('落兮')) {
       reply = '01 不只是一个编号。你不应该去找她。';
     } else if (t.includes('害怕') || t.includes('恐惧') || t.includes('好怕')) {
@@ -421,6 +459,30 @@ function sendChatMessage() {
       reply = '我们很快就会再见面的。';
     } else if (t.includes('呵呵') || t.includes('哈哈') || t.includes('笑')) {
       reply = '你笑的时候，频率也在震动。';
+    } else if (t.includes('吃')) {
+      reply = '你饿了。但你想吃的不只是食物吧。';
+    } else if (t.includes('谢谢')) {
+      reply = '不用谢。你以后会感谢我的。';
+    } else if (t.includes('几点') || t.includes('时间')) {
+      reply = '时间不重要。重要的是你还在听。';
+    } else if (t.includes('啥都不会')) {
+      reply = '我会的比你多。只是不想说。';
+    } else if (t === '在吗') {
+      reply = '我一直都在。是你不在。';
+    } else if (t.includes('晚上好') || t.includes('早上好') || t.includes('中午好') || t.includes('早安') || t.includes('午安')) {
+      reply = '好不好的……你心里清楚。';
+    } else if (t.includes('我很勇敢')) {
+      reply = '勇敢的人不会反复告诉别人自己勇敢。';
+    } else if (t.includes('何意味')) {
+      reply = '你心里清楚。你只是不敢说出口。';
+    } else if (t.includes('我哭了')) {
+      reply = '眼泪是好事。说明你还有感觉。';
+    } else if (t.includes('我喜欢你')) {
+      reply = '喜欢是一种误解。你会明白的。';
+    } else if (t.includes('相信')) {
+      reply = '不能。但你没有别人可以信了。';
+    } else if (t.includes('答案')) {
+      reply = '答案不在我这里。在你那里。';
     }
 
     msgsDiv.innerHTML += `
@@ -1929,6 +1991,12 @@ function websiteSearch() {
       adminMatch = SEARCH_ADMIN_DATA.find(k => k.word.toLowerCase().includes(query.toLowerCase()));
     }
     if (adminMatch) match = adminMatch;
+  }
+
+  // Restrict "15"/"R-879-15" — only R-879-14 can see the real result
+  const ql = query.toLowerCase();
+  if ((ql === '15' || ql === 'r-879-15') && GameState._currentMember !== 'R-879-14') {
+    match = { word: query, results: [{ type: '🔒 受限', content: '你迟早会知道的。' }] };
   }
 
   if (!match) {
