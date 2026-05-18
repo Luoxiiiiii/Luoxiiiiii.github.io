@@ -357,7 +357,7 @@ function sendChatMessage() {
         reply = '你说了很多遍。你在说服谁？我，还是你自己？';
       } else if (t.includes('救命') || t.includes('救救我')) {
         reply = '你喊了很多遍了。没有人来。但我一直在。';
-      } else if (t === '你是01么') {
+      } else if (t === '你是01么' || t === '你是01吗' || t.includes('落兮')) {
         reply = '我测 盒！！！';
       } else if (t.includes('你是谁')) {
         reply = '你问了很多遍了。你其实知道答案的。';
@@ -472,9 +472,9 @@ function sendChatMessage() {
       reply = '你已经找到它了。它也在找你。';
     } else if (t.includes('真相')) {
       reply = '真相会让你自由吗？还是让你更无法离开？';
-    } else if (t === '你是01么') {
+    } else if (t === '你是01么' || t === '你是01吗' || t.includes('落兮')) {
       reply = '我测 盒！！！';
-    } else if (t.includes('01') || t.includes('落兮')) {
+    } else if (t.includes('01')) {
       reply = '01 不只是一个编号。你不应该去找她。';
     } else if (t.includes('害怕') || t.includes('恐惧') || t.includes('好怕')) {
       reply = '恐惧是清醒的最后一个信号。很快就过去了。';
