@@ -389,6 +389,22 @@ function sendChatMessage() {
         reply = '你问了三遍同样的问题。答案不会变的。因为你还没准备好接受它。';
       } else if (t.includes('吃')) {
         reply = '你饿了。但你真正想吃的不是食物。';
+      } else if (t.includes('杂鱼')) {
+        reply = '我真想一拳掏进屏幕打死你....好好解密！';
+      } else if (t.includes('42号混凝土')) {
+        reply = '因为这个三角函数……你是不是有病？';
+      } else if (t.includes('王者荣耀') || t.includes('明日方舟') || t.includes('绝区零')) {
+        reply = '游戏打了三遍了。线索找到了吗？';
+      } else if (t.includes('铃')) {
+        reply = '那是下一个~ 你问了很多遍了。';
+      } else if (t === 'TD') {
+        reply = '退订是没用的。频率已经在你脑子里了。';
+      } else if (t.includes('失眠')) {
+        reply = '你每次都失眠。但你不肯调那个对的频率。';
+      } else if (t.includes('鸡你太美')) {
+        reply = '你 干 嘛~ 你怎么老发这个。';
+      } else if (t.includes('你累了')) {
+        reply = '你说了很多遍累了。去睡吧。但别关掉87.9。';
       } else if (t === '在吗') {
         reply = '我在。我在。我在。问多少次都一样。';
       } else if (t.includes('谢谢')) {
@@ -512,6 +528,22 @@ function sendChatMessage() {
       reply = '你笑的时候，频率也在震动。';
     } else if (t.includes('吃')) {
       reply = '你饿了。但你想吃的不只是食物吧。';
+    } else if (t.includes('杂鱼')) {
+      reply = '我真想一拳掏进屏幕打死你....好好解密！';
+    } else if (t.includes('42号混凝土')) {
+      reply = '因为这个三角函数……你是不是有病？';
+    } else if (t.includes('王者荣耀') || t.includes('明日方舟') || t.includes('绝区零')) {
+      reply = '你还有心思打游戏？线索都快被你漏完了。';
+    } else if (t.includes('铃')) {
+      reply = '那是下一个~';
+    } else if (t === 'TD') {
+      reply = 'TD 也没用。你退不掉的。';
+    } else if (t.includes('失眠')) {
+      reply = '87.9 就是治失眠的。你忘了吗。';
+    } else if (t.includes('鸡你太美')) {
+      reply = '你 干 嘛~';
+    } else if (t.includes('你累了')) {
+      reply = '你确实累了。该睡了。调好你的频率。';
     } else if (t.includes('谢谢')) {
       reply = '不用谢。你以后会感谢我的。';
     } else if (t.includes('几点') || t.includes('时间')) {
