@@ -620,12 +620,17 @@ function updateWhiteNoise(freq) {
   const dist = Math.abs(freq - 87.9);
 
   if (dist < 0.01) {
-    // Exact 87.9 — turn up background music volume
-    stopWhiteNoise();
-    if (_bgMusicAudio) {
-      _bgMusicAudio.volume = _bgMusicMuted ? 0 : 0.4;
+    // After good ending (NG+): 87.9 is silent — let white noise play
+    if (GameState._endingCompleted) {
+      // fall through to white noise logic below
+    } else {
+      // Exact 87.9 — turn up background music volume
+      stopWhiteNoise();
+      if (_bgMusicAudio) {
+        _bgMusicAudio.volume = _bgMusicMuted ? 0 : 0.4;
+      }
+      return;
     }
-    return;
   }
 
   // Not at 87.9 — restore background volume
@@ -683,6 +688,10 @@ function renderRadioApp() {
       contentHtml = `<div class="radio-static">--- 兹……99.5……兹……---</div>`;
     }
   } else if (isSpecial) {
+    // After good ending (NG+), 87.9 is silent
+    if (GameState._endingCompleted) {
+      contentHtml = `<div class="radio-static">--- 兹………… 87.9 一片沉寂 ---</div>`;
+    } else {
     const isExact = Math.abs(freq - 87.9) < 0.01;
     const allTexts = RADIO_DATA.content
       .filter(t => t.phase <= GameState.gamePhase)
@@ -714,6 +723,7 @@ function renderRadioApp() {
         RADIO_DATA._87RevealIndex++;
         renderRadioApp();
       }, 2500);
+    }
     }
   } else if (isNear && !fineMode) {
     contentHtml = `<div class="radio-static">--- 兹……${freq.toFixed(1)}……兹……有东西在附近……---</div>`;
@@ -2560,6 +2570,8 @@ function renderFallDiary(memberId) {
       }
       return;
     }
+    // Gate shutdown entries (2026.5.??) — only visible after good ending (NG+)
+    if (entry.date === '2026.5.??' && !GameState._endingCompleted) return;
     entriesHtml += `
       <div style="margin-bottom:16px;padding:12px;background:rgba(255,255,255,0.03);border-radius:8px;border-left:2px solid rgba(255,204,0,0.3);">
         <div style="font-size:10px;color:rgba(255,255,255,0.3);margin-bottom:2px;">${entry.date}</div>
