@@ -23,7 +23,7 @@ let _whiteNoiseAudio = null;
 const MEMBER_INTROS = {
   'R-879-01': '创始听众，现任管理员。一切从她开始，也在她那里结束。',
   'R-879-02': '陈雨舟，夜航塔管理员。粗心大意，但空杯子才能装满。',
-  'R-879-03': '岑清蝶，离线。她飞了。从实验楼顶。我什么都没做。',
+  'R-879-03': '岑清蝶，离线。她从楼顶跳了下来——是我引她进来的。如果那天我没有把那个频率告诉她……',
   'R-879-04': '顾清怜，空姐。脱掉了制服和伪装，现在很自由。',
   'R-879-05': '赵书瑶，真理报记者。曾经想揭发我，现在是我最锋利的钉子。',
   'R-879-06': '许清雅，心理医生。治好了别人，被我治好了自己。',
@@ -427,6 +427,8 @@ function sendChatMessage() {
         reply = '你问了三次。答案不会变——你不能。';
       } else if (t.includes('答案')) {
         reply = '你每问一次答案，就离答案更远一步。';
+      } else if (t === '哈' || t.includes('哈气')) {
+        reply = '应激了？';
       } else if (t === '妈妈') {
         reply = '..恶心...';
       } else {
@@ -524,6 +526,8 @@ function sendChatMessage() {
       reply = '无聊是好事。空杯才能装满。';
     } else if (t.includes('拜拜') || t.includes('再见') || t === '88') {
       reply = '我们很快就会再见面的。';
+    } else if (t === '哈' || t.includes('哈气')) {
+      reply = '应激了？';
     } else if (t.includes('呵呵') || t.includes('哈哈') || t.includes('笑')) {
       reply = '你笑的时候，频率也在震动。';
     } else if (t.includes('吃')) {
