@@ -705,8 +705,14 @@ function renderRadioApp() {
       const now = new Date();
       const hour = now.getHours();
       if (hour >= 23 || hour < 5) {
-        const day = now.getDate();
-        const daily = RADIO_DAILY_DATA[day];
+        // Track daily progression: each calendar day advances one entry, no repeats
+        const todayStr = now.getFullYear() + '-' + (now.getMonth()+1) + '-' + now.getDate();
+        if (GameState._lastRadioDate !== todayStr) {
+          GameState._radioDailyIndex = (GameState._radioDailyIndex || 0) + 1;
+          GameState._lastRadioDate = todayStr;
+          GameState.save();
+        }
+        const daily = RADIO_DAILY_DATA[GameState._radioDailyIndex];
         if (daily) {
           contentHtml = `<div class="radio-text" style="color:rgba(255,255,255,0.8);line-height:2;text-align:left;padding:16px 20px;font-size:13px;white-space:pre-wrap;">${daily.text}</div>`;
         } else {

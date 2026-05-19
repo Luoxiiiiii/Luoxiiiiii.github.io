@@ -21,6 +21,8 @@ const GameState = {
   _readDiaries: [],
   gameTimeElapsed: 0,
   _savedAccounts: [],
+  _radioDailyIndex: 0,
+  _lastRadioDate: '',
 
   save() {
     try {
@@ -44,6 +46,8 @@ const GameState = {
         _readDiaries: this._readDiaries,
         gameTimeElapsed: this.gameTimeElapsed,
         _savedAccounts: this._savedAccounts,
+        _radioDailyIndex: this._radioDailyIndex,
+        _lastRadioDate: this._lastRadioDate,
       }));
     } catch (e) {
       console.warn('Save failed:', e);
