@@ -708,7 +708,7 @@ function renderRadioApp() {
         const day = now.getDate();
         const daily = RADIO_DAILY_DATA[day];
         if (daily) {
-          contentHtml = `<div class="radio-text" style="color:rgba(255,255,255,0.7);line-height:2;text-align:center;padding:20px;font-size:13px;">${daily.text}</div>`;
+          contentHtml = `<div class="radio-text" style="color:rgba(255,255,255,0.8);line-height:2;text-align:left;padding:16px 20px;font-size:13px;white-space:pre-wrap;">${daily.text}</div>`;
         } else {
           contentHtml = `<div class="radio-static">--- 静电噪音 ---</div>`;
         }
