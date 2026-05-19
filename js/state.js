@@ -17,6 +17,7 @@ const GameState = {
   adminLoggedIn: false,
   _currentMember: null,
   _endingCompleted: false,
+  _nightWatchCompleted: false,
   _readDiaries: [],
   gameTimeElapsed: 0,
   _savedAccounts: [],
@@ -39,6 +40,7 @@ const GameState = {
         adminLoggedIn: this.adminLoggedIn,
         _currentMember: this._currentMember,
         _endingCompleted: this._endingCompleted,
+        _nightWatchCompleted: this._nightWatchCompleted,
         _readDiaries: this._readDiaries,
         gameTimeElapsed: this.gameTimeElapsed,
         _savedAccounts: this._savedAccounts,
@@ -66,6 +68,7 @@ const GameState = {
 
   reset() {
     const hadEnding = this._endingCompleted;
+    const hadNightWatch = this._nightWatchCompleted;
     const hadReadDiaries = this._readDiaries;
     const hadPhase = this.gamePhase;
     localStorage.removeItem('gameSave');
@@ -83,6 +86,7 @@ const GameState = {
     this.adminLoggedIn = false;
     this._currentMember = null;
     this._endingCompleted = hadEnding;
+    this._nightWatchCompleted = hadNightWatch;
     this._readDiaries = hadReadDiaries;
     this.save();
   }

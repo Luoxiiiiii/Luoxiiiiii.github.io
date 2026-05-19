@@ -620,11 +620,23 @@ function updateWhiteNoise(freq) {
   const dist = Math.abs(freq - 87.9);
 
   if (dist < 0.01) {
-    // After good ending (NG+): 87.9 is silent — let white noise play
-    if (GameState._endingCompleted) {
-      // fall through to white noise logic below
+    // NG++ (Night Watch): active 23:00-05:00, silent otherwise
+    if (GameState._nightWatchCompleted) {
+      const now = new Date();
+      const h = now.getHours();
+      if (h >= 23 || h < 5) {
+        // Active broadcast — amp bgm, no white noise
+        stopWhiteNoise();
+        if (_bgMusicAudio) {
+          _bgMusicAudio.volume = _bgMusicMuted ? 0 : 0.4;
+        }
+        return;
+      }
+      // Daytime silence — fall through to white noise
+    } else if (GameState._endingCompleted) {
+      // NG+ (good ending): silent — fall through to white noise
     } else {
-      // Exact 87.9 — turn up background music volume
+      // First playthrough — amp bgm, no white noise
       stopWhiteNoise();
       if (_bgMusicAudio) {
         _bgMusicAudio.volume = _bgMusicMuted ? 0 : 0.4;
@@ -688,8 +700,22 @@ function renderRadioApp() {
       contentHtml = `<div class="radio-static">--- 兹……99.5……兹……---</div>`;
     }
   } else if (isSpecial) {
-    // After good ending (NG+), 87.9 is silent
-    if (GameState._endingCompleted) {
+    // After Night Watch ending (NG++): check system time for daily content
+    if (GameState._nightWatchCompleted) {
+      const now = new Date();
+      const hour = now.getHours();
+      if (hour >= 23 || hour < 5) {
+        const day = now.getDate();
+        const daily = RADIO_DAILY_DATA[day];
+        if (daily) {
+          contentHtml = `<div class="radio-text" style="color:rgba(255,255,255,0.7);line-height:2;text-align:center;padding:20px;font-size:13px;">${daily.text}</div>`;
+        } else {
+          contentHtml = `<div class="radio-static">--- 静电噪音 ---</div>`;
+        }
+      } else {
+        contentHtml = `<div class="radio-static">--- 兹………… 87.9 一片沉寂 ---</div>`;
+      }
+    } else if (GameState._endingCompleted) {
       contentHtml = `<div class="radio-static">--- 兹………… 87.9 一片沉寂 ---</div>`;
     } else {
     const isExact = Math.abs(freq - 87.9) < 0.01;
@@ -931,6 +957,8 @@ function type914Message() {
 }
 
 function sisterChoiceStay() {
+  GameState._nightWatchCompleted = true;
+  GameState.save();
   document.getElementById('screenContent').innerHTML = `
     <div class="app-view" style="background:#000;justify-content:center;align-items:center;">
       <div style="padding:40px;text-align:center;">
@@ -951,7 +979,7 @@ function sisterChoiceStay() {
       } else {
         // Epilogue
         setTimeout(() => {
-          el.innerHTML += '<br><br><br><div style="font-size:12px;color:rgba(255,255,255,0.25);line-height:2.2;animation:fadeIn 2s ease;">你继续用着那台手机。<br>深夜仍然会打开 87.9。<br>不是在听——<br>是在看。<br><br>——<br><br>姐姐说的对。<br>需要她的人太多了。<br><br>包括你自己。</div>';
+          el.innerHTML += '<br><br><br><div style="font-size:12px;color:rgba(255,255,255,0.25);line-height:2.2;animation:fadeIn 2s ease;">你帮助 01 重建了信号塔。<br>87.9 恢复了。<br>在每个夜晚重新响起。<br><br>你继续用着那台手机。<br>深夜仍然会打开 87.9。<br>不是在听——<br>是在看。<br><br>——<br><br>姐姐说的对。<br>需要她的人太多了。<br><br>包括你自己。</div>';
           setTimeout(() => {
             const endDiv = document.createElement('div');
             endDiv.style.cssText = 'margin-top:40px;text-align:center;animation:fadeIn 2s ease;';
