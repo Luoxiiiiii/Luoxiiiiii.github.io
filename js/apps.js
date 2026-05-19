@@ -719,10 +719,10 @@ function renderRadioApp() {
           contentHtml = `<div class="radio-static">--- 静电噪音 ---</div>`;
         }
       } else {
-        contentHtml = `<div class="radio-static">--- 兹………… 87.9 一片沉寂 ---<br><br><span style="font-size:11px;color:rgba(255,255,255,0.25);">等到 23:00 后再来看看吧</span></div>`;
+        contentHtml = `<div style="text-align:center;padding:40px 20px;"><div style="color:rgba(255,255,255,0.35);font-size:13px;font-family:'Courier New',monospace;letter-spacing:2px;line-height:1.8;">--- 兹………… 87.9 一片沉寂 ---</div><div style="font-size:11px;color:rgba(255,255,255,0.2);margin-top:16px;">等到 23:00 后再来看看吧</div></div>`;
       }
     } else if (GameState._endingCompleted) {
-      contentHtml = `<div class="radio-static">--- 兹………… 87.9 一片沉寂 ---<br><br><span style="font-size:11px;color:rgba(255,255,255,0.25);">等到 23:00 后再来看看吧</span></div>`;
+      contentHtml = `<div style="text-align:center;padding:40px 20px;"><div style="color:rgba(255,255,255,0.35);font-size:13px;font-family:'Courier New',monospace;letter-spacing:2px;line-height:1.8;">--- 兹………… 87.9 一片沉寂 ---</div><div style="font-size:11px;color:rgba(255,255,255,0.2);margin-top:16px;">等到 23:00 后再来看看吧</div></div>`;
     } else {
     const isExact = Math.abs(freq - 87.9) < 0.01;
     const allTexts = RADIO_DATA.content
