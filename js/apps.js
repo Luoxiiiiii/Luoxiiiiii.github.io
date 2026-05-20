@@ -706,7 +706,9 @@ function renderRadioApp() {
       const hour = now.getHours();
       if (hour >= 23 || hour < 5) {
         // Track daily progression: each calendar day advances one entry, no repeats
-        const todayStr = now.getFullYear() + '-' + (now.getMonth()+1) + '-' + now.getDate();
+        // Shift by +1h so that 23:00 counts as the next broadcast day
+        const shifted = new Date(now.getTime() + 3600000);
+        const todayStr = shifted.getFullYear() + '-' + (shifted.getMonth()+1) + '-' + shifted.getDate();
         if (GameState._lastRadioDate !== todayStr) {
           GameState._radioDailyIndex = (GameState._radioDailyIndex || 0) + 1;
           GameState._lastRadioDate = todayStr;
