@@ -36,6 +36,7 @@ const MEMBER_INTROS = {
   'R-879-13': '江晓琳，护士。二十四岁。灵悦带来的，又带来了十四号。',
   'R-879-14': '林小敏。十四号。被晓琳带入的普通上班族。每天在通勤与加班之间疲于奔命。',
   'R-879-15': '预注册。还没有名字。但已经有人在关注了。',
+  'R-879-17': '胡晓狸，coser。最擅长扮狐狸——但戴上的尾巴，摘不下来了。',
 };
 const MEMBER_NAMES = {
   '陈雨舟': 'R-879-02', '雨舟': 'R-879-02', '小舟': 'R-879-02',
@@ -50,6 +51,7 @@ const MEMBER_NAMES = {
   '苏墨染': 'R-879-11', '墨染': 'R-879-11',
   '叶心怡': 'R-879-12', '心怡': 'R-879-12',
   '林小敏': 'R-879-14', '小敏': 'R-879-14',
+  '胡晓狸': 'R-879-17', '晓狸': 'R-879-17',
 };
 let _unknownMsgCount = {};
 let _bgMusicAudio = null;
@@ -1724,6 +1726,19 @@ function navigateToUrl() {
     openBrowserPage('forum');
   } else if (url.includes('hypno-guide.net')) {
     openBrowserPage('hypno');
+  } else if (url === 'radio879.com/internal/17') {
+    if (GameState.memberLoggedIn) {
+      const internal17Content = '<div style="padding:4px 0;"><p style="font-size:11px;color:rgba(255,255,255,0.3);margin-bottom:16px;font-style:italic;">"爪子不是装伽。是天生的。"</p><div style="background:rgba(255,255,255,0.05);border-radius:12px;padding:16px;margin-bottom:12px;"><div style="font-size:15px;font-weight:600;margin-bottom:6px;">🦊 R-879-17</div><div style="color:rgba(255,255,255,0.7);font-size:12px;line-height:1.8;">姓名：胡晓狸<br>身份：coser · 小狐狸<br>推荐人：未记录<br>状态：等待主人的狐狸</div></div><div class="radio-nav" style="flex-direction:column;"><a href="#" onclick="event.preventDefault();renderFallDiary(&#39;R-879-17&#39;)">📓 堕落日记</a></div></div>';
+      renderRadioSite('狐妖/权', 'radio879.com/internal/17', internal17Content, "navigateToSite('member')");
+    } else {
+      renderRadioSite('访问被拒绝', 'radio879.com/internal/17', '⚠️ 需要会员权限。\n\n请先登录会员系统。');
+    }
+  } else if (url === 'radio879.com/internal/17/diary') {
+    if (GameState.memberLoggedIn) {
+      renderFallDiary('R-879-17');
+    } else {
+      renderRadioSite('访问被拒绝', 'radio879.com/internal/17/diary', '⚠️ 需要会员权限。\n\n请先登录会员系统。');
+    }
   } else if (url.includes('radio879.com')) {
     showPageNotFound(url);
   } else if (url === 'radio01.com' || url === 'www.radio01.com') {
@@ -2235,6 +2250,8 @@ function renderMemberLogin(forcePrompt) {
       renderMemberDashboard11();
     } else if (GameState._currentMember === 'R-879-12') {
       renderMemberDashboard12();
+    } else if (GameState._currentMember === 'R-879-17') {
+      renderMemberDashboard17();
     } else {
       renderMemberDashboard();
     }
@@ -3107,6 +3124,12 @@ function checkMemberLogin() {
     GameState.save();
     saveLogin();
     renderMemberDashboard();
+  } else if (user === 'R-879-17' && pass.toLowerCase() === 'fox') {
+    GameState.memberLoggedIn = true;
+    GameState._currentMember = 'R-879-17';
+    GameState.save();
+    saveLogin();
+    renderMemberDashboard17();
   } else {
     document.getElementById('memberError').textContent = '用户名或密码错误';
   }
@@ -3117,6 +3140,31 @@ function memberLogout() {
   GameState._currentMember = null;
   GameState.save();
   renderMemberLogin();
+}
+
+function renderMemberDashboard17() {
+  document.getElementById('screenContent').innerHTML = `
+    <div class="app-view">
+      <div class="app-header">
+        <button class="back-btn" onclick="navigateToSite('home')">←</button>
+        <span style="font-weight:600;">会员中心 — 胡晓狸</span>
+        <span></span>
+      </div>
+      <div style="padding:20px;font-size:13px;line-height:1.7;">
+        <div style="background:rgba(255,255,255,0.05);border-radius:12px;padding:16px;margin-bottom:16px;">
+          <div style="font-size:15px;font-weight:600;margin-bottom:6px;">🦊 R-879-17</div>
+          <div style="color:rgba(255,255,255,0.7);">姓名：胡晓狸</div>
+          <div style="color:rgba(255,255,255,0.7);">身份：coser · 小狐狸</div>
+          <div style="margin-top:8px;background:rgba(0,200,100,0.15);border-radius:8px;padding:8px 12px;color:#4cda64;font-size:12px;">阶段：三 · 已转化</div>
+        </div>
+        <div class="radio-nav" style="flex-direction:column;">
+          <a href="#" onclick="event.preventDefault();navigateToSite('search')">🔍 资料搜索</a>
+          <a href="#" onclick="event.preventDefault();renderFallDiary('R-879-17')">📓 堕落日记</a>
+          <a href="#" onclick="event.preventDefault();quickLoginForm()" style="color:rgba(255,255,255,0.25);font-size:11px;">🔄 切换</a> · <a href="#" onclick="event.preventDefault();memberLogout()" style="color:rgba(255,59,48,0.6);">🚪 退出登录</a>
+        </div>
+      </div>
+    </div>
+  `;
 }
 
 function quickLoginForm() {
