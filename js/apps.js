@@ -3271,6 +3271,8 @@ function renderBaikeGame() {
         <span></span>
       </div>
       <div style="padding:20px;display:flex;flex-direction:column;gap:16px;overflow-y:auto;flex:1;">
+        <!-- Disclaimer -->
+        <div style="font-size:11px;color:#c7c7cc;text-align:center;">⚠️ 本游戏与剧情无关，仅为娱乐附加内容</div>
         <!-- Title area -->
         <div style="background:#fff;border-radius:14px;padding:24px 20px;text-align:center;box-shadow:0 1px 3px rgba(0,0,0,0.06);">
           <div style="font-size:11px;color:#8e8e93;margin-bottom:10px;font-weight:500;letter-spacing:2px;">📖 猜出以下百科标题</div>
