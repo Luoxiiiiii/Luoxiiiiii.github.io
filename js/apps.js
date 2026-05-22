@@ -3275,7 +3275,8 @@ function renderBaikeGame() {
         <div style="font-size:11px;color:#c7c7cc;text-align:center;">⚠️ 本游戏与剧情无关，仅为娱乐附加内容</div>
         <!-- Title area -->
         <div style="background:#fff;border-radius:14px;padding:24px 20px;text-align:center;box-shadow:0 1px 3px rgba(0,0,0,0.06);">
-          <div style="font-size:11px;color:#8e8e93;margin-bottom:10px;font-weight:500;letter-spacing:2px;">📖 猜出以下百科标题</div>
+          <div style="font-size:11px;color:#8e8e93;margin-bottom:6px;font-weight:500;letter-spacing:2px;">📖 猜出以下百科标题</div>
+          <div style="font-size:12px;color:#aeaeb2;margin-bottom:10px;">${puzzle.hint ? '『' + puzzle.hint + '』' : ''}</div>
           <div id="baikeTitleDisplay" style="font-size:22px;font-weight:700;letter-spacing:6px;line-height:1.8;color:${won ? '#34c759' : '#1c1c1e'};">
             ${won ? '🎉 ' + puzzle.title : maskedTitle}
           </div>
