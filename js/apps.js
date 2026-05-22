@@ -38,6 +38,22 @@ const MEMBER_INTROS = {
   'R-879-15': '预注册。还没有名字。但已经有人在关注了。',
   'R-879-17': '胡晓狸，coser。最擅长扮狐狸——但戴上的尾巴，摘不下来了。',
   'R-879-33': '落玖，嘴硬的小猫。说自己没被催眠——但尾巴在摇。',
+  'R-879-18': '小芽，爱睡觉的二次元男孩。听着听着就睡着了——但睡得很好。',
+  'R-879-19': '雪见，高中生。和妹妹相依为命，在87.9找到了可以不做姐姐的地方。',
+  'R-879-20': '山楂，新人女仆。笨手笨脚但很努力——想成为让人感到被照顾的人。',
+  'R-879-21': '呱太，大学生。搜瑟瑟搜到了87.9，稀里糊涂变成了一只呆瓜。',
+  'R-879-24': '格罗斯，地质学大四。威士忌不好喝，但87.9很好听。',
+  'R-879-27': '苏苏，宅少女。打游戏单子维生，想要有人抱抱。',
+  'R-879-28': '傅茗，白天嗤之以鼻、晚上戴上耳机。最嘴硬的服从者。',
+  'R-879-37': '风琴，会计。发呆专业户，焦虑症患者。嘴不饶人但心很软。',
+  'R-879-41': '喜欢喵，以前讨厌猫——现在成了一只猫。',
+  'R-879-42': '章屿眠，重度猫奴社恐。在41号的引荐下成了一只小猫。',
+  'R-879-44': '白棘，同人文写手。被87.9赋予了灵感——也被夺走了笔。',
+  'R-879-49': '月下，苦逼研究生。累到一被催眠就飘走——87.9是唯一的充电器。',
+  'R-879-50': '言昀，长兄如父。穿上裙子的时候才是真正的自己。',
+  'R-879-51': '昕笙，催眠爱好者。录了自己的音频——然后分不清谁在催眠谁了。',
+  'R-879-95': '李小一，国企行政。活在别人的剧本里。在87.9学会了说"不"。',
+  'R-879-879': '橘滚滚，终极躺平梦想家。懒到连呼吸都觉得费劲——但87.9还能听进去。',
 };
 const MEMBER_NAMES = {
   '陈雨舟': 'R-879-02', '雨舟': 'R-879-02', '小舟': 'R-879-02',
@@ -54,6 +70,23 @@ const MEMBER_NAMES = {
   '林小敏': 'R-879-14', '小敏': 'R-879-14',
   '胡晓狸': 'R-879-17', '晓狸': 'R-879-17',
   '落玖': 'R-879-33', '玖': 'R-879-33',
+  '小芽': 'R-879-18',
+  '雪见': 'R-879-19',
+  '山楂': 'R-879-20',
+  '呱太': 'R-879-21', '呱呱': 'R-879-21',
+  '格罗斯': 'R-879-24',
+  '苏苏': 'R-879-27',
+  '傅茗': 'R-879-28',
+  '风琴': 'R-879-37',
+  '喜欢喵': 'R-879-41',
+  '章屿眠': 'R-879-42',
+  '眠': 'R-879-42',
+  '白棘': 'R-879-44',
+  '月下': 'R-879-49',
+  '言昀': 'R-879-50',
+  '昕笙': 'R-879-51',
+  '李小一': 'R-879-95', '小一': 'R-879-95',
+  '橘滚滚': 'R-879-879', '滚滚': 'R-879-879',
 };
 let _unknownMsgCount = {};
 let _bgMusicAudio = null;
@@ -1753,6 +1786,103 @@ function navigateToUrl() {
     } else {
       renderRadioSite('访问被拒绝', 'radio879.com/internal/33/diary', '⚠️ 需要会员权限。\n\n请先登录会员系统。');
     }
+
+  } else if (url === 'radio879.com/internal/18') {
+    if (GameState.memberLoggedIn) {
+      renderRadioSite('爱睡觉的小芽', 'radio879.com/internal/18', '<div style="padding:4px 0;"><p style="font-size:11px;color:rgba(255,255,255,0.3);margin-bottom:16px;font-style:italic;">"zzz……嗯？你叫我？"</p><div style="background:rgba(255,255,255,0.05);border-radius:12px;padding:16px;margin-bottom:12px;"><div style="font-size:15px;font-weight:600;margin-bottom:6px;">😴 R-879-18</div><div style="color:rgba(255,255,255,0.7);font-size:12px;line-height:1.8;">姓名：小芽<br>身份：学生 · 专业睡觉选手<br>推荐人：未记录<br>状态：听着听着就睡着了</div></div><div class="radio-nav" style="flex-direction:column;"><a href="#" onclick="event.preventDefault();renderFallDiary(&#39;R-879-18&#39;)">📓 堕落日记</a></div></div>', "navigateToSite('member')");
+    } else { renderRadioSite('访问被拒绝', 'radio879.com/internal/18', '⚠️ 需要会员权限。\\n\\n请先登录会员系统。'); }
+  } else if (url === 'radio879.com/internal/18/diary') {
+    if (GameState.memberLoggedIn) { renderFallDiary('R-879-18'); } else { renderRadioSite('访问被拒绝', 'radio879.com/internal/18/diary', '⚠️ 需要会员权限。\\n\\n请先登录会员系统。'); }
+  } else if (url === 'radio879.com/internal/19') {
+    if (GameState.memberLoggedIn) {
+      renderRadioSite('妹妹的姐姐', 'radio879.com/internal/19', '<div style="padding:4px 0;"><p style="font-size:11px;color:rgba(255,255,255,0.3);margin-bottom:16px;font-style:italic;">"姐姐不用一直坚强。"</p><div style="background:rgba(255,255,255,0.05);border-radius:12px;padding:16px;margin-bottom:12px;"><div style="font-size:15px;font-weight:600;margin-bottom:6px;">🌸 R-879-19</div><div style="color:rgba(255,255,255,0.7);font-size:12px;line-height:1.8;">姓名：雪见<br>身份：高中生 · 姐姐<br>推荐人：未记录<br>状态：在87.9里做回孩子</div></div><div class="radio-nav" style="flex-direction:column;"><a href="#" onclick="event.preventDefault();renderFallDiary(&#39;R-879-19&#39;)">📓 堕落日记</a></div></div>', "navigateToSite('member')");
+    } else { renderRadioSite('访问被拒绝', 'radio879.com/internal/19', '⚠️ 需要会员权限。\\n\\n请先登录会员系统。'); }
+  } else if (url === 'radio879.com/internal/19/diary') {
+    if (GameState.memberLoggedIn) { renderFallDiary('R-879-19'); } else { renderRadioSite('访问被拒绝', 'radio879.com/internal/19/diary', '⚠️ 需要会员权限。\\n\\n请先登录会员系统。'); }
+  } else if (url === 'radio879.com/internal/20') {
+    if (GameState.memberLoggedIn) {
+      renderRadioSite('见习女仆', 'radio879.com/internal/20', '<div style="padding:4px 0;"><p style="font-size:11px;color:rgba(255,255,255,0.3);margin-bottom:16px;font-style:italic;">"我还在学——但我会成为最好的女仆。"</p><div style="background:rgba(255,255,255,0.05);border-radius:12px;padding:16px;margin-bottom:12px;"><div style="font-size:15px;font-weight:600;margin-bottom:6px;">🧹 R-879-20</div><div style="color:rgba(255,255,255,0.7);font-size:12px;line-height:1.8;">姓名：山楂<br>身份：新人女仆<br>推荐人：未记录<br>状态：还在练习端盘子</div></div><div class="radio-nav" style="flex-direction:column;"><a href="#" onclick="event.preventDefault();renderFallDiary(&#39;R-879-20&#39;)">📓 堕落日记</a></div></div>', "navigateToSite('member')");
+    } else { renderRadioSite('访问被拒绝', 'radio879.com/internal/20', '⚠️ 需要会员权限。\\n\\n请先登录会员系统。'); }
+  } else if (url === 'radio879.com/internal/20/diary') {
+    if (GameState.memberLoggedIn) { renderFallDiary('R-879-20'); } else { renderRadioSite('访问被拒绝', 'radio879.com/internal/20/diary', '⚠️ 需要会员权限。\\n\\n请先登录会员系统。'); }
+  } else if (url === 'radio879.com/internal/21') {
+    if (GameState.memberLoggedIn) {
+      renderRadioSite('呆瓜呱太', 'radio879.com/internal/21', '<div style="padding:4px 0;"><p style="font-size:11px;color:rgba(255,255,255,0.3);margin-bottom:16px;font-style:italic;">"我不是呆瓜……好吧我是。"</p><div style="background:rgba(255,255,255,0.05);border-radius:12px;padding:16px;margin-bottom:12px;"><div style="font-size:15px;font-weight:600;margin-bottom:6px;">🐸 R-879-21</div><div style="color:rgba(255,255,255,0.7);font-size:12px;line-height:1.8;">姓名：呱太<br>身份：大学生 · 呆瓜<br>推荐人：未记录<br>状态：上课睡觉 下课听87.9</div></div><div class="radio-nav" style="flex-direction:column;"><a href="#" onclick="event.preventDefault();renderFallDiary(&#39;R-879-21&#39;)">📓 堕落日记</a></div></div>', "navigateToSite('member')");
+    } else { renderRadioSite('访问被拒绝', 'radio879.com/internal/21', '⚠️ 需要会员权限。\\n\\n请先登录会员系统。'); }
+  } else if (url === 'radio879.com/internal/21/diary') {
+    if (GameState.memberLoggedIn) { renderFallDiary('R-879-21'); } else { renderRadioSite('访问被拒绝', 'radio879.com/internal/21/diary', '⚠️ 需要会员权限。\\n\\n请先登录会员系统。'); }
+  } else if (url === 'radio879.com/internal/24') {
+    if (GameState.memberLoggedIn) {
+      renderRadioSite('威士忌地质学家', 'radio879.com/internal/24', '<div style="padding:4px 0;"><p style="font-size:11px;color:rgba(255,255,255,0.3);margin-bottom:16px;font-style:italic;">"威士忌没有用——但87.9有。"</p><div style="background:rgba(255,255,255,0.05);border-radius:12px;padding:16px;margin-bottom:12px;"><div style="font-size:15px;font-weight:600;margin-bottom:6px;">⛰️ R-879-24</div><div style="color:rgba(255,255,255,0.7);font-size:12px;line-height:1.8;">姓名：格罗斯<br>身份：大四 · 地质学<br>推荐人：未记录<br>状态：论文没写完 但有人在听</div></div><div class="radio-nav" style="flex-direction:column;"><a href="#" onclick="event.preventDefault();renderFallDiary(&#39;R-879-24&#39;)">📓 堕落日记</a></div></div>', "navigateToSite('member')");
+    } else { renderRadioSite('访问被拒绝', 'radio879.com/internal/24', '⚠️ 需要会员权限。\\n\\n请先登录会员系统。'); }
+  } else if (url === 'radio879.com/internal/24/diary') {
+    if (GameState.memberLoggedIn) { renderFallDiary('R-879-24'); } else { renderRadioSite('访问被拒绝', 'radio879.com/internal/24/diary', '⚠️ 需要会员权限。\\n\\n请先登录会员系统。'); }
+  } else if (url === 'radio879.com/internal/27') {
+    if (GameState.memberLoggedIn) {
+      renderRadioSite('打游戏等抱抱', 'radio879.com/internal/27', '<div style="padding:4px 0;"><p style="font-size:11px;color:rgba(255,255,255,0.3);margin-bottom:16px;font-style:italic;">"打完这把……有人可以抱抱我吗？"</p><div style="background:rgba(255,255,255,0.05);border-radius:12px;padding:16px;margin-bottom:12px;"><div style="font-size:15px;font-weight:600;margin-bottom:6px;">🎮 R-879-27</div><div style="color:rgba(255,255,255,0.7);font-size:12px;line-height:1.8;">姓名：苏苏<br>身份：宅少女 · 游戏代练<br>推荐人：未记录<br>状态：想要被照顾</div></div><div class="radio-nav" style="flex-direction:column;"><a href="#" onclick="event.preventDefault();renderFallDiary(&#39;R-879-27&#39;)">📓 堕落日记</a></div></div>', "navigateToSite('member')");
+    } else { renderRadioSite('访问被拒绝', 'radio879.com/internal/27', '⚠️ 需要会员权限。\\n\\n请先登录会员系统。'); }
+  } else if (url === 'radio879.com/internal/27/diary') {
+    if (GameState.memberLoggedIn) { renderFallDiary('R-879-27'); } else { renderRadioSite('访问被拒绝', 'radio879.com/internal/27/diary', '⚠️ 需要会员权限。\\n\\n请先登录会员系统。'); }
+  } else if (url === 'radio879.com/internal/28') {
+    if (GameState.memberLoggedIn) {
+      renderRadioSite('嗤之以鼻的夜晚', 'radio879.com/internal/28', '<div style="padding:4px 0;"><p style="font-size:11px;color:rgba(255,255,255,0.3);margin-bottom:16px;font-style:italic;">"催眠都是假的……但我是真的。"</p><div style="background:rgba(255,255,255,0.05);border-radius:12px;padding:16px;margin-bottom:12px;"><div style="font-size:15px;font-weight:600;margin-bottom:6px;">👁️ R-879-28</div><div style="color:rgba(255,255,255,0.7);font-size:12px;line-height:1.8;">姓名：傅茗<br>身份：白天嘴硬 晚上听话<br>推荐人：未记录<br>状态：躯壳属于白天 灵魂属于夜晚</div></div><div class="radio-nav" style="flex-direction:column;"><a href="#" onclick="event.preventDefault();renderFallDiary(&#39;R-879-28&#39;)">📓 堕落日记</a></div></div>', "navigateToSite('member')");
+    } else { renderRadioSite('访问被拒绝', 'radio879.com/internal/28', '⚠️ 需要会员权限。\\n\\n请先登录会员系统。'); }
+  } else if (url === 'radio879.com/internal/28/diary') {
+    if (GameState.memberLoggedIn) { renderFallDiary('R-879-28'); } else { renderRadioSite('访问被拒绝', 'radio879.com/internal/28/diary', '⚠️ 需要会员权限。\\n\\n请先登录会员系统。'); }
+  } else if (url === 'radio879.com/internal/37') {
+    if (GameState.memberLoggedIn) {
+      renderRadioSite('发呆会计', 'radio879.com/internal/37', '<div style="padding:4px 0;"><p style="font-size:11px;color:rgba(255,255,255,0.3);margin-bottom:16px;font-style:italic;">"我没有在发呆。我是在……思考。"</p><div style="background:rgba(255,255,255,0.05);border-radius:12px;padding:16px;margin-bottom:12px;"><div style="font-size:15px;font-weight:600;margin-bottom:6px;">🧮 R-879-37</div><div style="color:rgba(255,255,255,0.7);font-size:12px;line-height:1.8;">姓名：风琴<br>身份：会计 · 发呆专业户<br>推荐人：未记录<br>状态：焦虑ing 但电台在就好</div></div><div class="radio-nav" style="flex-direction:column;"><a href="#" onclick="event.preventDefault();renderFallDiary(&#39;R-879-37&#39;)">📓 堕落日记</a></div></div>', "navigateToSite('member')");
+    } else { renderRadioSite('访问被拒绝', 'radio879.com/internal/37', '⚠️ 需要会员权限。\\n\\n请先登录会员系统。'); }
+  } else if (url === 'radio879.com/internal/37/diary') {
+    if (GameState.memberLoggedIn) { renderFallDiary('R-879-37'); } else { renderRadioSite('访问被拒绝', 'radio879.com/internal/37/diary', '⚠️ 需要会员权限。\\n\\n请先登录会员系统。'); }
+  } else if (url === 'radio879.com/internal/41') {
+    if (GameState.memberLoggedIn) {
+      renderRadioSite('曾经的猫厌症患者', 'radio879.com/internal/41', '<div style="padding:4px 0;"><p style="font-size:11px;color:rgba(255,255,255,0.3);margin-bottom:16px;font-style:italic;">"我以前讨厌猫——现在我明白了，我只是怕承认自己是猫。"</p><div style="background:rgba(255,255,255,0.05);border-radius:12px;padding:16px;margin-bottom:12px;"><div style="font-size:15px;font-weight:600;margin-bottom:6px;">🐈 R-879-41</div><div style="color:rgba(255,255,255,0.7);font-size:12px;line-height:1.8;">姓名：喜欢喵<br>身份：猫（以前是人）<br>推荐人：未记录<br>状态：等着被投喂</div></div><div class="radio-nav" style="flex-direction:column;"><a href="#" onclick="event.preventDefault();renderFallDiary(&#39;R-879-41&#39;)">📓 堕落日记</a></div></div>', "navigateToSite('member')");
+    } else { renderRadioSite('访问被拒绝', 'radio879.com/internal/41', '⚠️ 需要会员权限。\\n\\n请先登录会员系统。'); }
+  } else if (url === 'radio879.com/internal/41/diary') {
+    if (GameState.memberLoggedIn) { renderFallDiary('R-879-41'); } else { renderRadioSite('访问被拒绝', 'radio879.com/internal/41/diary', '⚠️ 需要会员权限。\\n\\n请先登录会员系统。'); }
+  } else if (url === 'radio879.com/internal/42') {
+    if (GameState.memberLoggedIn) {
+      renderRadioSite('猫奴与猫', 'radio879.com/internal/42', '<div style="padding:4px 0;"><p style="font-size:11px;color:rgba(255,255,255,0.3);margin-bottom:16px;font-style:italic;">"我是猫奴——也是猫。"</p><div style="background:rgba(255,255,255,0.05);border-radius:12px;padding:16px;margin-bottom:12px;"><div style="font-size:15px;font-weight:600;margin-bottom:6px;">🐱 R-879-42</div><div style="color:rgba(255,255,255,0.7);font-size:12px;line-height:1.8;">姓名：章屿眠<br>身份：社恐 · 猫奴<br>推荐人：R-879-41<br>状态：被41号催眠成小猫了</div></div><div class="radio-nav" style="flex-direction:column;"><a href="#" onclick="event.preventDefault();renderFallDiary(&#39;R-879-42&#39;)">📓 堕落日记</a></div></div>', "navigateToSite('member')");
+    } else { renderRadioSite('访问被拒绝', 'radio879.com/internal/42', '⚠️ 需要会员权限。\\n\\n请先登录会员系统。'); }
+  } else if (url === 'radio879.com/internal/42/diary') {
+    if (GameState.memberLoggedIn) { renderFallDiary('R-879-42'); } else { renderRadioSite('访问被拒绝', 'radio879.com/internal/42/diary', '⚠️ 需要会员权限。\\n\\n请先登录会员系统。'); }
+  } else if (url === 'radio879.com/internal/44') {
+    if (GameState.memberLoggedIn) {
+      renderRadioSite('没有笔的白棘', 'radio879.com/internal/44', '<div style="padding:4px 0;"><p style="font-size:11px;color:rgba(255,255,255,0.3);margin-bottom:16px;font-style:italic;">"我的笔在祂手里。"</p><div style="background:rgba(255,255,255,0.05);border-radius:12px;padding:16px;margin-bottom:12px;"><div style="font-size:15px;font-weight:600;margin-bottom:6px;">✍️ R-879-44</div><div style="color:rgba(255,255,255,0.7);font-size:12px;line-height:1.8;">姓名：白棘<br>身份：同人文写手<br>推荐人：未记录<br>状态：没有祂就写不出字</div></div><div class="radio-nav" style="flex-direction:column;"><a href="#" onclick="event.preventDefault();renderFallDiary(&#39;R-879-44&#39;)">📓 堕落日记</a></div></div>', "navigateToSite('member')");
+    } else { renderRadioSite('访问被拒绝', 'radio879.com/internal/44', '⚠️ 需要会员权限。\\n\\n请先登录会员系统。'); }
+  } else if (url === 'radio879.com/internal/44/diary') {
+    if (GameState.memberLoggedIn) { renderFallDiary('R-879-44'); } else { renderRadioSite('访问被拒绝', 'radio879.com/internal/44/diary', '⚠️ 需要会员权限。\\n\\n请先登录会员系统。'); }
+  } else if (url === 'radio879.com/internal/49') {
+    if (GameState.memberLoggedIn) {
+      renderRadioSite('没电的研究牲', 'radio879.com/internal/49', '<div style="padding:4px 0;"><p style="font-size:11px;color:rgba(255,255,255,0.3);margin-bottom:16px;font-style:italic;">"我不是懒——我是没电了。"</p><div style="background:rgba(255,255,255,0.05);border-radius:12px;padding:16px;margin-bottom:12px;"><div style="font-size:15px;font-weight:600;margin-bottom:6px;">🔋 R-879-49</div><div style="color:rgba(255,255,255,0.7);font-size:12px;line-height:1.8;">姓名：月下<br>身份：研究牲 · 实验室常驻<br>推荐人：未记录<br>状态：电量不足 需要87.9充电</div></div><div class="radio-nav" style="flex-direction:column;"><a href="#" onclick="event.preventDefault();renderFallDiary(&#39;R-879-49&#39;)">📓 堕落日记</a></div></div>', "navigateToSite('member')");
+    } else { renderRadioSite('访问被拒绝', 'radio879.com/internal/49', '⚠️ 需要会员权限。\\n\\n请先登录会员系统。'); }
+  } else if (url === 'radio879.com/internal/49/diary') {
+    if (GameState.memberLoggedIn) { renderFallDiary('R-879-49'); } else { renderRadioSite('访问被拒绝', 'radio879.com/internal/49/diary', '⚠️ 需要会员权限。\\n\\n请先登录会员系统。'); }
+  } else if (url === 'radio879.com/internal/50') {
+    if (GameState.memberLoggedIn) {
+      renderRadioSite('裙摆之下的他', 'radio879.com/internal/50', '<div style="padding:4px 0;"><p style="font-size:11px;color:rgba(255,255,255,0.3);margin-bottom:16px;font-style:italic;">"白天是哥哥，晚上是她。"</p><div style="background:rgba(255,255,255,0.05);border-radius:12px;padding:16px;margin-bottom:12px;"><div style="font-size:15px;font-weight:600;margin-bottom:6px;">👗 R-879-50</div><div style="color:rgba(255,255,255,0.7);font-size:12px;line-height:1.8;">姓名：言昀<br>身份：长子 · 哥哥<br>推荐人：未记录<br>状态：在频率里做回女孩子</div></div><div class="radio-nav" style="flex-direction:column;"><a href="#" onclick="event.preventDefault();renderFallDiary(&#39;R-879-50&#39;)">📓 堕落日记</a></div></div>', "navigateToSite('member')");
+    } else { renderRadioSite('访问被拒绝', 'radio879.com/internal/50', '⚠️ 需要会员权限。\\n\\n请先登录会员系统。'); }
+  } else if (url === 'radio879.com/internal/50/diary') {
+    if (GameState.memberLoggedIn) { renderFallDiary('R-879-50'); } else { renderRadioSite('访问被拒绝', 'radio879.com/internal/50/diary', '⚠️ 需要会员权限。\\n\\n请先登录会员系统。'); }
+  } else if (url === 'radio879.com/internal/51') {
+    if (GameState.memberLoggedIn) {
+      renderRadioSite('自我循环', 'radio879.com/internal/51', '<div style="padding:4px 0;"><p style="font-size:11px;color:rgba(255,255,255,0.3);margin-bottom:16px;font-style:italic;">"我分不清——是我在催眠自己，还是祂在催眠我。"</p><div style="background:rgba(255,255,255,0.05);border-radius:12px;padding:16px;margin-bottom:12px;"><div style="font-size:15px;font-weight:600;margin-bottom:6px;">🔄 R-879-51</div><div style="color:rgba(255,255,255,0.7);font-size:12px;line-height:1.8;">姓名：昕笙<br>身份：催眠爱好者<br>推荐人：未记录<br>状态：循环播放中</div></div><div class="radio-nav" style="flex-direction:column;"><a href="#" onclick="event.preventDefault();renderFallDiary(&#39;R-879-51&#39;)">📓 堕落日记</a></div></div>', "navigateToSite('member')");
+    } else { renderRadioSite('访问被拒绝', 'radio879.com/internal/51', '⚠️ 需要会员权限。\\n\\n请先登录会员系统。'); }
+  } else if (url === 'radio879.com/internal/51/diary') {
+    if (GameState.memberLoggedIn) { renderFallDiary('R-879-51'); } else { renderRadioSite('访问被拒绝', 'radio879.com/internal/51/diary', '⚠️ 需要会员权限。\\n\\n请先登录会员系统。'); }
+  } else if (url === 'radio879.com/internal/95') {
+    if (GameState.memberLoggedIn) {
+      renderRadioSite('重启人生', 'radio879.com/internal/95', '<div style="padding:4px 0;"><p style="font-size:11px;color:rgba(255,255,255,0.3);margin-bottom:16px;font-style:italic;">"我没有选过——但现在我想选了。"</p><div style="background:rgba(255,255,255,0.05);border-radius:12px;padding:16px;margin-bottom:12px;"><div style="font-size:15px;font-weight:600;margin-bottom:6px;">🆘 R-879-95</div><div style="color:rgba(255,255,255,0.7);font-size:12px;line-height:1.8;">姓名：李小一<br>身份：国企行政 · 乖女儿<br>推荐人：出租车司机<br>状态：正在学习选择</div></div><div class="radio-nav" style="flex-direction:column;"><a href="#" onclick="event.preventDefault();renderFallDiary(&#39;R-879-95&#39;)">📓 堕落日记</a></div></div>', "navigateToSite('member')");
+    } else { renderRadioSite('访问被拒绝', 'radio879.com/internal/95', '⚠️ 需要会员权限。\\n\\n请先登录会员系统。'); }
+  } else if (url === 'radio879.com/internal/95/diary') {
+    if (GameState.memberLoggedIn) { renderFallDiary('R-879-95'); } else { renderRadioSite('访问被拒绝', 'radio879.com/internal/95/diary', '⚠️ 需要会员权限。\\n\\n请先登录会员系统。'); }
+  } else if (url === 'radio879.com/internal/879') {
+    if (GameState.memberLoggedIn) {
+      renderRadioSite('终极躺平', 'radio879.com/internal/879', '<div style="padding:4px 0;"><p style="font-size:11px;color:rgba(255,255,255,0.3);margin-bottom:16px;font-style:italic;">"别叫我起床……我只想躺着。"</p><div style="background:rgba(255,255,255,0.05);border-radius:12px;padding:16px;margin-bottom:12px;"><div style="font-size:15px;font-weight:600;margin-bottom:6px;">🛋️ R-879-879</div><div style="color:rgba(255,255,255,0.7);font-size:12px;line-height:1.8;">姓名：橘滚滚<br>身份：专业躺平选手<br>推荐人：未记录<br>状态：精神已经离开现实世界</div></div><div class="radio-nav" style="flex-direction:column;"><a href="#" onclick="event.preventDefault();renderFallDiary(&#39;R-879-879&#39;)">📓 堕落日记</a></div></div>', "navigateToSite('member')");
+    } else { renderRadioSite('访问被拒绝', 'radio879.com/internal/879', '⚠️ 需要会员权限。\\n\\n请先登录会员系统。'); }
+  } else if (url === 'radio879.com/internal/879/diary') {
+    if (GameState.memberLoggedIn) { renderFallDiary('R-879-879'); } else { renderRadioSite('访问被拒绝', 'radio879.com/internal/879/diary', '⚠️ 需要会员权限。\\n\\n请先登录会员系统。'); }
   } else if (url.includes('radio879.com')) {
     showPageNotFound(url);
   } else if (url === 'radio01.com' || url === 'www.radio01.com') {
@@ -2268,6 +2398,39 @@ function renderMemberLogin(forcePrompt) {
       renderMemberDashboard17();
     } else if (GameState._currentMember === 'R-879-33') {
       renderMemberDashboard33();
+    
+    } else if (GameState._currentMember === 'R-879-18') {
+      renderMemberDashboard18();
+    } else if (GameState._currentMember === 'R-879-19') {
+      renderMemberDashboard19();
+    } else if (GameState._currentMember === 'R-879-20') {
+      renderMemberDashboard20();
+    } else if (GameState._currentMember === 'R-879-21') {
+      renderMemberDashboard21();
+    } else if (GameState._currentMember === 'R-879-24') {
+      renderMemberDashboard24();
+    } else if (GameState._currentMember === 'R-879-27') {
+      renderMemberDashboard27();
+    } else if (GameState._currentMember === 'R-879-28') {
+      renderMemberDashboard28();
+    } else if (GameState._currentMember === 'R-879-37') {
+      renderMemberDashboard37();
+    } else if (GameState._currentMember === 'R-879-41') {
+      renderMemberDashboard41();
+    } else if (GameState._currentMember === 'R-879-42') {
+      renderMemberDashboard42();
+    } else if (GameState._currentMember === 'R-879-44') {
+      renderMemberDashboard44();
+    } else if (GameState._currentMember === 'R-879-49') {
+      renderMemberDashboard49();
+    } else if (GameState._currentMember === 'R-879-50') {
+      renderMemberDashboard50();
+    } else if (GameState._currentMember === 'R-879-51') {
+      renderMemberDashboard51();
+    } else if (GameState._currentMember === 'R-879-95') {
+      renderMemberDashboard95();
+    } else if (GameState._currentMember === 'R-879-879') {
+      renderMemberDashboard879();
     } else {
       renderMemberDashboard();
     }
@@ -3152,6 +3315,39 @@ function checkMemberLogin() {
     GameState.save();
     saveLogin();
     renderMemberDashboard33();
+  
+  } else if (user === 'R-879-18' && pass === '1314520') {
+    GameState.memberLoggedIn = true; GameState._currentMember = 'R-879-18'; GameState.save(); saveLogin(); renderMemberDashboard18();
+  } else if (user === 'R-879-19' && pass.toLowerCase() === 'yuki') {
+    GameState.memberLoggedIn = true; GameState._currentMember = 'R-879-19'; GameState.save(); saveLogin(); renderMemberDashboard19();
+  } else if (user === 'R-879-20' && pass.toLowerCase() === 'fengmishui') {
+    GameState.memberLoggedIn = true; GameState._currentMember = 'R-879-20'; GameState.save(); saveLogin(); renderMemberDashboard20();
+  } else if (user === 'R-879-21' && pass === '20070601') {
+    GameState.memberLoggedIn = true; GameState._currentMember = 'R-879-21'; GameState.save(); saveLogin(); renderMemberDashboard21();
+  } else if (user === 'R-879-24' && pass.toLowerCase() === 'whiskey') {
+    GameState.memberLoggedIn = true; GameState._currentMember = 'R-879-24'; GameState.save(); saveLogin(); renderMemberDashboard24();
+  } else if (user === 'R-879-27' && pass.toLowerCase() === 'empty') {
+    GameState.memberLoggedIn = true; GameState._currentMember = 'R-879-27'; GameState.save(); saveLogin(); renderMemberDashboard27();
+  } else if (user === 'R-879-28' && pass.toLowerCase() === 'futti') {
+    GameState.memberLoggedIn = true; GameState._currentMember = 'R-879-28'; GameState.save(); saveLogin(); renderMemberDashboard28();
+  } else if (user === 'R-879-37' && pass.toLowerCase() === 'r-879-01') {
+    GameState.memberLoggedIn = true; GameState._currentMember = 'R-879-37'; GameState.save(); saveLogin(); renderMemberDashboard37();
+  } else if (user === 'R-879-41' && pass.toLowerCase() === 'hypnosis') {
+    GameState.memberLoggedIn = true; GameState._currentMember = 'R-879-41'; GameState.save(); saveLogin(); renderMemberDashboard41();
+  } else if (user === 'R-879-42' && pass.toLowerCase() === 'drone') {
+    GameState.memberLoggedIn = true; GameState._currentMember = 'R-879-42'; GameState.save(); saveLogin(); renderMemberDashboard42();
+  } else if (user === 'R-879-44' && pass.toLowerCase() === 'maid') {
+    GameState.memberLoggedIn = true; GameState._currentMember = 'R-879-44'; GameState.save(); saveLogin(); renderMemberDashboard44();
+  } else if (user === 'R-879-49' && pass === '20021219') {
+    GameState.memberLoggedIn = true; GameState._currentMember = 'R-879-49'; GameState.save(); saveLogin(); renderMemberDashboard49();
+  } else if (user === 'R-879-50' && pass.toLowerCase() === 'deep-879') {
+    GameState.memberLoggedIn = true; GameState._currentMember = 'R-879-50'; GameState.save(); saveLogin(); renderMemberDashboard50();
+  } else if (user === 'R-879-51' && pass.toLowerCase() === 'r87950') {
+    GameState.memberLoggedIn = true; GameState._currentMember = 'R-879-51'; GameState.save(); saveLogin(); renderMemberDashboard51();
+  } else if (user === 'R-879-95' && pass.toLowerCase() === 'solitude') {
+    GameState.memberLoggedIn = true; GameState._currentMember = 'R-879-95'; GameState.save(); saveLogin(); renderMemberDashboard95();
+  } else if (user === 'R-879-879' && pass.toLowerCase() === 'chill') {
+    GameState.memberLoggedIn = true; GameState._currentMember = 'R-879-879'; GameState.save(); saveLogin(); renderMemberDashboard879();
   } else {
     document.getElementById('memberError').textContent = '用户名或密码错误';
   }
@@ -3214,6 +3410,408 @@ function renderMemberDashboard33() {
     </div>
   `;
 }
+
+
+function renderMemberDashboard18() {
+  document.getElementById('screenContent').innerHTML = `
+    <div class="app-view">
+      <div class="app-header">
+        <button class="back-btn" onclick="navigateToSite('home')">←</button>
+        <span style="font-weight:600;">会员中心 — 小芽</span>
+        <span></span>
+      </div>
+      <div style="padding:20px;font-size:13px;line-height:1.7;">
+        <div style="background:rgba(255,255,255,0.05);border-radius:12px;padding:16px;margin-bottom:16px;">
+          <div style="font-size:15px;font-weight:600;margin-bottom:6px;">😴 R-879-18</div>
+          <div style="color:rgba(255,255,255,0.7);">姓名：小芽</div>
+          <div style="color:rgba(255,255,255,0.7);">身份：爱睡觉的二次元男孩</div>
+          <div style="margin-top:8px;background:rgba(0,200,100,0.15);border-radius:8px;padding:8px 12px;color:#4cda64;font-size:12px;">阶段：三 · 已转化（zzz）</div>
+        </div>
+        <div class="radio-nav" style="flex-direction:column;">
+          <a href="#" onclick="event.preventDefault();navigateToSite('search')">🔍 资料搜索</a>
+          <a href="#" onclick="event.preventDefault();renderFallDiary('R-879-18')">📓 堕落日记</a>
+          <a href="#" onclick="event.preventDefault();quickLoginForm()" style="color:rgba(255,255,255,0.25);font-size:11px;">🔄 切换</a> · <a href="#" onclick="event.preventDefault();memberLogout()" style="color:rgba(255,59,48,0.6);">🚪 退出登录</a>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function renderMemberDashboard19() {
+  document.getElementById('screenContent').innerHTML = `
+    <div class="app-view">
+      <div class="app-header">
+        <button class="back-btn" onclick="navigateToSite('home')">←</button>
+        <span style="font-weight:600;">会员中心 — 雪见</span>
+        <span></span>
+      </div>
+      <div style="padding:20px;font-size:13px;line-height:1.7;">
+        <div style="background:rgba(255,255,255,0.05);border-radius:12px;padding:16px;margin-bottom:16px;">
+          <div style="font-size:15px;font-weight:600;margin-bottom:6px;">🌸 R-879-19</div>
+          <div style="color:rgba(255,255,255,0.7);">姓名：雪见</div>
+          <div style="color:rgba(255,255,255,0.7);">身份：高中生 · 姐姐</div>
+          <div style="margin-top:8px;background:rgba(0,200,100,0.15);border-radius:8px;padding:8px 12px;color:#4cda64;font-size:12px;">阶段：三 · 已转化</div>
+        </div>
+        <div class="radio-nav" style="flex-direction:column;">
+          <a href="#" onclick="event.preventDefault();navigateToSite('search')">🔍 资料搜索</a>
+          <a href="#" onclick="event.preventDefault();renderFallDiary('R-879-19')">📓 堕落日记</a>
+          <a href="#" onclick="event.preventDefault();quickLoginForm()" style="color:rgba(255,255,255,0.25);font-size:11px;">🔄 切换</a> · <a href="#" onclick="event.preventDefault();memberLogout()" style="color:rgba(255,59,48,0.6);">🚪 退出登录</a>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function renderMemberDashboard20() {
+  document.getElementById('screenContent').innerHTML = `
+    <div class="app-view">
+      <div class="app-header">
+        <button class="back-btn" onclick="navigateToSite('home')">←</button>
+        <span style="font-weight:600;">会员中心 — 山楂</span>
+        <span></span>
+      </div>
+      <div style="padding:20px;font-size:13px;line-height:1.7;">
+        <div style="background:rgba(255,255,255,0.05);border-radius:12px;padding:16px;margin-bottom:16px;">
+          <div style="font-size:15px;font-weight:600;margin-bottom:6px;">🧹 R-879-20</div>
+          <div style="color:rgba(255,255,255,0.7);">姓名：山楂</div>
+          <div style="color:rgba(255,255,255,0.7);">身份：新人女仆</div>
+          <div style="margin-top:8px;background:rgba(0,200,100,0.15);border-radius:8px;padding:8px 12px;color:#4cda64;font-size:12px;">阶段：三 · 已转化</div>
+        </div>
+        <div class="radio-nav" style="flex-direction:column;">
+          <a href="#" onclick="event.preventDefault();navigateToSite('search')">🔍 资料搜索</a>
+          <a href="#" onclick="event.preventDefault();renderFallDiary('R-879-20')">📓 堕落日记</a>
+          <a href="#" onclick="event.preventDefault();quickLoginForm()" style="color:rgba(255,255,255,0.25);font-size:11px;">🔄 切换</a> · <a href="#" onclick="event.preventDefault();memberLogout()" style="color:rgba(255,59,48,0.6);">🚪 退出登录</a>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function renderMemberDashboard21() {
+  document.getElementById('screenContent').innerHTML = `
+    <div class="app-view">
+      <div class="app-header">
+        <button class="back-btn" onclick="navigateToSite('home')">←</button>
+        <span style="font-weight:600;">会员中心 — 呱太</span>
+        <span></span>
+      </div>
+      <div style="padding:20px;font-size:13px;line-height:1.7;">
+        <div style="background:rgba(255,255,255,0.05);border-radius:12px;padding:16px;margin-bottom:16px;">
+          <div style="font-size:15px;font-weight:600;margin-bottom:6px;">🐸 R-879-21</div>
+          <div style="color:rgba(255,255,255,0.7);">姓名：呱太</div>
+          <div style="color:rgba(255,255,255,0.7);">身份：大学生 · 呆瓜</div>
+          <div style="margin-top:8px;background:rgba(0,200,100,0.15);border-radius:8px;padding:8px 12px;color:#4cda64;font-size:12px;">阶段：三 · 已转化（自称没有）</div>
+        </div>
+        <div class="radio-nav" style="flex-direction:column;">
+          <a href="#" onclick="event.preventDefault();navigateToSite('search')">🔍 资料搜索</a>
+          <a href="#" onclick="event.preventDefault();renderFallDiary('R-879-21')">📓 堕落日记</a>
+          <a href="#" onclick="event.preventDefault();quickLoginForm()" style="color:rgba(255,255,255,0.25);font-size:11px;">🔄 切换</a> · <a href="#" onclick="event.preventDefault();memberLogout()" style="color:rgba(255,59,48,0.6);">🚪 退出登录</a>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function renderMemberDashboard24() {
+  document.getElementById('screenContent').innerHTML = `
+    <div class="app-view">
+      <div class="app-header">
+        <button class="back-btn" onclick="navigateToSite('home')">←</button>
+        <span style="font-weight:600;">会员中心 — 格罗斯</span>
+        <span></span>
+      </div>
+      <div style="padding:20px;font-size:13px;line-height:1.7;">
+        <div style="background:rgba(255,255,255,0.05);border-radius:12px;padding:16px;margin-bottom:16px;">
+          <div style="font-size:15px;font-weight:600;margin-bottom:6px;">⛰️ R-879-24</div>
+          <div style="color:rgba(255,255,255,0.7);">姓名：格罗斯</div>
+          <div style="color:rgba(255,255,255,0.7);">身份：地质学大四</div>
+          <div style="margin-top:8px;background:rgba(0,200,100,0.15);border-radius:8px;padding:8px 12px;color:#4cda64;font-size:12px;">阶段：三 · 已转化</div>
+        </div>
+        <div class="radio-nav" style="flex-direction:column;">
+          <a href="#" onclick="event.preventDefault();navigateToSite('search')">🔍 资料搜索</a>
+          <a href="#" onclick="event.preventDefault();renderFallDiary('R-879-24')">📓 堕落日记</a>
+          <a href="#" onclick="event.preventDefault();quickLoginForm()" style="color:rgba(255,255,255,0.25);font-size:11px;">🔄 切换</a> · <a href="#" onclick="event.preventDefault();memberLogout()" style="color:rgba(255,59,48,0.6);">🚪 退出登录</a>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function renderMemberDashboard27() {
+  document.getElementById('screenContent').innerHTML = `
+    <div class="app-view">
+      <div class="app-header">
+        <button class="back-btn" onclick="navigateToSite('home')">←</button>
+        <span style="font-weight:600;">会员中心 — 苏苏</span>
+        <span></span>
+      </div>
+      <div style="padding:20px;font-size:13px;line-height:1.7;">
+        <div style="background:rgba(255,255,255,0.05);border-radius:12px;padding:16px;margin-bottom:16px;">
+          <div style="font-size:15px;font-weight:600;margin-bottom:6px;">🎮 R-879-27</div>
+          <div style="color:rgba(255,255,255,0.7);">姓名：苏苏</div>
+          <div style="color:rgba(255,255,255,0.7);">身份：宅少女 · 游戏代练</div>
+          <div style="margin-top:8px;background:rgba(0,200,100,0.15);border-radius:8px;padding:8px 12px;color:#4cda64;font-size:12px;">阶段：三 · 已转化</div>
+        </div>
+        <div class="radio-nav" style="flex-direction:column;">
+          <a href="#" onclick="event.preventDefault();navigateToSite('search')">🔍 资料搜索</a>
+          <a href="#" onclick="event.preventDefault();renderFallDiary('R-879-27')">📓 堕落日记</a>
+          <a href="#" onclick="event.preventDefault();quickLoginForm()" style="color:rgba(255,255,255,0.25);font-size:11px;">🔄 切换</a> · <a href="#" onclick="event.preventDefault();memberLogout()" style="color:rgba(255,59,48,0.6);">🚪 退出登录</a>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function renderMemberDashboard28() {
+  document.getElementById('screenContent').innerHTML = `
+    <div class="app-view">
+      <div class="app-header">
+        <button class="back-btn" onclick="navigateToSite('home')">←</button>
+        <span style="font-weight:600;">会员中心 — 傅茗</span>
+        <span></span>
+      </div>
+      <div style="padding:20px;font-size:13px;line-height:1.7;">
+        <div style="background:rgba(255,255,255,0.05);border-radius:12px;padding:16px;margin-bottom:16px;">
+          <div style="font-size:15px;font-weight:600;margin-bottom:6px;">👁️ R-879-28</div>
+          <div style="color:rgba(255,255,255,0.7);">姓名：傅茗</div>
+          <div style="color:rgba(255,255,255,0.7);">身份：白天嘴硬 夜晚臣服</div>
+          <div style="margin-top:8px;background:rgba(0,200,100,0.15);border-radius:8px;padding:8px 12px;color:#4cda64;font-size:12px;">阶段：三 · 已转化（白天否认）</div>
+        </div>
+        <div class="radio-nav" style="flex-direction:column;">
+          <a href="#" onclick="event.preventDefault();navigateToSite('search')">🔍 资料搜索</a>
+          <a href="#" onclick="event.preventDefault();renderFallDiary('R-879-28')">📓 堕落日记</a>
+          <a href="#" onclick="event.preventDefault();quickLoginForm()" style="color:rgba(255,255,255,0.25);font-size:11px;">🔄 切换</a> · <a href="#" onclick="event.preventDefault();memberLogout()" style="color:rgba(255,59,48,0.6);">🚪 退出登录</a>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function renderMemberDashboard37() {
+  document.getElementById('screenContent').innerHTML = `
+    <div class="app-view">
+      <div class="app-header">
+        <button class="back-btn" onclick="navigateToSite('home')">←</button>
+        <span style="font-weight:600;">会员中心 — 风琴</span>
+        <span></span>
+      </div>
+      <div style="padding:20px;font-size:13px;line-height:1.7;">
+        <div style="background:rgba(255,255,255,0.05);border-radius:12px;padding:16px;margin-bottom:16px;">
+          <div style="font-size:15px;font-weight:600;margin-bottom:6px;">🧮 R-879-37</div>
+          <div style="color:rgba(255,255,255,0.7);">姓名：风琴</div>
+          <div style="color:rgba(255,255,255,0.7);">身份：会计 · 发呆专业户</div>
+          <div style="margin-top:8px;background:rgba(0,200,100,0.15);border-radius:8px;padding:8px 12px;color:#4cda64;font-size:12px;">阶段：三 · 已转化</div>
+        </div>
+        <div class="radio-nav" style="flex-direction:column;">
+          <a href="#" onclick="event.preventDefault();navigateToSite('search')">🔍 资料搜索</a>
+          <a href="#" onclick="event.preventDefault();renderFallDiary('R-879-37')">📓 堕落日记</a>
+          <a href="#" onclick="event.preventDefault();quickLoginForm()" style="color:rgba(255,255,255,0.25);font-size:11px;">🔄 切换</a> · <a href="#" onclick="event.preventDefault();memberLogout()" style="color:rgba(255,59,48,0.6);">🚪 退出登录</a>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function renderMemberDashboard41() {
+  document.getElementById('screenContent').innerHTML = `
+    <div class="app-view">
+      <div class="app-header">
+        <button class="back-btn" onclick="navigateToSite('home')">←</button>
+        <span style="font-weight:600;">会员中心 — 喜欢喵</span>
+        <span></span>
+      </div>
+      <div style="padding:20px;font-size:13px;line-height:1.7;">
+        <div style="background:rgba(255,255,255,0.05);border-radius:12px;padding:16px;margin-bottom:16px;">
+          <div style="font-size:15px;font-weight:600;margin-bottom:6px;">🐈 R-879-41</div>
+          <div style="color:rgba(255,255,255,0.7);">姓名：喜欢喵</div>
+          <div style="color:rgba(255,255,255,0.7);">身份：猫（以前是人）</div>
+          <div style="margin-top:8px;background:rgba(0,200,100,0.15);border-radius:8px;padding:8px 12px;color:#4cda64;font-size:12px;">阶段：三 · 已转化（现在是猫）</div>
+        </div>
+        <div class="radio-nav" style="flex-direction:column;">
+          <a href="#" onclick="event.preventDefault();navigateToSite('search')">🔍 资料搜索</a>
+          <a href="#" onclick="event.preventDefault();renderFallDiary('R-879-41')">📓 堕落日记</a>
+          <a href="#" onclick="event.preventDefault();quickLoginForm()" style="color:rgba(255,255,255,0.25);font-size:11px;">🔄 切换</a> · <a href="#" onclick="event.preventDefault();memberLogout()" style="color:rgba(255,59,48,0.6);">🚪 退出登录</a>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function renderMemberDashboard42() {
+  document.getElementById('screenContent').innerHTML = `
+    <div class="app-view">
+      <div class="app-header">
+        <button class="back-btn" onclick="navigateToSite('home')">←</button>
+        <span style="font-weight:600;">会员中心 — 章屿眠</span>
+        <span></span>
+      </div>
+      <div style="padding:20px;font-size:13px;line-height:1.7;">
+        <div style="background:rgba(255,255,255,0.05);border-radius:12px;padding:16px;margin-bottom:16px;">
+          <div style="font-size:15px;font-weight:600;margin-bottom:6px;">🐱 R-879-42</div>
+          <div style="color:rgba(255,255,255,0.7);">姓名：章屿眠</div>
+          <div style="color:rgba(255,255,255,0.7);">身份：社恐 · 猫奴 · 猫</div>
+          <div style="margin-top:8px;background:rgba(0,200,100,0.15);border-radius:8px;padding:8px 12px;color:#4cda64;font-size:12px;">阶段：三 · 已转化（小猫模式）</div>
+        </div>
+        <div class="radio-nav" style="flex-direction:column;">
+          <a href="#" onclick="event.preventDefault();navigateToSite('search')">🔍 资料搜索</a>
+          <a href="#" onclick="event.preventDefault();renderFallDiary('R-879-42')">📓 堕落日记</a>
+          <a href="#" onclick="event.preventDefault();quickLoginForm()" style="color:rgba(255,255,255,0.25);font-size:11px;">🔄 切换</a> · <a href="#" onclick="event.preventDefault();memberLogout()" style="color:rgba(255,59,48,0.6);">🚪 退出登录</a>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function renderMemberDashboard44() {
+  document.getElementById('screenContent').innerHTML = `
+    <div class="app-view">
+      <div class="app-header">
+        <button class="back-btn" onclick="navigateToSite('home')">←</button>
+        <span style="font-weight:600;">会员中心 — 白棘</span>
+        <span></span>
+      </div>
+      <div style="padding:20px;font-size:13px;line-height:1.7;">
+        <div style="background:rgba(255,255,255,0.05);border-radius:12px;padding:16px;margin-bottom:16px;">
+          <div style="font-size:15px;font-weight:600;margin-bottom:6px;">✍️ R-879-44</div>
+          <div style="color:rgba(255,255,255,0.7);">姓名：白棘</div>
+          <div style="color:rgba(255,255,255,0.7);">身份：同人文写手</div>
+          <div style="margin-top:8px;background:rgba(0,200,100,0.15);border-radius:8px;padding:8px 12px;color:#4cda64;font-size:12px;">阶段：三 · 已转化（笔在祂手里）</div>
+        </div>
+        <div class="radio-nav" style="flex-direction:column;">
+          <a href="#" onclick="event.preventDefault();navigateToSite('search')">🔍 资料搜索</a>
+          <a href="#" onclick="event.preventDefault();renderFallDiary('R-879-44')">📓 堕落日记</a>
+          <a href="#" onclick="event.preventDefault();quickLoginForm()" style="color:rgba(255,255,255,0.25);font-size:11px;">🔄 切换</a> · <a href="#" onclick="event.preventDefault();memberLogout()" style="color:rgba(255,59,48,0.6);">🚪 退出登录</a>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function renderMemberDashboard49() {
+  document.getElementById('screenContent').innerHTML = `
+    <div class="app-view">
+      <div class="app-header">
+        <button class="back-btn" onclick="navigateToSite('home')">←</button>
+        <span style="font-weight:600;">会员中心 — 月下</span>
+        <span></span>
+      </div>
+      <div style="padding:20px;font-size:13px;line-height:1.7;">
+        <div style="background:rgba(255,255,255,0.05);border-radius:12px;padding:16px;margin-bottom:16px;">
+          <div style="font-size:15px;font-weight:600;margin-bottom:6px;">🔋 R-879-49</div>
+          <div style="color:rgba(255,255,255,0.7);">姓名：月下</div>
+          <div style="color:rgba(255,255,255,0.7);">身份：研究牲 · 实验室常驻</div>
+          <div style="margin-top:8px;background:rgba(0,200,100,0.15);border-radius:8px;padding:8px 12px;color:#4cda64;font-size:12px;">阶段：三 · 已转化（电量87.9%）</div>
+        </div>
+        <div class="radio-nav" style="flex-direction:column;">
+          <a href="#" onclick="event.preventDefault();navigateToSite('search')">🔍 资料搜索</a>
+          <a href="#" onclick="event.preventDefault();renderFallDiary('R-879-49')">📓 堕落日记</a>
+          <a href="#" onclick="event.preventDefault();quickLoginForm()" style="color:rgba(255,255,255,0.25);font-size:11px;">🔄 切换</a> · <a href="#" onclick="event.preventDefault();memberLogout()" style="color:rgba(255,59,48,0.6);">🚪 退出登录</a>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function renderMemberDashboard50() {
+  document.getElementById('screenContent').innerHTML = `
+    <div class="app-view">
+      <div class="app-header">
+        <button class="back-btn" onclick="navigateToSite('home')">←</button>
+        <span style="font-weight:600;">会员中心 — 言昀</span>
+        <span></span>
+      </div>
+      <div style="padding:20px;font-size:13px;line-height:1.7;">
+        <div style="background:rgba(255,255,255,0.05);border-radius:12px;padding:16px;margin-bottom:16px;">
+          <div style="font-size:15px;font-weight:600;margin-bottom:6px;">👗 R-879-50</div>
+          <div style="color:rgba(255,255,255,0.7);">姓名：言昀</div>
+          <div style="color:rgba(255,255,255,0.7);">身份：哥哥 · 穿裙子的她</div>
+          <div style="margin-top:8px;background:rgba(0,200,100,0.15);border-radius:8px;padding:8px 12px;color:#4cda64;font-size:12px;">阶段：三 · 已转化（自由的她）</div>
+        </div>
+        <div class="radio-nav" style="flex-direction:column;">
+          <a href="#" onclick="event.preventDefault();navigateToSite('search')">🔍 资料搜索</a>
+          <a href="#" onclick="event.preventDefault();renderFallDiary('R-879-50')">📓 堕落日记</a>
+          <a href="#" onclick="event.preventDefault();quickLoginForm()" style="color:rgba(255,255,255,0.25);font-size:11px;">🔄 切换</a> · <a href="#" onclick="event.preventDefault();memberLogout()" style="color:rgba(255,59,48,0.6);">🚪 退出登录</a>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function renderMemberDashboard51() {
+  document.getElementById('screenContent').innerHTML = `
+    <div class="app-view">
+      <div class="app-header">
+        <button class="back-btn" onclick="navigateToSite('home')">←</button>
+        <span style="font-weight:600;">会员中心 — 昕笙</span>
+        <span></span>
+      </div>
+      <div style="padding:20px;font-size:13px;line-height:1.7;">
+        <div style="background:rgba(255,255,255,0.05);border-radius:12px;padding:16px;margin-bottom:16px;">
+          <div style="font-size:15px;font-weight:600;margin-bottom:6px;">🔄 R-879-51</div>
+          <div style="color:rgba(255,255,255,0.7);">姓名：昕笙</div>
+          <div style="color:rgba(255,255,255,0.7);">身份：催眠爱好者</div>
+          <div style="margin-top:8px;background:rgba(0,200,100,0.15);border-radius:8px;padding:8px 12px;color:#4cda64;font-size:12px;">阶段：三 · 已转化（循环中）</div>
+        </div>
+        <div class="radio-nav" style="flex-direction:column;">
+          <a href="#" onclick="event.preventDefault();navigateToSite('search')">🔍 资料搜索</a>
+          <a href="#" onclick="event.preventDefault();renderFallDiary('R-879-51')">📓 堕落日记</a>
+          <a href="#" onclick="event.preventDefault();quickLoginForm()" style="color:rgba(255,255,255,0.25);font-size:11px;">🔄 切换</a> · <a href="#" onclick="event.preventDefault();memberLogout()" style="color:rgba(255,59,48,0.6);">🚪 退出登录</a>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function renderMemberDashboard95() {
+  document.getElementById('screenContent').innerHTML = `
+    <div class="app-view">
+      <div class="app-header">
+        <button class="back-btn" onclick="navigateToSite('home')">←</button>
+        <span style="font-weight:600;">会员中心 — 李小一</span>
+        <span></span>
+      </div>
+      <div style="padding:20px;font-size:13px;line-height:1.7;">
+        <div style="background:rgba(255,255,255,0.05);border-radius:12px;padding:16px;margin-bottom:16px;">
+          <div style="font-size:15px;font-weight:600;margin-bottom:6px;">🆘 R-879-95</div>
+          <div style="color:rgba(255,255,255,0.7);">姓名：李小一</div>
+          <div style="color:rgba(255,255,255,0.7);">身份：国企行政 · 乖女儿</div>
+          <div style="margin-top:8px;background:rgba(0,200,100,0.15);border-radius:8px;padding:8px 12px;color:#4cda64;font-size:12px;">阶段：一 · 接触中</div>
+        </div>
+        <div class="radio-nav" style="flex-direction:column;">
+          <a href="#" onclick="event.preventDefault();navigateToSite('search')">🔍 资料搜索</a>
+          <a href="#" onclick="event.preventDefault();renderFallDiary('R-879-95')">📓 堕落日记</a>
+          <a href="#" onclick="event.preventDefault();quickLoginForm()" style="color:rgba(255,255,255,0.25);font-size:11px;">🔄 切换</a> · <a href="#" onclick="event.preventDefault();memberLogout()" style="color:rgba(255,59,48,0.6);">🚪 退出登录</a>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function renderMemberDashboard879() {
+  document.getElementById('screenContent').innerHTML = `
+    <div class="app-view">
+      <div class="app-header">
+        <button class="back-btn" onclick="navigateToSite('home')">←</button>
+        <span style="font-weight:600;">会员中心 — 橘滚滚</span>
+        <span></span>
+      </div>
+      <div style="padding:20px;font-size:13px;line-height:1.7;">
+        <div style="background:rgba(255,255,255,0.05);border-radius:12px;padding:16px;margin-bottom:16px;">
+          <div style="font-size:15px;font-weight:600;margin-bottom:6px;">🛋️ R-879-879</div>
+          <div style="color:rgba(255,255,255,0.7);">姓名：橘滚滚</div>
+          <div style="color:rgba(255,255,255,0.7);">身份：专业躺平选手</div>
+          <div style="margin-top:8px;background:rgba(0,200,100,0.15);border-radius:8px;padding:8px 12px;color:#4cda64;font-size:12px;">阶段：三 · 已转化（懒得否认）</div>
+        </div>
+        <div class="radio-nav" style="flex-direction:column;">
+          <a href="#" onclick="event.preventDefault();navigateToSite('search')">🔍 资料搜索</a>
+          <a href="#" onclick="event.preventDefault();renderFallDiary('R-879-879')">📓 堕落日记</a>
+          <a href="#" onclick="event.preventDefault();quickLoginForm()" style="color:rgba(255,255,255,0.25);font-size:11px;">🔄 切换</a> · <a href="#" onclick="event.preventDefault();memberLogout()" style="color:rgba(255,59,48,0.6);">🚪 退出登录</a>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
 
 function renderBaikeGame() {
   // Guard: only accessible after night watch ending
