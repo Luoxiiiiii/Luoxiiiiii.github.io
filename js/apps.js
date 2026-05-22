@@ -49,6 +49,7 @@ const MEMBER_INTROS = {
   'R-879-41': '喜欢喵，以前讨厌猫——现在成了一只猫。',
   'R-879-42': '章屿眠，重度猫奴社恐。在41号的引荐下成了一只小猫。',
   'R-879-44': '白棘，同人文写手。被87.9赋予了灵感——也被夺走了笔。',
+  'R-879-46': '林语鸳，学生。对催眠有天生喜好——白鸟振翅，翎羽即钥匙。',
   'R-879-49': '月下，苦逼研究生。累到一被催眠就飘走——87.9是唯一的充电器。',
   'R-879-50': '言昀，长兄如父。穿上裙子的时候才是真正的自己。',
   'R-879-51': '昕笙，催眠爱好者。录了自己的音频——然后分不清谁在催眠谁了。',
@@ -82,6 +83,7 @@ const MEMBER_NAMES = {
   '章屿眠': 'R-879-42',
   '眠': 'R-879-42',
   '白棘': 'R-879-44',
+  '林语鸳': 'R-879-46', '语鸳': 'R-879-46', '翎羽': 'R-879-46',
   '月下': 'R-879-49',
   '言昀': 'R-879-50',
   '昕笙': 'R-879-51',
@@ -1853,6 +1855,12 @@ function navigateToUrl() {
     } else { renderRadioSite('访问被拒绝', 'radio879.com/internal/44', '⚠️ 需要会员权限。\\n\\n请先登录会员系统。'); }
   } else if (url === 'radio879.com/internal/44/diary') {
     if (GameState.memberLoggedIn) { renderFallDiary('R-879-44'); } else { renderRadioSite('访问被拒绝', 'radio879.com/internal/44/diary', '⚠️ 需要会员权限。\\n\\n请先登录会员系统。'); }
+  } else if (url === 'radio879.com/internal/46') {
+    if (GameState.memberLoggedIn) {
+      renderRadioSite('白鸟与翎羽', 'radio879.com/internal/46', '<div style="padding:4px 0;"><p style="font-size:11px;color:rgba(255,255,255,0.3);margin-bottom:16px;font-style:italic;">"白鸟振翅时，人们只看见羽毛的白，看不见笼子的形状。"</p><div style="background:rgba(255,255,255,0.05);border-radius:12px;padding:16px;margin-bottom:12px;"><div style="font-size:15px;font-weight:600;margin-bottom:6px;">🕊️ R-879-46</div><div style="color:rgba(255,255,255,0.7);font-size:12px;line-height:1.8;">姓名：林语鸳<br>身份：学生 · 班长<br>推荐人：未记录<br>状态：白鸟已振翅</div></div><div class="radio-nav" style="flex-direction:column;"><a href="#" onclick="event.preventDefault();renderFallDiary(&#39;R-879-46&#39;)">📓 堕落日记</a></div></div>', "navigateToSite('member')");
+    } else { renderRadioSite('访问被拒绝', 'radio879.com/internal/46', '⚠️ 需要会员权限。\\n\\n请先登录会员系统。'); }
+  } else if (url === 'radio879.com/internal/46/diary') {
+    if (GameState.memberLoggedIn) { renderFallDiary('R-879-46'); } else { renderRadioSite('访问被拒绝', 'radio879.com/internal/46/diary', '⚠️ 需要会员权限。\\n\\n请先登录会员系统。'); }
   } else if (url === 'radio879.com/internal/49') {
     if (GameState.memberLoggedIn) {
       renderRadioSite('没电的研究牲', 'radio879.com/internal/49', '<div style="padding:4px 0;"><p style="font-size:11px;color:rgba(255,255,255,0.3);margin-bottom:16px;font-style:italic;">"我不是懒——我是没电了。"</p><div style="background:rgba(255,255,255,0.05);border-radius:12px;padding:16px;margin-bottom:12px;"><div style="font-size:15px;font-weight:600;margin-bottom:6px;">🔋 R-879-49</div><div style="color:rgba(255,255,255,0.7);font-size:12px;line-height:1.8;">姓名：月下<br>身份：研究牲 · 实验室常驻<br>推荐人：未记录<br>状态：电量不足 需要87.9充电</div></div><div class="radio-nav" style="flex-direction:column;"><a href="#" onclick="event.preventDefault();renderFallDiary(&#39;R-879-49&#39;)">📓 堕落日记</a></div></div>', "navigateToSite('member')");
@@ -2441,6 +2449,8 @@ function renderMemberLogin(forcePrompt) {
       renderMemberDashboard42();
     } else if (GameState._currentMember === 'R-879-44') {
       renderMemberDashboard44();
+    } else if (GameState._currentMember === 'R-879-46') {
+      renderMemberDashboard46();
     } else if (GameState._currentMember === 'R-879-49') {
       renderMemberDashboard49();
     } else if (GameState._currentMember === 'R-879-50') {
@@ -3358,6 +3368,8 @@ function checkMemberLogin() {
     GameState.memberLoggedIn = true; GameState._currentMember = 'R-879-42'; GameState.save(); saveLogin(); renderMemberDashboard42();
   } else if (user === 'R-879-44' && pass.toLowerCase() === 'maid') {
     GameState.memberLoggedIn = true; GameState._currentMember = 'R-879-44'; GameState.save(); saveLogin(); renderMemberDashboard44();
+  } else if (user === 'R-879-46' && pass.toLowerCase() === 'white') {
+    GameState.memberLoggedIn = true; GameState._currentMember = 'R-879-46'; GameState.save(); saveLogin(); renderMemberDashboard46();
   } else if (user === 'R-879-49' && pass === '20021219') {
     GameState.memberLoggedIn = true; GameState._currentMember = 'R-879-49'; GameState.save(); saveLogin(); renderMemberDashboard49();
   } else if (user === 'R-879-50' && pass.toLowerCase() === 'deep-879') {
@@ -3701,6 +3713,31 @@ function renderMemberDashboard44() {
         <div class="radio-nav" style="flex-direction:column;">
           <a href="#" onclick="event.preventDefault();navigateToSite('search')">🔍 资料搜索</a>
           <a href="#" onclick="event.preventDefault();renderFallDiary('R-879-44')">📓 堕落日记</a>
+          <a href="#" onclick="event.preventDefault();quickLoginForm()" style="color:rgba(255,255,255,0.25);font-size:11px;">🔄 切换</a> · <a href="#" onclick="event.preventDefault();memberLogout()" style="color:rgba(255,59,48,0.6);">🚪 退出登录</a>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function renderMemberDashboard46() {
+  document.getElementById('screenContent').innerHTML = `
+    <div class="app-view">
+      <div class="app-header">
+        <button class="back-btn" onclick="navigateToSite('home')">←</button>
+        <span style="font-weight:600;">会员中心 — 林语鸳</span>
+        <span></span>
+      </div>
+      <div style="padding:20px;font-size:13px;line-height:1.7;">
+        <div style="background:rgba(255,255,255,0.05);border-radius:12px;padding:16px;margin-bottom:16px;">
+          <div style="font-size:15px;font-weight:600;margin-bottom:6px;">🕊️ R-879-46</div>
+          <div style="color:rgba(255,255,255,0.7);">姓名：林语鸳</div>
+          <div style="color:rgba(255,255,255,0.7);">身份：学生 · 班长</div>
+          <div style="margin-top:8px;background:rgba(0,200,100,0.15);border-radius:8px;padding:8px 12px;color:#4cda64;font-size:12px;">阶段：三 · 已转化（钥匙）</div>
+        </div>
+        <div class="radio-nav" style="flex-direction:column;">
+          <a href="#" onclick="event.preventDefault();navigateToSite('search')">🔍 资料搜索</a>
+          <a href="#" onclick="event.preventDefault();renderFallDiary('R-879-46')">📓 堕落日记</a>
           <a href="#" onclick="event.preventDefault();quickLoginForm()" style="color:rgba(255,255,255,0.25);font-size:11px;">🔄 切换</a> · <a href="#" onclick="event.preventDefault();memberLogout()" style="color:rgba(255,59,48,0.6);">🚪 退出登录</a>
         </div>
       </div>
