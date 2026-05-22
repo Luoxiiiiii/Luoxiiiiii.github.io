@@ -86,12 +86,12 @@ const RADIO_DATA = {
 
 const BROWSER_DATA = {
   searchHistory: [
-    { query: '深夜失眠怎么办', time: '23:15', date: '05/06' },
-    { query: '87.9 电台 催眠', time: '23:30', date: '05/06' },
-    { query: '催眠暗示 自我催眠', time: '00:10', date: '05/07' },
-    { query: '87.9 MHz 论坛', time: '00:20', date: '05/07' },
-    { query: '哪些症状说明被催眠了', time: '01:00', date: '05/08' },
-    { query: '如何解除催眠暗示', time: '01:05', date: '05/08' },
+    { query: '深夜失眠怎么办', time: '23:15', date: '05/26' },
+    { query: '87.9 电台 催眠', time: '23:30', date: '05/26' },
+    { query: '催眠暗示 自我催眠', time: '00:10', date: '05/27' },
+    { query: '87.9 MHz 论坛', time: '00:20', date: '05/27' },
+    { query: '哪些症状说明被催眠了', time: '01:00', date: '05/28' },
+    { query: '如何解除催眠暗示', time: '01:05', date: '05/28' },
   ],
   bookmarks: [
     { title: '深夜电台论坛 - 讨论区', url: 'radio01.com/forum', id: 'forum' },
