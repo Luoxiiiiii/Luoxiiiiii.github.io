@@ -2031,6 +2031,8 @@ function navigateToSite(section) {
     internal11: 'radio879.com/internal/11',
     internal12: 'radio879.com/internal/12',
     internal02: 'radio879.com/internal/02',
+    internal17: 'radio879.com/internal/17',
+    internal95: 'radio879.com/internal/95',
   };
   GameState._lastUrl = paths[section] || 'radio879.com';
   GameState.save();
@@ -2134,6 +2136,24 @@ function navigateToSite(section) {
     if (GameState.memberLoggedIn) {
       const page = BROWSER_DATA.pages.radioInternal12;
       renderRadioSite(page.title, 'radio879.com/internal/12', page.content, "navigateToSite('member')");
+    } else {
+      navigateToSite('home');
+    }
+  }
+  else if (section === 'internal17') {
+    if (GameState.memberLoggedIn) {
+      renderBrowserApp();
+      const input = document.getElementById('urlInput');
+      if (input) { input.value = 'radio879.com/internal/17'; navigateToUrl(); }
+    } else {
+      navigateToSite('home');
+    }
+  }
+  else if (section === 'internal95') {
+    if (GameState.memberLoggedIn) {
+      renderBrowserApp();
+      const input = document.getElementById('urlInput');
+      if (input) { input.value = 'radio879.com/internal/95'; navigateToUrl(); }
     } else {
       navigateToSite('home');
     }
@@ -3377,6 +3397,7 @@ function renderMemberDashboard17() {
         </div>
         <div class="radio-nav" style="flex-direction:column;">
           <a href="#" onclick="event.preventDefault();navigateToSite('search')">🔍 资料搜索</a>
+          <a href="#" onclick="event.preventDefault();navigateToSite('internal17')">📋 内部报告</a>
           <a href="#" onclick="event.preventDefault();renderFallDiary('R-879-17')">📓 堕落日记</a>
           <a href="#" onclick="event.preventDefault();quickLoginForm()" style="color:rgba(255,255,255,0.25);font-size:11px;">🔄 切换</a> · <a href="#" onclick="event.preventDefault();memberLogout()" style="color:rgba(255,59,48,0.6);">🚪 退出登录</a>
         </div>
@@ -3779,6 +3800,7 @@ function renderMemberDashboard95() {
         </div>
         <div class="radio-nav" style="flex-direction:column;">
           <a href="#" onclick="event.preventDefault();navigateToSite('search')">🔍 资料搜索</a>
+          <a href="#" onclick="event.preventDefault();navigateToSite('internal95')">📋 内部报告</a>
           <a href="#" onclick="event.preventDefault();renderFallDiary('R-879-95')">📓 堕落日记</a>
           <a href="#" onclick="event.preventDefault();quickLoginForm()" style="color:rgba(255,255,255,0.25);font-size:11px;">🔄 切换</a> · <a href="#" onclick="event.preventDefault();memberLogout()" style="color:rgba(255,59,48,0.6);">🚪 退出登录</a>
         </div>
