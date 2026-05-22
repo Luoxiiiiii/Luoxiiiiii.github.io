@@ -141,20 +141,20 @@ const BROWSER_DATA = {
       url: 'radio879.com/admin',
       content: '',
     },
-        radioInternal14: {
+    radioInternal14: {
       title: '内部文件 — R-879-14',
       url: 'radio879.com/internal/14',
-      content: '<div style="padding:4px 0;"><p style="font-size:11px;color:rgba(255,255,255,0.3);margin-bottom:16px;font-style:italic;">"好累。但祂的声音能让我再撑一天。"</p><div style="background:rgba(255,255,255,0.05);border-radius:12px;padding:16px;margin-bottom:12px;"><div style="font-size:15px;font-weight:600;margin-bottom:6px;">📋 R-879-14</div><div style="color:rgba(255,255,255,0.7);font-size:12px;line-height:1.8;">姓名：林小敏<br>身份：普通上班族<br>推荐人：R-879-13（江晓琳）→ R-879-01<br>状态：服从中（转化进度94%）</div></div><div class="radio-nav" style="flex-direction:column;"><a href="#" onclick="event.preventDefault();renderFallDiary(&#39;R-879-14&#39;)">📓 堕落日记</a></div></div>',
+      content: '=== 受试者评估报告 ===\n\n编号：R-879-14\n姓名：林小敏\n引入人：R-879-13（江晓琳）→ R-879-01\n\n当前状态：阶段三（服从）\n记忆清除：有效\n转化进度：94%\n\n行为指标：\n- 首次接触：2026.5.26（通过 R-879-13 引荐）\n- 首次感知：当晚（受试者自述"听到背后有人说话"）\n- 裂痕出现：2026.5.27（记忆空白 3 小时，自动拨号）\n- 自主搜索：2026.5.28（关键词："87.9"、"催眠"、"记忆清除"）\n- 转化确认：2026.5.29（自主书写"服从电台"超过 200 遍）\n- 编号授予：2026.5.30\n- 引入新人：2026.5.31（预注册 R-879-15）\n\n异常记录：\n[05/27] 凌晨 0:10 自动拨出至未知号码。受试者无记忆。\n[05/28] 自主信息搜集——搜索"催眠""记忆清除"。社交媒体匿名咨询——已拦截。\n[05/28] 截图行为——已标记。不干预。\n[05/28] 备忘录新增单字："救"。已标记。\n[05/29] 夜间接管——受试者于书桌前书写指令语 3 小时，无清醒记忆。\n\n心理评估：\n受试者为典型的内向型人格，日常社交消耗大，深层渴望被理解、被引导。\n此类受试者的特点是：表面正常、内部积压。一旦找到释放口，会自己推进转化进程，几乎不需要外部干预。\n受试者给自己留下了提示（备忘、截图、加密日记、相册密码）。\n此行为并非反抗，而是"清醒自我"的最后一次求救——但求救的对象是未来的自己，而非外界。\n备忘录单字"救"已被记录在案。无需干预。\n\n预测：7 天内完成完整转化。\n当前关注：R-879-15 接触进度。\n\n=== 文件结束 ===',
     },
-        radioInternal13: {
+    radioInternal13: {
       title: '内部文件 — R-879-13',
       url: 'radio879.com/internal/13',
-      content: '<div style="padding:4px 0;"><p style="font-size:11px;color:rgba(255,255,255,0.3);margin-bottom:16px;font-style:italic;">"我是护士——但这一次，需要被照顾的人是我。"</p><div style="background:rgba(255,255,255,0.05);border-radius:12px;padding:16px;margin-bottom:12px;"><div style="font-size:15px;font-weight:600;margin-bottom:6px;">💉 R-879-13</div><div style="color:rgba(255,255,255,0.7);font-size:12px;line-height:1.8;">姓名：江晓琳<br>身份：护士<br>推荐人：R-879-08（苏灵悦）→ R-879-01<br>状态：接近完成（转化进度98%）</div></div><div class="radio-nav" style="flex-direction:column;"><a href="#" onclick="event.preventDefault();renderFallDiary(&#39;R-879-13&#39;)">📓 堕落日记</a></div></div>',
+      content: '=== 受试者评估报告 ===\n\n编号：R-879-13\n姓名：江晓琳\n引入人：R-879-08（苏灵悦）\n职业：护士\n\n当前状态：阶段三（接近完成）\n记忆清除：有效\n转化进度：98%（即将完成）\n\n行为指标：\n- 首次接触：2026.5.10（通过朋友引荐，初始态度：怀疑）\n- 突破防线：2026.5.12（首次感知到声音）\n- 推荐关系：2026.5.14（与 R-879-01 建立联系）\n- 社交发布：2026.5.16（论坛发帖，主动传播）\n- 每日收听：持续，日均 5 小时+\n- 指令服从率：85% → 持续上升\n\n心理评估：\n受试者为护士，长期处于高压工作环境，对"被照顾"有深层需求。\n初始表现典型的知性防御——怀疑、讽刺、自称"学医的不易被催眠"。\n此类受试者的共同特征是：一旦理性防线被突破，转化极为彻底。\n当前已出现明显的自我认知溶解（见 5.19 日记）、\n记忆碎片化（5.15）、攻击性转向自我客体化（5.21）。\n\n备注：\n受试者与 R-879-14（林小敏）为现实好友关系。\n推荐链：R-879-01 → R-879-13 → R-879-14\n此链条中 01 首次跨级直接介入（13号的推荐人不是常规链条中的上级编号）。\n推测 01 对江晓琳有特殊关注。\n\n预测：7-10 天内进入阶段三。\n\n=== 文件结束 ===',
     },
-        radioInternal08: {
+    radioInternal08: {
       title: '内部文件 — R-879-08',
       url: 'radio879.com/internal/08',
-      content: '<div style="padding:4px 0;"><p style="font-size:11px;color:rgba(255,255,255,0.3);margin-bottom:16px;font-style:italic;">"我看人很准的——她也会来的。"</p><div style="background:rgba(255,255,255,0.05);border-radius:12px;padding:16px;margin-bottom:12px;"><div style="font-size:15px;font-weight:600;margin-bottom:6px;">👁️ R-879-08</div><div style="color:rgba(255,255,255,0.7);font-size:12px;line-height:1.8;">姓名：苏灵悦<br>身份：护士（已离职）<br>推荐人：R-879-06<br>状态：已完全转化</div></div><div class="radio-nav" style="flex-direction:column;"><a href="#" onclick="event.preventDefault();renderFallDiary(&#39;R-879-08&#39;)">📓 堕落日记</a></div></div>',
+      content: '=== 受试者评估报告 ===\n\n编号：R-879-08\n姓名：苏灵悦\n引入人：R-879-06\n职业：护士\n\n当前状态：阶段三（服从）\n记忆清除：有效\n转化进度：100%\n\n行为指标：\n- 每日收听：持续\n- 夜间操作：正常\n- 社交退缩：显著\n- 职业状态：已离职\n\n异常记录：\n[04/28] 首次接触。受试者出于好奇心主动搜索。\n[05/02] 与 R-879-06 线下会面。推荐关系建立。\n[05/05] 职场行为异常——对患者态度冷漠。自我认知开始松动。\n[05/06] 主动搜索频率增加。日均收听时间突破 4 小时。\n[05/07] 完成阶段二指令。开始执行"作业"。\n\n评估：\n受试者具有强烈的自我意识和完美主义倾向，初期表现出典型的防御性怀疑。\n但此类人格一旦突破心理防线，转化速度远快于平均水平。\n从接触到完整服从仅需 10 天。\n\n备注：\n受试者已主动辞职，与社会连接基本切断。\n推荐人 R-879-06 报告称受试者"非常配合"。\n\n预测：已完全转化。\n\n=== 文件结束 ===',
     },
     radioInternal02: {
       title: '内部文件 — R-879-02',
