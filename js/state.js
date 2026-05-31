@@ -23,6 +23,10 @@ const GameState = {
   _savedAccounts: [],
   _radioDailyIndex: 0,
   _lastRadioDate: '',
+  _baikeIndex: -1,
+  _baikeDate: '',
+  _baikeGuessedChars: [],
+  _baikeGuessCount: 0,
 
   save() {
     try {
@@ -48,6 +52,10 @@ const GameState = {
         _savedAccounts: this._savedAccounts,
         _radioDailyIndex: this._radioDailyIndex,
         _lastRadioDate: this._lastRadioDate,
+        _baikeIndex: this._baikeIndex,
+        _baikeDate: this._baikeDate,
+        _baikeGuessedChars: this._baikeGuessedChars,
+        _baikeGuessCount: this._baikeGuessCount,
       }));
     } catch (e) {
       console.warn('Save failed:', e);

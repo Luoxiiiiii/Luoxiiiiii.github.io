@@ -8,6 +8,7 @@ const APPS = [
   { id: 'gallery', label: '相册', icon: '🖼️', gradient: 'linear-gradient(135deg, #ff9500, #e65100)' },
   { id: 'notes', label: '备忘录', icon: '📝', gradient: 'linear-gradient(135deg, #ffcc00, #f9a825)' },
   { id: 'mail', label: '邮件', icon: '✉️', gradient: 'linear-gradient(135deg, #007aff, #0044aa)' },
+  { id: 'baike', label: '猜百科', icon: '❓', gradient: 'linear-gradient(135deg, #8e44ad, #2c3e50)' },
 ];
 
 const DOCK_APPS = ['messages', 'radio', 'browser', 'phone'];
@@ -244,6 +245,8 @@ function renderHomeScreen() {
   let appIconsHtml = '';
   APPS.forEach(a => {
     if (DOCK_APPS.includes(a.id)) return;
+    // Hide 猜百科 until night watch ending is completed
+    if (a.id === 'baike' && !GameState._nightWatchCompleted) return;
     appIconsHtml += `
       <div class="app-icon" onclick="openApp('${a.id}')">
         <div class="app-icon-inner" style="background: ${a.gradient}">${a.icon}</div>
@@ -293,6 +296,7 @@ function renderAppView(appId) {
     gallery: typeof renderGalleryApp === 'function' ? renderGalleryApp : () => genericAppView('相册'),
     notes: typeof renderNotesApp === 'function' ? renderNotesApp : () => genericAppView('备忘录'),
     mail: typeof renderMailApp === 'function' ? renderMailApp : () => genericAppView('邮件'),
+    baike: typeof renderBaikeGame === 'function' ? renderBaikeGame : () => genericAppView('猜百科'),
   };
   const render = renderers[appId] || renderHomeScreen;
   render();

@@ -3167,6 +3167,194 @@ function renderMemberDashboard17() {
   `;
 }
 
+
+function renderBaikeGame() {
+  // Guard: only accessible after night watch ending
+  if (!GameState._nightWatchCompleted) { goHome(); return; }
+
+  // Daily advance at 23:00 (same +1h shift as radio)
+  const now = new Date();
+  const shifted = new Date(now.getTime() + 3600000);
+  const todayStr = shifted.getFullYear() + '-' + (shifted.getMonth()+1) + '-' + shifted.getDate();
+  if (GameState._baikeDate !== todayStr) {
+    GameState._baikeIndex += 1;
+    GameState._baikeDate = todayStr;
+    GameState._baikeGuessedChars = [];
+    GameState._baikeGuessCount = 0;
+    GameState.save();
+  }
+
+  const puzzle = BAIKE_GAME_DATA[GameState._baikeIndex];
+  if (!puzzle) {
+    // All puzzles exhausted
+    document.getElementById('screenContent').innerHTML = `
+      <div class="app-view" style="background:#f5f5f7;">
+        <div class="app-header" style="background:#fff;border-bottom:1px solid #e5e5ea;">
+          <button class="back-btn" onclick="goHome()" style="color:#8e44ad;">←</button>
+          <span style="font-weight:600;color:#1c1c1e;">猜百科</span>
+          <span></span>
+        </div>
+        <div style="padding:60px 20px;text-align:center;">
+          <div style="font-size:48px;margin-bottom:16px;">🎉</div>
+          <div style="font-size:16px;color:#3a3a3c;font-weight:500;">全部题目已答完！</div>
+        </div>
+      </div>
+    `;
+    return;
+  }
+  const guessed = GameState._baikeGuessedChars || [];
+
+  // Collect all unique Chinese/letter chars from title + content
+  const allPuzzleChars = {};
+  (puzzle.title + puzzle.content).split('').forEach(c => {
+    if (/[一-鿿]/.test(c) || /[a-zA-Z]/.test(c)) {
+      allPuzzleChars[c] = true;
+    }
+  });
+  const allPuzzleCharSet = new Set(Object.keys(allPuzzleChars));
+
+  // Unique title chars (these need to be guessed for victory)
+  const titleCharSet = new Set();
+  puzzle.title.split('').forEach(c => {
+    if (/[一-鿿]/.test(c) || /[a-zA-Z]/.test(c)) {
+      titleCharSet.add(c);
+    }
+  });
+
+  // Separate guessed into correct/wrong
+  const guessedCorrect = guessed.filter(c => allPuzzleCharSet.has(c));
+  const guessedWrong = guessed.filter(c => !allPuzzleCharSet.has(c));
+
+  // Check win: all title chars guessed
+  const won = [...titleCharSet].every(c => guessed.includes(c));
+
+  // Build masked display with square black blocks
+  function maskTitle(text) {
+    return text.split('').map(c => {
+      if (/[一-鿿]/.test(c) || /[a-zA-Z]/.test(c)) {
+        return guessed.includes(c) ? c : '<span style="display:inline-block;width:1em;height:1em;background:#1c1c1e;border-radius:2px;vertical-align:-2px;margin:0 1.5px;"></span>';
+      }
+      return c;
+    }).join('');
+  }
+  // For content: guessed chars show as green
+  function renderContent(text) {
+    return text.split('').map(c => {
+      if (/[一-鿿]/.test(c) || /[a-zA-Z]/.test(c)) {
+        if (guessed.includes(c)) {
+          return `<span style="color:#34c759;">${c}</span>`;
+        }
+        return '<span style="display:inline-block;width:1em;height:1em;background:#1c1c1e;border-radius:2px;vertical-align:-2px;margin:0 1.5px;"></span>';
+      }
+      return c;
+    }).join('');
+  }
+
+  const maskedTitle = maskTitle(puzzle.title);
+  const maskedContent = won ? puzzle.content : renderContent(puzzle.content);
+  // Guess stats
+  const totalUnique = titleCharSet.size;
+  const guessedUnique = [...titleCharSet].filter(c => guessed.includes(c)).length;
+  const totalGuesses = GameState._baikeGuessCount || 0;
+
+  // Handle input
+  const inputId = 'baikeGuessInput';
+  const submitId = 'baikeSubmit';
+
+  // Build HTML with white card style
+  const screen = document.getElementById('screenContent');
+  screen.innerHTML = `
+    <div class="app-view" style="background:#f5f5f7;">
+      <div class="app-header" style="background:#fff;border-bottom:1px solid #e5e5ea;">
+        <button class="back-btn" onclick="goHome()" style="color:#8e44ad;">←</button>
+        <span style="font-weight:600;color:#1c1c1e;">猜百科 · 第${GameState._baikeIndex}题</span>
+        <span></span>
+      </div>
+      <div style="padding:20px;display:flex;flex-direction:column;gap:16px;overflow-y:auto;flex:1;">
+        <!-- Title area -->
+        <div style="background:#fff;border-radius:14px;padding:24px 20px;text-align:center;box-shadow:0 1px 3px rgba(0,0,0,0.06);">
+          <div style="font-size:11px;color:#8e8e93;margin-bottom:10px;font-weight:500;letter-spacing:2px;">📖 猜出以下百科标题</div>
+          <div id="baikeTitleDisplay" style="font-size:22px;font-weight:700;letter-spacing:6px;line-height:1.8;color:${won ? '#34c759' : '#1c1c1e'};">
+            ${won ? '🎉 ' + puzzle.title : maskedTitle}
+          </div>
+          ${won ? '<div style="margin-top:12px;font-size:13px;color:#34c759;font-weight:500;">✅ 恭喜过关！明天再来挑战新题目</div>' : ''}
+          <div style="margin-top:${won ? '12px' : '8px'};font-size:12px;color:#8e8e93;">共猜了 ${totalGuesses} 次<span style="margin:0 8px;">·</span>已猜出 ${guessedUnique} / ${totalUnique} 个字</div>
+        </div>
+
+        <!-- Content area (hint) -->
+        <div style="background:#fff;border-radius:14px;padding:20px;font-size:16px;line-height:2.2;color:#3a3a3c;letter-spacing:1.5px;box-shadow:0 1px 3px rgba(0,0,0,0.06);text-align:${won ? 'left' : 'center'};">
+          ${maskedContent}
+        </div>
+
+        <!-- Input area -->
+        ${!won ? `
+        <div style="background:#fff;border-radius:14px;padding:12px 16px;box-shadow:0 1px 3px rgba(0,0,0,0.06);">
+          <div style="display:flex;gap:8px;align-items:center;">
+            <input id="${inputId}" type="text" maxlength="1" style="flex:1;min-width:0;box-sizing:border-box;background:#f5f5f7;border:1.5px solid #e5e5ea;border-radius:10px;padding:10px 0;color:#1c1c1e;font-size:20px;text-align:center;outline:none;font-weight:600;" placeholder="?" autocomplete="off">
+            <button id="${submitId}" style="flex-shrink:0;background:#8e44ad;border:none;border-radius:10px;padding:10px 20px;color:#fff;font-size:14px;font-weight:600;cursor:pointer;box-shadow:0 2px 8px rgba(142,68,173,0.3);">猜</button>
+          </div>
+          <div id="baikeFeedback" style="font-size:11px;color:#8e8e93;text-align:center;min-height:18px;margin-top:6px;"></div>
+        </div>
+        ` : ''}
+
+        <!-- Guessed chars display -->
+        <div style="display:flex;flex-wrap:wrap;gap:6px;min-height:28px;padding:2px 0;">
+          ${guessedCorrect.map(c => `<span style="background:#e8f8ee;color:#34c759;padding:3px 9px;border-radius:5px;font-size:13px;font-weight:600;">${c}</span>`).join('')}
+          ${guessedWrong.map(c => `<span style="background:#f2f2f7;color:#c7c7cc;padding:3px 9px;border-radius:5px;font-size:13px;">${c}</span>`).join('')}
+        </div>
+      </div>
+    </div>
+  `;
+
+  // Don't bind input if already won
+  if (won) return;
+
+  const inputEl = document.getElementById(inputId);
+  const feedbackEl = document.getElementById('baikeFeedback');
+
+  function submitGuess() {
+    const char = inputEl.value.trim();
+    if (!char) {
+      feedbackEl.textContent = '请输入一个字符';
+      return;
+    }
+    if (char.length > 1 || !(/[一-鿿]/.test(char) || /[a-zA-Z]/.test(char))) {
+      feedbackEl.textContent = '请输入单个汉字或字母';
+      inputEl.value = '';
+      return;
+    }
+    // Normalize to fullwidth for comparison? No, keep as-is
+    if (guessed.includes(char)) {
+      feedbackEl.textContent = '"' + char + '" 已经猜过了';
+      inputEl.value = '';
+      return;
+    }
+
+    guessed.push(char);
+    GameState._baikeGuessedChars = guessed;
+    // Count this guess attempt (correct or wrong)
+    GameState._baikeGuessCount = (GameState._baikeGuessCount || 0) + 1;
+    GameState.save();
+
+    if (allPuzzleCharSet.has(char)) {
+      feedbackEl.textContent = '✅ 猜对了！"' + char + '" 已显示';
+      feedbackEl.style.color = '#4cda64';
+    } else {
+      feedbackEl.textContent = '❌ 不对，再试试';
+      feedbackEl.style.color = 'rgba(255,59,48,0.6)';
+    }
+    inputEl.value = '';
+    // Re-render
+    renderBaikeGame();
+  }
+
+  document.getElementById(submitId).addEventListener('click', submitGuess);
+  inputEl.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') submitGuess();
+  });
+  setTimeout(() => inputEl.focus(), 100);
+}
+
 function quickLoginForm() {
   renderMemberLogin(true);
 }
