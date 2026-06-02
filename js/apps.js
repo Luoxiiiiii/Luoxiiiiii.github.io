@@ -1879,6 +1879,12 @@ function navigateToUrl() {
     } else { renderRadioSite('访问被拒绝', 'radio879.com/internal/51', '⚠️ 需要会员权限。\\n\\n请先登录会员系统。'); }
   } else if (url === 'radio879.com/internal/51/diary') {
     if (GameState.memberLoggedIn) { renderFallDiary('R-879-51'); } else { renderRadioSite('访问被拒绝', 'radio879.com/internal/51/diary', '⚠️ 需要会员权限。\\n\\n请先登录会员系统。'); }
+  } else if (url === 'radio879.com/internal/96') {
+    if (GameState.memberLoggedIn) {
+      renderRadioSite('受试者评估报告 — R-879-96', 'radio879.com/internal/96', '<div style="padding:4px 0;white-space:pre-wrap;font-family:monospace;font-size:11px;color:rgba(255,255,255,0.8);line-height:1.9;">=== 受试者评估报告 ===\n\n编号：R-879-96\n姓名：亦影\n引入人：R-879-06\n职业：写手、"音声创作者"\n\n当前状态：阶段三（服从）\n记忆清除：部分有效\n转化进度：100%\n\n行为指标：\n- 首次接触：心理咨询\n- 初始态度：创作取材（以"了解大众兴趣"为名）\n- 突破方式：通过将"为电台创作"与"被认可"高度绑定，形成循环加深\n- 推荐行为：受试自愿创作宣传87.9电台的作品，以影响更多个体\n\n异常记录：\n[04/30] 通过心理咨询与R-879-06接触，推荐关系建立。\n[05/02] 表现出创作欲，并渴望被认可，出现向电台投稿的行为。\n[05/03] 受01影响迅速完成转化进度，开始为电台进行创作。\n[05/31] 在频率关停后，借"87.9电台"名义主动进行音声创作，并通过发布作品，间接延续了转化与推荐的行为。\n\n评估：\n受试者具备扎实文字功底、文学常识与强烈创作欲。\n此类受试者对于言语文本等信息的敏感程度高于常人，高度有利于转化。\n此外，受试者在写手生涯上的多年瓶颈困境，使得其急需获得认可的渠道。\n当频率提供了创作与认可的联系，受试者的转化进度远快于平均水平。\n\n备注：\n受试者相当看重其文字作品收获的评价，并将"主人"视为最重要的读者。\n受试者表现出了对电台的高度服从，但"创作"仍为其主要驱动力。\n推荐人R-879-06 报告称受试者"非常配合"\n\n预测：已完全转化，并主动尝试担任"主持人"角色。\n\n=== 文件结束 ===\n</div>', "navigateToSite('member')");
+    } else { renderRadioSite('访问被拒绝', 'radio879.com/internal/96', '⚠️ 需要会员权限。\\n\\n请先登录会员系统。'); }
+  } else if (url === 'radio879.com/internal/96/diary') {
+    if (GameState.memberLoggedIn) { renderFallDiary('R-879-96'); } else { renderRadioSite('访问被拒绝', 'radio879.com/internal/96/diary', '⚠️ 需要会员权限。\\n\\n请先登录会员系统。'); }
   } else if (url === 'radio879.com/internal/95') {
     if (GameState.memberLoggedIn) {
       renderRadioSite('受试者评估报告 — R-879-95', 'radio879.com/internal/95', '<div style="padding:4px 0;white-space:pre-wrap;font-family:monospace;font-size:11px;color:rgba(255,255,255,0.8);line-height:1.9;">=== 受试者评估报告 ===\n\n编号：R-879-95\n姓名：李小一\n引入人：出租车女司机（身份不明，推荐后失联）\n\n当前状态：接触初期（重建后）\n转化进度：15%（正在学习打开自己）\n\n行为指标：\n- 首次接触：由出租车女司机在深夜载客时推荐频率\n- 初始状态：长期压抑、自我忽视、活在他人期待中\n- 早期行为：被动收听，在电台中找到"被看见"的感觉\n- 关键转折：尝试做出自己的选择（调闹钟、请半天假）\n- 当前阶段：开始承认自己的存在和需求\n\n心理评估：\n受试者为典型的"乖巧型"人格——从小到大活在父母的期待里，从未进行过真正的自主选择。她在国企做着稳定的工作，过着"正确"的生活，但内心早已精疲力竭。\n\n受试者的转化路径特殊之处在于——她不是在频率中"被控制"，而是在频率中"被允许"。祂没有命令她服从，而是告诉她"你可以选"。这种温和的引导方式恰好符合受试者的心理缺口：她缺的不是管教，是许可。\n\n值得注意的是，受试者在日记中展现出了清晰的自我觉察能力。她知道自己累，知道自己想要什么，她只是不敢要。频率给了她一个安全的、无后果的空间去练习"选择"。\n\n预测：受试者有望在频率引导下逐步建立自主性。但依赖风险较高——她可能会将"自由选择"的能力完全归功于频率，从而在心理上形成对87.9的长期依赖。\n\n备注：\n受试者为87.9重建后加入的新听众。她收听的是恢复广播后的信号，这意味着她的转化轨迹受01直接影响。与早期成员不同，她接触到的87.9已经过重建，但其核心频率的效力并未减弱。\n\n=== 文件结束 ===\n</div>', "navigateToSite('member')");
@@ -2041,6 +2047,7 @@ function navigateToSite(section) {
     internal02: 'radio879.com/internal/02',
     internal17: 'radio879.com/internal/17',
     internal95: 'radio879.com/internal/95',
+    internal96: 'radio879.com/internal/96',
   };
   GameState._lastUrl = paths[section] || 'radio879.com';
   GameState.save();
@@ -2162,6 +2169,15 @@ function navigateToSite(section) {
       renderBrowserApp();
       const input = document.getElementById('urlInput');
       if (input) { input.value = 'radio879.com/internal/95'; navigateToUrl(); }
+    } else {
+      navigateToSite('home');
+    }
+  }
+  else if (section === 'internal96') {
+    if (GameState.memberLoggedIn) {
+      renderBrowserApp();
+      const input = document.getElementById('urlInput');
+      if (input) { input.value = 'radio879.com/internal/96'; navigateToUrl(); }
     } else {
       navigateToSite('home');
     }
@@ -2832,6 +2848,19 @@ function renderFallDiary(memberId) {
       }
       return;
     }
+
+    // R-879-96 post-ending diaries — only visible after night watch ending
+    if (memberId === 'R-879-96' && (entry.title === '断频' || entry.title === '回溯')) {
+      if (GameState._nightWatchCompleted) {
+        entriesHtml += `
+          <div style="margin-bottom:16px;padding:12px;background:rgba(255,255,255,0.03);border-radius:8px;">
+            <div style="font-size:10px;color:rgba(255,255,255,0.3);margin-bottom:2px;">${entry.date}</div>
+            <div style="font-size:13px;color:rgba(255,255,255,0.8);margin-bottom:6px;font-weight:500;">${entry.title}</div>
+            <div style="font-size:12px;color:rgba(255,255,255,0.7);line-height:1.7;white-space:pre-wrap;">${entry.text}</div>
+          </div>`;
+      }
+      return;
+    }
     // Gate shutdown entries (2026.5.??) — only visible after good ending (NG+)
     if (entry.date === '2026.5.??' && !GameState._endingCompleted) return;
     entriesHtml += `
@@ -3378,6 +3407,8 @@ function checkMemberLogin() {
     GameState.memberLoggedIn = true; GameState._currentMember = 'R-879-51'; GameState.save(); saveLogin(); renderMemberDashboard51();
   } else if (user === 'R-879-95' && pass.toLowerCase() === 'solitude') {
     GameState.memberLoggedIn = true; GameState._currentMember = 'R-879-95'; GameState.save(); saveLogin(); renderMemberDashboard95();
+  } else if (user === 'R-879-96' && pass.toLowerCase() === 'blackcat') {
+    GameState.memberLoggedIn = true; GameState._currentMember = 'R-879-96'; GameState.save(); saveLogin(); renderMemberDashboard96();
   } else if (user === 'R-879-879' && pass.toLowerCase() === 'chill') {
     GameState.memberLoggedIn = true; GameState._currentMember = 'R-879-879'; GameState.save(); saveLogin(); renderMemberDashboard879();
   } else {
@@ -3871,6 +3902,31 @@ function renderMemberDashboard879() {
   `;
 }
 
+function renderMemberDashboard96() {
+  document.getElementById('screenContent').innerHTML = `
+    <div class="app-view">
+      <div class="app-header">
+        <button class="back-btn" onclick="navigateToSite('home')">←</button>
+        <span style="font-weight:600;">会员中心 — 亦影</span>
+        <span></span>
+      </div>
+      <div style="padding:20px;font-size:13px;line-height:1.7;">
+        <div style="background:rgba(255,255,255,0.05);border-radius:12px;padding:16px;margin-bottom:16px;">
+          <div style="font-size:15px;font-weight:600;margin-bottom:6px;">✍️ R-879-96</div>
+          <div style="color:rgba(255,255,255,0.7);">姓名：亦影</div>
+          <div style="color:rgba(255,255,255,0.7);">身份：写手 · 音声创作者</div>
+          <div style="margin-top:8px;background:rgba(0,200,100,0.15);border-radius:8px;padding:8px 12px;color:#4cda64;font-size:12px;">阶段：三 · 已转化（主持人化）</div>
+        </div>
+        <div class="radio-nav" style="flex-direction:column;">
+          <a href="#" onclick="event.preventDefault();navigateToSite('search')">🔍 资料搜索</a>
+          <a href="#" onclick="event.preventDefault();navigateToSite('internal96')">📋 内部报告</a>
+          <a href="#" onclick="event.preventDefault();renderFallDiary('R-879-96')">📓 堕落日记</a>
+          <a href="#" onclick="event.preventDefault();quickLoginForm()" style="color:rgba(255,255,255,0.25);font-size:11px;">🔄 切换</a> · <a href="#" onclick="event.preventDefault();memberLogout()" style="color:rgba(255,59,48,0.6);">🚪 退出登录</a>
+        </div>
+      </div>
+    </div>
+  `;
+}
 
 function renderBaikeGame() {
   // Guard: only accessible after night watch ending
