@@ -2853,10 +2853,10 @@ function renderFallDiary(memberId) {
     if (memberId === 'R-879-96' && (entry.title === '断频' || entry.title === '回溯')) {
       if (GameState._nightWatchCompleted) {
         entriesHtml += `
-          <div style="margin-bottom:16px;padding:12px;background:rgba(255,255,255,0.03);border-radius:8px;">
-            <div style="font-size:10px;color:rgba(255,255,255,0.3);margin-bottom:2px;">${entry.date}</div>
-            <div style="font-size:13px;color:rgba(255,255,255,0.8);margin-bottom:6px;font-weight:500;">${entry.title}</div>
-            <div style="font-size:12px;color:rgba(255,255,255,0.7);line-height:1.7;white-space:pre-wrap;">${entry.text}</div>
+          <div style="margin-bottom:16px;padding:12px;background:rgba(255,204,0,0.06);border-radius:8px;border-left:2px solid #ffcc00;">
+            <div style="font-size:10px;color:rgba(255,204,0,0.4);margin-bottom:2px;font-weight:600;">${entry.date} · 已解锁</div>
+            <div style="font-size:13px;color:#ffcc00;margin-bottom:6px;font-weight:500;">${entry.title}</div>
+            <div style="font-size:12px;color:rgba(255,255,255,0.85);line-height:1.7;white-space:pre-wrap;">${entry.text}</div>
           </div>`;
       }
       return;
