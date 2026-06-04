@@ -2861,6 +2861,18 @@ function renderFallDiary(memberId) {
       }
       return;
     }
+    // Restart entries (2026.6.??) — only visible after night watch ending
+    if (entry.date === '2026.6.??') {
+      if (GameState._nightWatchCompleted) {
+        entriesHtml += `
+          <div style="margin-bottom:16px;padding:12px;background:rgba(255,204,0,0.06);border-radius:8px;border-left:2px solid #ffcc00;">
+            <div style="font-size:10px;color:rgba(255,204,0,0.4);margin-bottom:2px;font-weight:600;">${entry.date} · 电台重启</div>
+            <div style="font-size:13px;color:#ffcc00;margin-bottom:6px;font-weight:500;">${entry.title}</div>
+            <div style="font-size:12px;color:rgba(255,255,255,0.85);line-height:1.7;white-space:pre-wrap;">${entry.text}</div>
+          </div>`;
+      }
+      return;
+    }
     // Gate shutdown entries (2026.5.??) — only visible after good ending (NG+)
     if (entry.date === '2026.5.??' && !GameState._endingCompleted) return;
     entriesHtml += `
