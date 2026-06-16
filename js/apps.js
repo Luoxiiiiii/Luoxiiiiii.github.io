@@ -283,7 +283,11 @@ function sendMysteryMessage() {
 
     // Number check — show hint
     if (/^\d+$/.test(t)) {
-      reply = MYSTERY_HINTS[t];
+      if (t === '15' && !GameState._endingCompleted) {
+        reply = '这个数字暂时没有提示。试试其他数字。';
+      } else {
+        reply = MYSTERY_HINTS[t];
+      }
       if (!reply) {
         reply = t <= 15 ? '这个数字暂时没有提示。试试其他数字。' : '提示只有 0 到 15。从 0 开始吧。';
       }
