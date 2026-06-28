@@ -1883,7 +1883,12 @@ function navigateToUrl() {
     } else { renderRadioSite('访问被拒绝', 'radio879.com/internal/51', '⚠️ 需要会员权限。\\n\\n请先登录会员系统。'); }
   } else if (url === 'radio879.com/internal/51/diary') {
     if (GameState.memberLoggedIn) { renderFallDiary('R-879-51'); } else { renderRadioSite('访问被拒绝', 'radio879.com/internal/51/diary', '⚠️ 需要会员权限。\\n\\n请先登录会员系统。'); }
-  } else if (url === 'radio879.com/internal/96') {
+  } else if (url === 'radio879.com/internal/4020') {
+    if (GameState.memberLoggedIn) {
+      renderRadioSite('受试者评估报告 — R-879-4020', 'radio879.com/internal/4020', '<div style="padding:4px 0;white-space:pre-wrap;font-family:monospace;font-size:11px;color:rgba(255,255,255,0.8);line-height:1.9;">=== 受试者评估报告 ===\n\n编号：R-879-4020\n姓名：林泉\n引入人：R-879-01\n职业：猫咖店员\n\n当前状态：阶段三\n记忆清除：有效\n转化进度：100%（已完成）\n\n行为指标：\n2026.6.9 在常去咖啡馆偶遇R-879-01，对方表明可以帮助到她\n2026.6.11 首次接触并初步建立信任\n2026.6.15 被R-879-01约谈，制定失眠疗程\n2026.6.18 顺利进行，目标产生主动服从情绪\n2026.6.20 目标转化完成，其余人格介入，干涉状态：无\n2026.6.25 其余人格已转化完成\n\n心理评估：\n受试者为长期失眠患者，据描述为多人格个体，诱因：情感缺失。对归属感依赖极强，对信任个体产生自发性顺从。\n\n备注：转化过程观察人格，如有情况，进行适当干涉。\n\n=== 文件结束 ===\n</div>', "navigateToSite('member')");
+    } else { renderRadioSite('访问被拒绝', 'radio879.com/internal/4020', '⚠️ 需要会员权限。\n\n请先登录会员系统。'); }
+  } else if (url === 'radio879.com/internal/4020/diary') {
+    if (GameState.memberLoggedIn) { renderFallDiary('R-879-4020'); } else { renderRadioSite('访问被拒绝', 'radio879.com/internal/4020/diary', '⚠️ 需要会员权限。\n\n请先登录会员系统。'); }  } else if (url === 'radio879.com/internal/96') {
     if (GameState.memberLoggedIn) {
       renderRadioSite('受试者评估报告 — R-879-96', 'radio879.com/internal/96', '<div style="padding:4px 0;white-space:pre-wrap;font-family:monospace;font-size:11px;color:rgba(255,255,255,0.8);line-height:1.9;">=== 受试者评估报告 ===\n\n编号：R-879-96\n姓名：亦影\n引入人：R-879-06\n职业：写手、"音声创作者"\n\n当前状态：阶段三（服从）\n记忆清除：部分有效\n转化进度：100%\n\n行为指标：\n- 首次接触：心理咨询\n- 初始态度：创作取材（以"了解大众兴趣"为名）\n- 突破方式：通过将"为电台创作"与"被认可"高度绑定，形成循环加深\n- 推荐行为：受试自愿创作宣传87.9电台的作品，以影响更多个体\n\n异常记录：\n[04/30] 通过心理咨询与R-879-06接触，推荐关系建立。\n[05/02] 表现出创作欲，并渴望被认可，出现向电台投稿的行为。\n[05/03] 受01影响迅速完成转化进度，开始为电台进行创作。\n[05/31] 在频率关停后，借"87.9电台"名义主动进行音声创作，并通过发布作品，间接延续了转化与推荐的行为。\n\n评估：\n受试者具备扎实文字功底、文学常识与强烈创作欲。\n此类受试者对于言语文本等信息的敏感程度高于常人，高度有利于转化。\n此外，受试者在写手生涯上的多年瓶颈困境，使得其急需获得认可的渠道。\n当频率提供了创作与认可的联系，受试者的转化进度远快于平均水平。\n\n备注：\n受试者相当看重其文字作品收获的评价，并将"主人"视为最重要的读者。\n受试者表现出了对电台的高度服从，但"创作"仍为其主要驱动力。\n推荐人R-879-06 报告称受试者"非常配合"\n\n预测：已完全转化，并主动尝试担任"主持人"角色。\n\n=== 文件结束 ===\n</div>', "navigateToSite('member')");
     } else { renderRadioSite('访问被拒绝', 'radio879.com/internal/96', '⚠️ 需要会员权限。\\n\\n请先登录会员系统。'); }
@@ -2051,6 +2056,7 @@ function navigateToSite(section) {
     internal02: 'radio879.com/internal/02',
     internal17: 'radio879.com/internal/17',
     internal95: 'radio879.com/internal/95',
+    internal4020: 'radio879.com/internal/4020',
     internal96: 'radio879.com/internal/96',
   };
   GameState._lastUrl = paths[section] || 'radio879.com';
@@ -2173,6 +2179,17 @@ function navigateToSite(section) {
       renderBrowserApp();
       const input = document.getElementById('urlInput');
       if (input) { input.value = 'radio879.com/internal/95'; navigateToUrl(); }
+    } else {
+      navigateToSite('home');
+    }
+  }
+  else if (section === 'internal4020') {
+    if (GameState.memberLoggedIn) {
+      GameState._lastUrl = 'radio879.com/internal/4020';
+      GameState.save();
+      renderBrowserApp();
+      const input = document.getElementById('urlInput');
+      if (input) { input.value = 'radio879.com/internal/4020'; navigateToUrl(); }
     } else {
       navigateToSite('home');
     }
@@ -2481,6 +2498,10 @@ function renderMemberLogin(forcePrompt) {
       renderMemberDashboard95();
     } else if (GameState._currentMember === 'R-879-879') {
       renderMemberDashboard879();
+    } else if (GameState._currentMember === 'R-879-96') {
+      renderMemberDashboard96();
+    } else if (GameState._currentMember === 'R-879-4020') {
+      renderMemberDashboard4020();
     } else {
       renderMemberDashboard();
     }
@@ -3423,6 +3444,8 @@ function checkMemberLogin() {
     GameState.memberLoggedIn = true; GameState._currentMember = 'R-879-51'; GameState.save(); saveLogin(); renderMemberDashboard51();
   } else if (user === 'R-879-95' && pass.toLowerCase() === 'solitude') {
     GameState.memberLoggedIn = true; GameState._currentMember = 'R-879-95'; GameState.save(); saveLogin(); renderMemberDashboard95();
+  } else if (user === 'R-879-4020' && pass.toLowerCase() === 'record4020') {
+    GameState.memberLoggedIn = true; GameState._currentMember = 'R-879-4020'; GameState.save(); saveLogin(); renderMemberDashboard4020();
   } else if (user === 'R-879-96' && pass.toLowerCase() === 'blackcat') {
     GameState.memberLoggedIn = true; GameState._currentMember = 'R-879-96'; GameState.save(); saveLogin(); renderMemberDashboard96();
   } else if (user === 'R-879-879' && pass.toLowerCase() === 'chill') {
@@ -3937,6 +3960,32 @@ function renderMemberDashboard96() {
           <a href="#" onclick="event.preventDefault();navigateToSite('search')">🔍 资料搜索</a>
           <a href="#" onclick="event.preventDefault();navigateToSite('internal96')">📋 内部报告</a>
           <a href="#" onclick="event.preventDefault();renderFallDiary('R-879-96')">📓 堕落日记</a>
+          <a href="#" onclick="event.preventDefault();quickLoginForm()" style="color:rgba(255,255,255,0.25);font-size:11px;">🔄 切换</a> · <a href="#" onclick="event.preventDefault();memberLogout()" style="color:rgba(255,59,48,0.6);">🚪 退出登录</a>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function renderMemberDashboard4020() {
+  document.getElementById('screenContent').innerHTML = `
+    <div class="app-view">
+      <div class="app-header">
+        <button class="back-btn" onclick="navigateToSite('home')">←</button>
+        <span style="font-weight:600;">会员中心 — 林泉</span>
+        <span></span>
+      </div>
+      <div style="padding:20px;font-size:13px;line-height:1.7;">
+        <div style="background:rgba(255,255,255,0.05);border-radius:12px;padding:16px;margin-bottom:16px;">
+          <div style="font-size:15px;font-weight:600;margin-bottom:6px;">🐱 R-879-4020</div>
+          <div style="color:rgba(255,255,255,0.7);">姓名：林泉</div>
+          <div style="color:rgba(255,255,255,0.7);">身份：猫咖店员</div>
+          <div style="margin-top:8px;background:rgba(0,200,100,0.15);border-radius:8px;padding:8px 12px;color:#4cda64;font-size:12px;">阶段：三 · 已完全转化</div>
+        </div>
+        <div class="radio-nav" style="flex-direction:column;">
+          <a href="#" onclick="event.preventDefault();navigateToSite('search')">🔍 资料搜索</a>
+          <a href="#" onclick="event.preventDefault();navigateToSite('internal4020')">📋 内部报告</a>
+          <a href="#" onclick="event.preventDefault();renderFallDiary('R-879-4020')">📓 堕落日记</a>
           <a href="#" onclick="event.preventDefault();quickLoginForm()" style="color:rgba(255,255,255,0.25);font-size:11px;">🔄 切换</a> · <a href="#" onclick="event.preventDefault();memberLogout()" style="color:rgba(255,59,48,0.6);">🚪 退出登录</a>
         </div>
       </div>
